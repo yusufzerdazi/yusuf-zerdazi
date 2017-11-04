@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Yusuf.Zerdazi.Web.Models.Everyday>
+@{
+    ViewData["Title"] = "Index";
+}
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+@{
+    var Months = Model.Select(x => x.Month).ToHashSet().ToList();
+}
+@foreach (var month in Months)
+{
+    <section class="container">
+        <div class="section__title">
+            <h1>@Html.Raw(month.Start.ToString("MMMM yyyy"))</h1>
+            <h2>@Html.Raw(month.Audio.Title + " And " + month.Image.Title)</h2>
+        </div>
+
+        <div class="section__content">
+            <div class="row text-center text-lg-left">
+                @foreach (var everyday in Model.Where(x => x.Month == month))
+                {
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                        <a data-fancybox="gallery" href="~/images/everydays/big/@Html.Raw(everyday.Date.ToString("yyyy-MM-dd") + ".jpg")" class="d-block mb-4 h-100" data-caption="@Html.Raw(everyday.Title)">
+                            <img class="img-fluid" src="~/images/everydays/small/@Html.Raw(everyday.Date.ToString("yyyy-MM-dd") + ".jpg")" alt="">
+                        </a>
+                    </div>
+    }
+            </div>
+        </div>
+    </section>
+    }
