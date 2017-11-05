@@ -12,5 +12,6 @@ namespace Yusuf.Zerdazi.Web.Data
         public DbSet<Everyday> Everydays { get; set; }
         public DbSet<Month> Months { get; set; }
         public DbSet<Theme> Themes { get; set; }
+        public DbSet<Piece> Pieces { get; set; }
     }
 }

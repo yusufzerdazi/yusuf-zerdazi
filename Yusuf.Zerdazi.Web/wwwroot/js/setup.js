@@ -16,6 +16,3 @@ iframe.onload = function() {
     } catch(e) {}
   });
 };
-
-// Stick the iframe somewhere out of the way
-document.body.appendChild(iframe);

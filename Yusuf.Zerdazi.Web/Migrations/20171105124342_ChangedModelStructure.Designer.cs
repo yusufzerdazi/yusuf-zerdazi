@@ -12,9 +12,10 @@ using Yusuf.Zerdazi.Web.Models;
 namespace Yusuf.Zerdazi.Web.Migrations
 {
     [DbContext(typeof(EverydayContext))]
-    partial class EverydayContextModelSnapshot : ModelSnapshot
+    [Migration("20171105124342_ChangedModelStructure")]
+    partial class ChangedModelStructure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +73,7 @@ namespace Yusuf.Zerdazi.Web.Migrations
 
                     b.HasIndex("ThemeID");
 
-                    b.ToTable("Pieces");
+                    b.ToTable("Piece");
                 });
 
             modelBuilder.Entity("Yusuf.Zerdazi.Web.Models.Theme", b =>

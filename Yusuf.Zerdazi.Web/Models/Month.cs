@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,7 +14,6 @@ namespace Yusuf.Zerdazi.Web.Models
         [Key]
         public int ID { get; set; }
         public DateTime Start { get; set; }
-        public virtual Theme Audio { get; set; }
-        public virtual Theme Image { get; set; }
+        public ICollection<Theme> Themes { get; set; }
     }
 }
