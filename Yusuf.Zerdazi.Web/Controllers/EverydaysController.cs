@@ -23,7 +23,7 @@ namespace Yusuf.Zerdazi.Web.Controllers
         // GET: Everydays
         public IActionResult Index()
         {
-            ViewData["ImageUrl"] = "http://yusuf.zerdazi.com/everydays/media/everydays/";
+            ViewData["ImageUrl"] = "https://content.zerdazi.com/everydays/";
 
             var Model = new EverydaysViewModel()
             {
