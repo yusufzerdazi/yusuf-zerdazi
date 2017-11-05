@@ -8,6 +8,7 @@
 @section Styles {
     <link href="@Url.Content("~/css/everydays.css")" rel="stylesheet" />
 }
+
 @foreach (var month in Model.Months)
 { <section class="container">
         <div class="section__title">
@@ -32,11 +33,13 @@
 
                 @foreach (var everyday in Model.Everydays.Where(x => x.Month == month))
                 {
-                    @foreach (var piece in everyday.Pieces.Where(x => x.Theme.Medium == Medium.Image))
+                    @foreach (var piece in everyday.Pieces)
                     {
+                        if (piece.Theme.Medium == Medium.Image)
+                        {
                         <div style="padding:0px; margin-bottom:10px" class="col-lg-2 col-md-3 col-sm-4 col-6">
                             <div class="col-12">
-                                <a data-fancybox="gallery" href="@Html.Raw(piece.URL)" class="mb-4 h-100" data-caption="@Html.Raw(everyday.Pieces.FirstOrDefault().Title)">
+                                <a data-fancybox="gallery" href="@Html.Raw(piece.URL + "?id=" + everyday.ID)" class="mb-4 h-100" data-caption="@Html.Raw(everyday.Pieces.FirstOrDefault().Title)">
                                     <img class="img-fluid" src="@Html.Raw(piece.URL + "?width=200&height=200&cropmode=center")" alt="">
                                 </a>
                             </div>
@@ -55,8 +58,13 @@
                                 }
                             </div>
                         </div>
+                        }
+                        else if(piece.Theme.Medium == Medium.Sound)
+                        {
+                            <input style="display:none" id="@(everyday.ID)" value="@(piece.URL)" />
+                        }
                     }
-                }
+                    }
             </div>
         </div>
     </section>
