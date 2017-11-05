@@ -22,7 +22,7 @@
                     <div style="padding:0px; margin-bottom:10px" class="col-lg-2 col-md-3 col-sm-4 col-6">
                         <div class="col-12">
                             <span class="mb-4 h-100" style="margin-bottom:0px">
-                                <img class="img-fluid" src="@Html.Raw(ViewData["ImageUrl"] + "images/small/blank.jpg")" alt="">
+                                <img class="img-fluid" src="~/images/blank.jpg" alt="">
                             </span>
                         </div>
                         <div class="col-12 text-center"><i style="margin-right:10px; color: grey" class="far fa-fw fa-music"></i><i style="color: grey" class="far fa-fw fa-image"></i></div>
@@ -36,8 +36,8 @@
                     {
                         <div style="padding:0px; margin-bottom:10px" class="col-lg-2 col-md-3 col-sm-4 col-6">
                             <div class="col-12">
-                                <a data-fancybox="gallery" href="@Html.Raw(ViewData["ImageUrl"] + "images/big/" + everyday.Date.ToString("yyyy-MM-dd") + ".jpg")" class="mb-4 h-100" data-caption="@Html.Raw(everyday.Pieces.FirstOrDefault().Title)">
-                                    <img class="img-fluid" src="@Html.Raw(ViewData["ImageUrl"] + "images/small/" + everyday.Date.ToString("yyyy-MM-dd") + ".jpg")" alt="">
+                                <a data-fancybox="gallery" href="@Html.Raw(piece.URL)" class="mb-4 h-100" data-caption="@Html.Raw(everyday.Pieces.FirstOrDefault().Title)">
+                                    <img class="img-fluid" src="@Html.Raw(piece.URL + "?width=200&height=200&cropmode=center")" alt="">
                                 </a>
                             </div>
                             <div class="col-12 text-center">
@@ -45,7 +45,7 @@
                                 {
                                     if (p.Source != null && p.Source.URL != null)
                                     {
-                                        @Html.Raw("<a href=" + p.Source.URL + ">")
+                                        @Html.Raw("<a href='" + p.Source.URL + "'>")
                                     }
                                     <i title="@Html.Raw(p.Source != null ? p.Source.Title : "")" style="margin-right:10px; color: @Html.Raw(p.Source == null ? "white" : "grey")" class="popper far fa-fw fa-@Html.Raw(p.Theme.Medium == Medium.Image ? "image" : "music")"></i>
                                     if (p.Source != null)
