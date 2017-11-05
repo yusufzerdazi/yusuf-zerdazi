@@ -12,7 +12,7 @@
 { <section class="container">
         <div class="section__title">
             <h1>@Html.Raw(month.Start.ToString("MMMM yyyy"))</h1>
-            <h2>@Html.Raw(" And ")</h2>
+            <h2>@Html.Raw(String.Join(" and ", month.Themes.Select(x => x.Title)))</h2>
         </div>
 
         <div class="section__content">
@@ -21,9 +21,9 @@
                 {
                     <div style="padding:0px; margin-bottom:10px" class="col-lg-2 col-md-3 col-sm-4 col-6">
                         <div class="col-12">
-                            <div asp-route-date="@Html.Raw(CurrentDate.ToString("yyyy-MM-dd"))" class="mb-4 h-100">
+                            <span class="mb-4 h-100" style="margin-bottom:0px">
                                 <img class="img-fluid" src="@Html.Raw(ViewData["ImageUrl"] + "images/small/blank.jpg")" alt="">
-                            </div>
+                            </span>
                         </div>
                         <div class="col-12 text-center"><i style="margin-right:10px; color: grey" class="far fa-fw fa-music"></i><i style="color: grey" class="far fa-fw fa-image"></i></div>
                     </div>
