@@ -1,0 +1,11 @@
+C:\Users\yusuf\Source\Repos\yusuf.zerdazi.com\Yusuf.Zerdazi.Web\bin\Debug\netcoreapp2.0\Yusuf.Zerdazi.Web.deps.json
+C:\Users\yusuf\Source\Repos\yusuf.zerdazi.com\Yusuf.Zerdazi.Web\bin\Debug\netcoreapp2.0\Yusuf.Zerdazi.Web.runtimeconfig.json
+C:\Users\yusuf\Source\Repos\yusuf.zerdazi.com\Yusuf.Zerdazi.Web\bin\Debug\netcoreapp2.0\Yusuf.Zerdazi.Web.runtimeconfig.dev.json
+C:\Users\yusuf\Source\Repos\yusuf.zerdazi.com\Yusuf.Zerdazi.Web\bin\Debug\netcoreapp2.0\Yusuf.Zerdazi.Web.dll
+C:\Users\yusuf\Source\Repos\yusuf.zerdazi.com\Yusuf.Zerdazi.Web\obj\Debug\netcoreapp2.0\Yusuf.Zerdazi.Web.csprojResolveAssemblyReference.cache
+C:\Users\yusuf\Source\Repos\yusuf.zerdazi.com\Yusuf.Zerdazi.Web\obj\Debug\netcoreapp2.0\Yusuf.Zerdazi.Web.csproj.CoreCompileInputs.cache
+C:\Users\yusuf\Source\Repos\yusuf.zerdazi.com\Yusuf.Zerdazi.Web\obj\Debug\netcoreapp2.0\Yusuf.Zerdazi.Web.AssemblyInfoInputs.cache
+C:\Users\yusuf\Source\Repos\yusuf.zerdazi.com\Yusuf.Zerdazi.Web\obj\Debug\netcoreapp2.0\Yusuf.Zerdazi.Web.AssemblyInfo.cs
+C:\Users\yusuf\Source\Repos\yusuf.zerdazi.com\Yusuf.Zerdazi.Web\bin\Debug\netcoreapp2.0\Yusuf.Zerdazi.Web.pdb
+C:\Users\yusuf\Source\Repos\yusuf.zerdazi.com\Yusuf.Zerdazi.Web\obj\Debug\netcoreapp2.0\Yusuf.Zerdazi.Web.dll
+C:\Users\yusuf\Source\Repos\yusuf.zerdazi.com\Yusuf.Zerdazi.Web\obj\Debug\netcoreapp2.0\Yusuf.Zerdazi.Web.pdb

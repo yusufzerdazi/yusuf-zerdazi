@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:800" rel="stylesheet">
+
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script defer src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.3.7/wavesurfer.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/site.css" />
+
+        <script defer type="text/javascript" src="~/js/packs/regular.min.js"></script>
+        <script defer type="text/javascript" src="~/js/packs/brands.min.js"></script>
+        <script defer type="text/javascript" src="~/js/fontawesome.js"></script>
+
+        <script defer type="text/javascript" src="~/js/p5.js"></script>
+        <script defer type="text/javascript" src="~/js/p5.dom.js"></script>
+        <script defer type="text/javascript" src="~/js/setup.js"></script>
+        <script defer type="text/javascript" src="~/js/header.js"></script>
+        <script defer type="text/javascript" src="~/js/audio.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <script defer type="text/javascript" src="~/js/site.min.js"></script>
+    </environment>
+
+    @RenderSection("Styles", false)
+    
+</head>
+<body>
+    <header>
+        <div id="header_wave"></div>
+        <div class="title">
+            <img class="title__image" src="~/images/@(ViewData["Title-Image"]).png" />
+        </div>
+    </header>
+
+    <nav class="container">
+        <ul>
+            <li><a href="../">Home</a></li>
+            <li><a href="../everydays">Everydays</a></li>
+            <li><a href="../balance">Blog</a></li>
+        </ul>
+    </nav>
+
+    <section class="container body-content">
+        @RenderBody()
+    </section>
+
+    <div id='waveform' style=""></div>
+
+    <footer class="footer">
+        <div class="container">
+            <span class="footer-bg">
+                <a href="https://linkedin.com/in/yusufzerdazi" title="LinkedIn"><i class="fab fa-2x fa-fw fa-linkedin social"></i></a>
+                <a href="https://github.com/yusufzerdazi" title="GitHub"><i class="fab fa-2x fa-fw fa-github social"></i></a>
+                <a href="https://facebook.com/yusufzerdazi" title="Facebook"><i class="fab fa-2x fa-fw fa-facebook social"></i></a>
+                <a href="https://twitter.com/yusufzerdazi" title="Twitter"><i class="fab fa-2x fa-fw fa-twitter social"></i></a>
+                <a href="https://soundcloud.com/yusufzerdazi" title="Soundcloud"><i class="fab fa-2x fa-fw fa-soundcloud social"></i></a>
+            </span>
+        </div>
+    </footer>
+</body>
+</html>

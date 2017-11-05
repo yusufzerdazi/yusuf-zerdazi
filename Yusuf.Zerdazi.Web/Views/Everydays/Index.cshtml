@@ -1,0 +1,63 @@
+﻿@model Yusuf.Zerdazi.Web.ViewModels.EverydaysViewModel
+@{
+    ViewData["Title"] = "Everydays";
+    ViewData["Title-Image"] = "everydays";
+    var CurrentDate = DateTime.Now.Date;
+    var MaxDone = Model.Everydays.FirstOrDefault().Date;
+}
+@section Styles {
+    <link href="@Url.Content("~/css/everydays.css")" rel="stylesheet" />
+}
+@foreach (var month in Model.Months)
+{ <section class="container">
+        <div class="section__title">
+            <h1>@Html.Raw(month.Start.ToString("MMMM yyyy"))</h1>
+            <h2>@Html.Raw(" And ")</h2>
+        </div>
+
+        <div class="section__content">
+            <div class="row text-center text-lg-left">
+                @while (CurrentDate > MaxDone && CurrentDate > month.Start.AddDays(-1))
+                {
+                    <div style="padding:0px; margin-bottom:10px" class="col-lg-2 col-md-3 col-sm-4 col-6">
+                        <div class="col-12">
+                            <div asp-route-date="@Html.Raw(CurrentDate.ToString("yyyy-MM-dd"))" class="mb-4 h-100">
+                                <img class="img-fluid" src="@Html.Raw(ViewData["ImageUrl"] + "images/small/blank.jpg")" alt="">
+                            </div>
+                        </div>
+                        <div class="col-12 text-center"><i style="margin-right:10px; color: grey" class="far fa-fw fa-music"></i><i style="color: grey" class="far fa-fw fa-image"></i></div>
+                    </div>
+                    CurrentDate = CurrentDate.AddDays(-1);
+                }
+
+                @foreach (var everyday in Model.Everydays.Where(x => x.Month == month))
+                {
+                    @foreach (var piece in everyday.Pieces.Where(x => x.Theme.Medium == Medium.Image))
+                    {
+                        <div style="padding:0px; margin-bottom:10px" class="col-lg-2 col-md-3 col-sm-4 col-6">
+                            <div class="col-12">
+                                <a data-fancybox="gallery" href="@Html.Raw(ViewData["ImageUrl"] + "images/big/" + everyday.Date.ToString("yyyy-MM-dd") + ".jpg")" class="mb-4 h-100" data-caption="@Html.Raw(everyday.Pieces.FirstOrDefault().Title)">
+                                    <img class="img-fluid" src="@Html.Raw(ViewData["ImageUrl"] + "images/small/" + everyday.Date.ToString("yyyy-MM-dd") + ".jpg")" alt="">
+                                </a>
+                            </div>
+                            <div class="col-12 text-center">
+                                @foreach (var p in everyday.Pieces.OrderByDescending(x => x.Theme.Medium))
+                                {
+                                    if (p.Source != null && p.Source.URL != null)
+                                    {
+                                        @Html.Raw("<a href=" + p.Source.URL + ">")
+                                    }
+                                    <i title="@Html.Raw(p.Source != null ? p.Source.Title : "")" style="margin-right:10px; color: @Html.Raw(p.Source == null ? "white" : "grey")" class="popper far fa-fw fa-@Html.Raw(p.Theme.Medium == Medium.Image ? "image" : "music")"></i>
+                                    if (p.Source != null)
+                                    {
+                                        @Html.Raw("</a>")
+                                    }
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </section>
+}
