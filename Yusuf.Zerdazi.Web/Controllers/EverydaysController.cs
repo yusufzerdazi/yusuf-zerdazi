@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Yusuf.Zerdazi.Web.Data;
 using Yusuf.Zerdazi.Web.Models;
+using Yusuf.Zerdazi.Web.ViewModels;
 
 namespace Yusuf.Zerdazi.Web.Controllers
 {
@@ -20,9 +21,22 @@ namespace Yusuf.Zerdazi.Web.Controllers
         }
 
         // GET: Everydays
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Everydays.OrderByDescending(e => e.Date).ToListAsync());
+            ViewData["ImageUrl"] = "http://yusuf.zerdazi.com/everydays/media/everydays/";
+
+            var Model = new EverydaysViewModel()
+            {
+                Everydays = _context.Everydays.OrderByDescending(e => e.Date)
+                    .Include(e => e.Month.Audio)
+                    .Include(e => e.Month.Image),
+                Months = _context.Months.OrderByDescending(m => m.Start)
+                    .Include(m => m.Audio)
+                    .Include(m => m.Image),
+                Themes = _context.Themes
+            };
+
+            return View(Model);
         }
 
         // GET: Everydays/Details/5
@@ -46,6 +60,7 @@ namespace Yusuf.Zerdazi.Web.Controllers
         // GET: Everydays/Create
         public IActionResult Create()
         {
+            ViewData["date"] = Request.Query["date"];
             return View();
         }
 

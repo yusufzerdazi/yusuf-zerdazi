@@ -13,7 +13,7 @@ namespace Yusuf.Zerdazi.Web.Models
         [Key]
         public int ID { get; set; }
         public DateTime Start { get; set; }
-        public Theme Audio { get; set; }
-        public Theme Image { get; set; }
+        public virtual Theme Audio { get; set; }
+        public virtual Theme Image { get; set; }
     }
 }

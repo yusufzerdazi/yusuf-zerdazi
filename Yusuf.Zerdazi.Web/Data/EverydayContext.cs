@@ -7,13 +7,10 @@ namespace Yusuf.Zerdazi.Web.Data
     {
         public EverydayContext(DbContextOptions<EverydayContext> options) : base(options)
         {
-            this.Everydays.Include(e => e.Month).ToListAsync();
-            this.Months.Include(e => e.Audio).ToListAsync();
-            this.Months.Include(e => e.Image).ToListAsync();
         }
 
-        public virtual DbSet<Everyday> Everydays { get; set; }
-        public virtual DbSet<Month> Months { get; set; }
-        public virtual DbSet<Theme> Themes { get; set; }
+        public DbSet<Everyday> Everydays { get; set; }
+        public DbSet<Month> Months { get; set; }
+        public DbSet<Theme> Themes { get; set; }
     }
 }

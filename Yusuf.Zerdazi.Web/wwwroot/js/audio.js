@@ -22,7 +22,7 @@ $(document).ready(function() {
       //$( "#waveform" ).animate({'backgroundColor': 'rgba(30,30,30,0.87)'}, 366, function(){});
     },
     afterShow: function(instance, slide) {
-      url = slide.src.replace("images/big", "audio").split(".")[0] + ".mp3";
+      url = slide.src.replace("images/big", "audio").replace("jpg", "mp3");
       wavesurfer.load(url);
     },
     beforeClose: function(instance, slide) {

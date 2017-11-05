@@ -12,7 +12,7 @@ namespace Yusuf.Zerdazi.Web.Models
         }
         [Key]
         public int ID { get; set; }
-        public Month Month { get; set; }
+        public virtual Month Month { get; set; }
         public DateTime Date { get; set; }
         public string Title { get; set; }
         public bool OriginalAudio { get; set; }

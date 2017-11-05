@@ -1,14 +1,11 @@
-﻿@model IEnumerable<Yusuf.Zerdazi.Web.Models.Everyday>
+﻿@model Yusuf.Zerdazi.Web.ViewModels.EverydaysViewModel
 @{
     ViewData["Title"] = "Index";
+    var CurrentDate = DateTime.Now.Date;
+    var MaxDone = Model.Everydays.FirstOrDefault().Date;
 }
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-@{
-    var Months = Model.Select(x => x.Month).ToHashSet().ToList();
-}
-@foreach (var month in Months)
+
+@foreach (var month in Model.Months)
 {
     <section class="container">
         <div class="section__title">
@@ -18,15 +15,31 @@
 
         <div class="section__content">
             <div class="row text-center text-lg-left">
-                @foreach (var everyday in Model.Where(x => x.Month == month))
+                @while (CurrentDate > MaxDone && CurrentDate > month.Start.AddDays(-1))
                 {
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-                        <a data-fancybox="gallery" href="~/images/everydays/big/@Html.Raw(everyday.Date.ToString("yyyy-MM-dd") + ".jpg")" class="d-block mb-4 h-100" data-caption="@Html.Raw(everyday.Title)">
-                            <img class="img-fluid" src="~/images/everydays/small/@Html.Raw(everyday.Date.ToString("yyyy-MM-dd") + ".jpg")" alt="">
-                        </a>
+                    <div style="padding:0px; margin-bottom:10px" class="col-lg-2 col-md-3 col-sm-4 col-6">
+                        <div class="col-12">
+                            <a asp-action="create" asp-route-date="@Html.Raw(CurrentDate.ToString("yyyy-MM-dd"))" class="mb-4 h-100">
+                                <img class="img-fluid" src="@Html.Raw(ViewData["ImageUrl"] + "images/small/blank.jpg")" alt="">
+                            </a>
+                        </div>
+                        <div class="col-12 text-center"><i style="margin-right:10px; color: grey" class="far fa-fw fa-music"></i><i style="color: grey" class="far fa-fw fa-image"></i></div>
                     </div>
-    }
+                    CurrentDate = CurrentDate.AddDays(-1);
+                }
+
+                @foreach (var everyday in Model.Everydays.Where(x => x.Month == month))
+                {
+                    <div style="padding:0px; margin-bottom:10px" class="col-lg-2 col-md-3 col-sm-4 col-6">
+                        <div class="col-12">
+                            <a data-fancybox="gallery" href="@Html.Raw(ViewData["ImageUrl"] + "images/big/" + everyday.Date.ToString("yyyy-MM-dd") + ".jpg")" class="mb-4 h-100" data-caption="@Html.Raw(everyday.Title)">
+                                <img class="img-fluid" src="@Html.Raw(ViewData["ImageUrl"] + "images/small/" + everyday.Date.ToString("yyyy-MM-dd") + ".jpg")" alt="">
+                            </a>
+                        </div>
+                        <div class="col-12 text-center"><i style="margin-right:10px; color: @Html.Raw(everyday.OriginalAudio ? "white" : "grey")" class="far fa-fw fa-music"></i><i style="color: @Html.Raw(everyday.OriginalImage ? "white" : "grey")" class="far fa-fw fa-image"></i></div>
+                    </div>
+                }
             </div>
         </div>
     </section>
-    }
+}
