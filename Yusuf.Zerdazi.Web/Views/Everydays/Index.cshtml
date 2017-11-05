@@ -1,8 +1,12 @@
 ﻿@model Yusuf.Zerdazi.Web.ViewModels.EverydaysViewModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Everydays";
+    ViewData["Title-Image"] = "everydays";
     var CurrentDate = DateTime.Now.Date;
     var MaxDone = Model.Everydays.FirstOrDefault().Date;
+}
+@section Styles {
+    <link href="@Url.Content("~/css/everydays.css")" rel="stylesheet" />
 }
 
 @foreach (var month in Model.Months)

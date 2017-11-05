@@ -33,18 +33,22 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
         <script defer type="text/javascript" src="~/js/site.min.js"></script>
     </environment>
+
+    @RenderSection("Styles", false)
+    @RenderSection("Scripts", required: false)
 </head>
 <body>
     <header>
         <div id="header_wave"></div>
         <div class="title">
-            <img class="title__image" src="~/images/title.png" />
+            <img class="title__image" src="~/images/@(ViewData["Title-Image"]).png" />
         </div>
     </header>
 
     <nav class="container">
         <ul>
             <li><a href="../">Home</a></li>
+            <li><a href="../everydays">Everydays</a></li>
             <li><a href="../balance">Blog</a></li>
         </ul>
     </nav>
@@ -66,7 +70,5 @@
             </span>
         </div>
     </footer>
-
-    @RenderSection("Scripts", required: false)
 </body>
 </html>
