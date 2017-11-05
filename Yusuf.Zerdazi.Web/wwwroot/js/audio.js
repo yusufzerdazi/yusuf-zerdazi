@@ -18,11 +18,11 @@ $("footer").on('click', function () {
 
 $(document).ready(function() {
   $('[data-fancybox]').fancybox({
-    beforeShow: function(instance, slide) {
+      beforeShow: function (instance, slide) {
       //$( "#waveform" ).animate({'backgroundColor': 'rgba(30,30,30,0.87)'}, 366, function(){});
     },
     afterShow: function(instance, slide) {
-      url = slide.src.replace("images/big", "audio").replace("jpg", "mp3");
+      url = $("#" + slide.src.split("?id=")[1]).val();
       wavesurfer.load(url);
     },
     beforeClose: function(instance, slide) {
