@@ -26,7 +26,7 @@ namespace Yusuf.Zerdazi.Web.Controllers
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            ViewBag.User = HttpContext.User.Identity;
+            ViewBag.User = HttpContext.User.Identity.IsAuthenticated ? HttpContext.User.Identity : null;
         }
     }
 }
