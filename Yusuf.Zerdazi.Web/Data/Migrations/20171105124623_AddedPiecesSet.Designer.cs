@@ -11,10 +11,11 @@ using Yusuf.Zerdazi.Web.Models;
 
 namespace Yusuf.Zerdazi.Web.Migrations
 {
-    [DbContext(typeof(EverydayContext))]
-    partial class EverydayContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ApplicationDbContext))]
+    [Migration("20171105124623_AddedPiecesSet")]
+    partial class AddedPiecesSet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

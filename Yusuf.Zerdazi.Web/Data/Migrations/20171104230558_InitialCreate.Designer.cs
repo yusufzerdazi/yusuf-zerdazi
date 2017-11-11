@@ -10,7 +10,7 @@ using Yusuf.Zerdazi.Web.Data;
 
 namespace Yusuf.Zerdazi.Web.Migrations
 {
-    [DbContext(typeof(EverydayContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20171104230558_InitialCreate")]
     partial class InitialCreate
     {

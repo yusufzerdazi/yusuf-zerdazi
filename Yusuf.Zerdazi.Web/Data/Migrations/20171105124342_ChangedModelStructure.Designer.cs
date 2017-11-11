@@ -11,7 +11,7 @@ using Yusuf.Zerdazi.Web.Models;
 
 namespace Yusuf.Zerdazi.Web.Migrations
 {
-    [DbContext(typeof(EverydayContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20171105124342_ChangedModelStructure")]
     partial class ChangedModelStructure
     {

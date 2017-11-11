@@ -159,6 +159,7 @@ section {
 .section__title {
     color: #203647;
     text-align: center;
+    margin-bottom:20px;
 }
 
 .section__date {
@@ -194,6 +195,14 @@ footer {
 
 .social:hover {
     opacity: 0.7;
+}
+
+.col-6, .col-12 {
+    padding: 15px, 0;
+}
+
+.row {
+    margin: 0;
 }
 
 /* ==========================================================================

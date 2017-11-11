@@ -16,3 +16,6 @@ iframe.onload = function() {
     } catch(e) {}
   });
 };
+
+audioElement = document.createElement('audio');
+audioElement.setAttribute('preload', "none");

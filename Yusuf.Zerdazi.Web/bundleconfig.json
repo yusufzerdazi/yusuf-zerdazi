@@ -11,13 +11,7 @@
   {
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
-      "wwwroot/js/packs/regular.min.js",
-      "wwwroot/js/packs/brands.min.js",
-      "wwwroot/js/p5.js",
-      "wwwroot/js/p5.dom.js",
-      "wwwroot/js/setup.js",
-      "wwwroot/js/header.js",
-      "wwwroot/js/audio.js"
+      "wwwroot/js/site.js"
     ],
     // Optionally specify minification options
     "minify": {
