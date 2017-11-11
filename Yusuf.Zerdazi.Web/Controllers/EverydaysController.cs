@@ -18,6 +18,7 @@ using System.Net;
 using System.IO;
 using System.Net.Http;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Yusuf.Zerdazi.Web.Controllers
 {
@@ -59,7 +60,10 @@ namespace Yusuf.Zerdazi.Web.Controllers
             var dateString = HttpContext.Request.Query["date"];
             DateTime.TryParse(dateString, out DateTime date);
             var parsedDate = date != null ? date : DateTime.Now;
-            ViewBag.Themes = new SelectList(await _context.Themes.ToListAsync(), "ID", "Title");
+            var month = _context.Months.FirstOrDefault(x => x.Start.Month == parsedDate.Month);
+            var theme = month != null ? month.Themes.FirstOrDefault() : _context.Themes.Last();
+            theme = theme ?? _context.Themes.Last();
+            ViewBag.Themes = new SelectList(await _context.Themes.ToListAsync(), "ID", "Title", theme.ID);
             return View(new EverydayUpload() { Date = date, Files = new List<PieceUpload>() { new PieceUpload() { Source = new SourceUpload() } } });
         }
 
@@ -105,9 +109,10 @@ namespace Yusuf.Zerdazi.Web.Controllers
                     Pieces = Pieces
                 });
                 await _context.SaveChangesAsync();
-                return RedirectToAction("/");
+                return RedirectToAction("Index");
             } else
             {
+                ViewBag.Themes = new SelectList(await _context.Themes.ToListAsync(), "ID", "Title", _context.Months.Where(x => x.Start.Month == everyday.Date.Month).FirstOrDefault().Themes.FirstOrDefault().ID);
                 return View(everyday);
             }
         }
@@ -140,6 +145,11 @@ namespace Yusuf.Zerdazi.Web.Controllers
         private bool EverydayExists(int id)
         {
             return _context.Everydays.Any(e => e.ID == id);
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            ViewBag.User = HttpContext.User.Identity;
         }
     }
 }

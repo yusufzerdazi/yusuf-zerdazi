@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Yusuf.Zerdazi.Web.Models;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Yusuf.Zerdazi.Web.Controllers
 {
@@ -32,6 +33,11 @@ namespace Yusuf.Zerdazi.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            ViewBag.User = HttpContext.User.Identity;
         }
     }
 }

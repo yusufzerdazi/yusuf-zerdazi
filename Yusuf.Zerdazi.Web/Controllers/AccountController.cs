@@ -217,7 +217,7 @@ namespace Yusuf.Zerdazi.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            /*ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
@@ -235,7 +235,7 @@ namespace Yusuf.Zerdazi.Web.Controllers
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
-            }
+            }*/
 
             // If we got this far, something failed, redisplay form
             return View(model);
