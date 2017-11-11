@@ -5,29 +5,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Yusuf.Zerdazi.Web.Models;
-using Yusuf.Zerdazi.Web.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace Yusuf.Zerdazi.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly EverydayContext _context;
-
-        public HomeController(EverydayContext context)
-        {
-            _context = context;
-        }
-
         public IActionResult Index()
         {
             return View();
         }
-        
-        public IActionResult Everydays()
+
+        public IActionResult About()
         {
-            var model = _context.Everydays.ToList();
-            return View(model);
+            ViewData["Message"] = "Your application description page.";
+
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            ViewData["Message"] = "Your contact page.";
+
+            return View();
         }
 
         public IActionResult Error()

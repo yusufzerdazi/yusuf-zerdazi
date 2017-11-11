@@ -4,16 +4,28 @@ var wavesurfer = WaveSurfer.create({
     progressColor: '#3d3d3d',
     responsive: true,
     height: 60,
-    interact: false
+    interact: false,
 });
 
+wavesurfer.setMute(true);
+
 wavesurfer.on('ready', function () {
+    wavesurfer.seekTo(audioElement.currentTime / audioElement.duration);
     wavesurfer.play();
     wavesurfer.drawBuffer();
 });
 
+var playing = false;
 $("footer").on('click', function () {
-    wavesurfer.playPause();
+    if (playing) {
+        audioElement.pause();
+        wavesurfer.pause();
+        playing = false;
+    } else {
+        audioElement.play();
+        wavesurfer.play();
+        playing = true;
+    }
 });
 
 $(document).ready(function() {
@@ -22,8 +34,11 @@ $(document).ready(function() {
       //$( "#waveform" ).animate({'backgroundColor': 'rgba(30,30,30,0.87)'}, 366, function(){});
     },
     afterShow: function(instance, slide) {
-      url = $("#" + slide.src.split("?id=")[1]).val();
-      wavesurfer.load(url);
+        url = $("#" + slide.src.split("?id=")[1]).val();
+        audioElement.setAttribute('src', url);
+        audioElement.play();
+        wavesurfer.load(url);
+        playing = true;
     },
     beforeClose: function(instance, slide) {
       //$( "#waveform" ).animate({'backgroundColor': 'rgba(30,30,30, 0)'}, 366, function(){});
