@@ -60,7 +60,7 @@ namespace Yusuf.Zerdazi.Web.Controllers
             var dateString = HttpContext.Request.Query["date"];
             DateTime.TryParse(dateString, out DateTime date);
             var parsedDate = date != null ? date : DateTime.Now;
-            var month = _context.Months.FirstOrDefault(x => x.Start.Month == parsedDate.Month);
+            var month = _context.Months.Include(x => x.Themes).FirstOrDefault(x => x.Start.Month == parsedDate.Month);
             var theme = month != null ? month.Themes.FirstOrDefault() : _context.Themes.Last();
             theme = theme ?? _context.Themes.Last();
             ViewBag.Themes = new SelectList(await _context.Themes.ToListAsync(), "ID", "Title", theme.ID);
