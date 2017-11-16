@@ -34,7 +34,7 @@ $(document).ready(function() {
       //$( "#waveform" ).animate({'backgroundColor': 'rgba(30,30,30,0.87)'}, 366, function(){});
     },
     afterShow: function(instance, slide) {
-        url = $("#" + slide.src.split("?id=")[1]).val();
+        url = $("#" + slide.src.split("&id=")[1]).val();
         audioElement.setAttribute('src', url);
         audioElement.play();
         wavesurfer.load(url);
