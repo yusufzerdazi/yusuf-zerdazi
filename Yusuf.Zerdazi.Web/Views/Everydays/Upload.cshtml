@@ -69,7 +69,6 @@
 </form>
 
 @section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js" integrity="sha256-TueWqYu0G+lYIimeIcMI8x1m14QH/DQVt4s9m/uuhPw=" crossorigin="anonymous"></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
         $(document).ready(function () {
@@ -125,10 +124,6 @@
                     }
                 });
             }
-
-            $("input[type=date]").datepicker({
-                format: "yyyy-mm-dd"
-            });
         });
 
         function addText(element) {
