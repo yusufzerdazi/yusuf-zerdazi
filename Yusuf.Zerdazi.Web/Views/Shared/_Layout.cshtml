@@ -21,7 +21,7 @@
         <div id="header_wave">
             @if(ViewBag.User != null)
             {
-                <span style="position: absolute; top:10px; right:10px;"><img src="https://api.onedrive.com/v1.0/shares/u!aHR0cHM6Ly8xZHJ2Lm1zL2kvcyFBaWdMYzlWX1M5UlVoZE5FUnliYUFzSV9WMFQzTnc/root/content?width=20&height=20" /> @(ViewBag.User.Name)</span>
+                <span style="position: absolute; top:10px; right:10px;"><img width="20" height="20" src="~/images/microsoft.png" /> @(ViewBag.User.Name)</span>
             }
             else {
                 var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -34,7 +34,7 @@
                         <p>
                             @foreach (var provider in loginProviders)
                             {
-                                <button style="width:20px; height: 20px; border:none; background: url(https://api.onedrive.com/v1.0/shares/u!aHR0cHM6Ly8xZHJ2Lm1zL2kvcyFBaWdMYzlWX1M5UlVoZE5FUnliYUFzSV9WMFQzTnc/root/content?width=20&height=20)" type="submit" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account" />
+                                <button style="width:20px; height: 20px; border:none; background: url(/images/microsoft.png); background-size: 20px 20px;" type="submit" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account" />
                             }
                         </p>
                     </div>
@@ -51,7 +51,7 @@
         <ul>
             <li><a href="../">Home</a></li>
             <li><a href="../everydays">Everydays</a></li>
-            <li><a href="../balance">Blog</a></li>
+            @*<li><a href="../balance">Blog</a></li>*@
         </ul>
     </nav>
 
