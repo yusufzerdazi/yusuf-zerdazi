@@ -24,13 +24,13 @@ namespace Yusuf.Zerdazi.Web.Controllers
 {
     public class EverydaysController : Controller
     {
-        private readonly UserManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
 
         public EverydaysController(ApplicationDbContext context, UserManager<ApplicationUser> signInManager)
         {
             _context = context;
-            _signInManager = signInManager;
+            _userManager = signInManager;
         }
 
         // GET: Everydays
@@ -54,7 +54,8 @@ namespace Yusuf.Zerdazi.Web.Controllers
 
             return View(Model);
         }
-
+        
+        [Authorize]
         public async Task<IActionResult> Upload()
         {
             var dateString = HttpContext.Request.Query["date"];
@@ -69,6 +70,7 @@ namespace Yusuf.Zerdazi.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Upload(EverydayUpload everyday)
         {
             if (ModelState.IsValid) {
@@ -119,8 +121,8 @@ namespace Yusuf.Zerdazi.Web.Controllers
 
         private async Task<IGraphServiceClient> GetGraphServiceClient()
         {
-            var user = await _signInManager.GetUserAsync(HttpContext.User);
-            var externalAccessToken = await _signInManager.GetAuthenticationTokenAsync(user, "Microsoft", "access_token");
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var externalAccessToken = await _userManager.GetAuthenticationTokenAsync(user, "Microsoft", "access_token");
             var graphClient = new GraphServiceClient(
                 new DelegateAuthenticationProvider(
                     (requestMessage) =>
