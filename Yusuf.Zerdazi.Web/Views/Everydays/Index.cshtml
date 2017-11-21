@@ -4,68 +4,76 @@
     ViewData["Title-Image"] = "everydays";
     var CurrentDate = DateTime.Now.Date;
     var MaxDone = Model.Everydays.FirstOrDefault().Date;
+    var done = 0;
+    var small = false;
 }
 @section Styles {
     <link href="@Url.Content("~/css/everydays.css")" rel="stylesheet" />
 }
+<div class="row">
+    @foreach (var month in Model.Months.Where(x => Model.Everydays.Where(y => y.Month.Start.Month == x.Start.Month).Count() > 0))
+    {
+        done++;
+        if (!small) { small = done > 1; }
+        <div class='@Html.Raw(small ? "col-lg-6 col-6" : "col-12")' style='padding:0;'>
+            <section class="container">
+                <div class="section__title">
+                    <h1>@Html.Raw(month.Start.ToString((small ? "MMM" : "MMMM") + " yyyy"))</h1>
+                    <h2>@Html.Raw(String.Join(" and ", month.Themes.Select(x => x.Title)))</h2>
+                </div>
 
-@foreach (var month in Model.Months)
-{ <section class="container">
-        <div class="section__title">
-            <h1>@Html.Raw(month.Start.ToString("MMMM yyyy"))</h1>
-            <h2>@Html.Raw(String.Join(" and ", month.Themes.Select(x => x.Title)))</h2>
-        </div>
-
-        <div class="section__content">
-            <div class="row text-center text-lg-left">
-                @while (CurrentDate > MaxDone && CurrentDate > month.Start.AddDays(-1))
+                <div class="section__content">
+                    <div class="row text-center text-lg-left">
+                        @while (CurrentDate > MaxDone && CurrentDate > month.Start.AddDays(-1))
                 {
-                    <div style="padding:0px; margin-bottom:10px" class="col-lg-2 col-md-3 col-sm-4 col-6">
-                        <div class="col-12">
-                            <a href="/everydays/upload?date=@(CurrentDate.ToString("yyyy-MM-dd"))" class="mb-4 h-100" style="margin-bottom:0px">
-                                <img class="img-fluid" src="~/images/blank.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="col-12 text-center"><i style="margin-right:10px; color: grey" class="far fa-fw fa-music"></i><i style="color: grey" class="far fa-fw fa-image"></i></div>
-                    </div>
-                    CurrentDate = CurrentDate.AddDays(-1);
-                }
+                            <div class="everyday col-lg-2 col-md-3 col-sm-4 col-6">
+                                <div class="col-12">
+                                    <a href="/everydays/upload?date=@(CurrentDate.ToString("yyyy-MM-dd"))" class="mb-4 h-100" style="margin-bottom:0px">
+                                        <img class="img-fluid" src="~/images/blank.jpg" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-12 text-center"><i style="margin-right:10px; color: grey" class="far fa-fw fa-music"></i><i style="color: grey" class="far fa-fw fa-image"></i></div>
+                            </div>
+                            CurrentDate = CurrentDate.AddDays(-1);
+                        }
 
-                @foreach (var everyday in Model.Everydays.Where(x => x.Month == month))
+                        @foreach (var everyday in Model.Everydays.Where(x => x.Month == month))
                 {
-                    @foreach (var piece in everyday.Pieces)
+                            @foreach (var piece in everyday.Pieces)
                     {
                         if (piece.Theme.Medium == Medium.Image)
                         {
-                        <div style="padding:0px; margin-bottom:10px" class="col-lg-2 col-md-3 col-sm-4 col-6">
-                            <div class="col-12">
-                                <a data-fancybox="gallery" href="@Html.Raw(piece.URL + "?width=1000&height=1000&id=" + everyday.ID)" class="mb-4 h-100" data-caption="@Html.Raw(everyday.Pieces.FirstOrDefault().Title)">
-                                    <img class="img-fluid" src="@Html.Raw(piece.URL + "?width=200&height=200&cropmode=center")" alt="">
-                                </a>
-                            </div>
-                            <div class="col-12 text-center">
-                                @foreach (var p in everyday.Pieces.OrderByDescending(x => x.Theme.Medium))
-                                {
-                                    if (p.Source != null && p.Source.URL != null)
-                                    {
-                                        @Html.Raw("<a href='" + p.Source.URL + "'>")
-                                    }
-                                    <i title="@Html.Raw(p.Source != null ? p.Source.Title : "")" style="margin-right:10px; color: @Html.Raw(p.Source == null ? "white" : "grey")" class="popper far fa-fw fa-@Html.Raw(p.Theme.Medium == Medium.Image ? "image" : "music")"></i>
-                                    if (p.Source != null)
-                                    {
-                                        @Html.Raw("</a>")
-                                    }
+                                    <div class="@Html.Raw(small ? "small-everyday" : "everyday") col-lg-2 col-md-3 col-sm-4 col-6">
+                                        <div class="@Html.Raw(small ? "small-everyday" : "") text-container col-12">
+                                            <a data-fancybox="gallery" href="@Html.Raw(piece.URL + "?width=1000&height=1000&id=" + everyday.ID)" class="mb-4 h-100" data-caption="@Html.Raw(everyday.Pieces.FirstOrDefault().Title)">
+                                                <img class="img-fluid" src="@Html.Raw(piece.URL + "?width=250&height=250&cropmode=center")" alt="">
+                                            </a>
+                                            <span class="bottom-right">
+                                                @foreach (var p in everyday.Pieces.OrderByDescending(x => x.Theme.Medium))
+                                                {
+                                                    if (p.Source != null && p.Source.URL != null)
+                                                    {
+                                                        @Html.Raw("<a href='" + p.Source.URL + "'>")
+                                                    }
+                                                    <i title="@Html.Raw(p.Source != null ? p.Source.Title : "")" style="color: @Html.Raw(p.Source == null ? "white" : "grey")" class="popper far fa-fw fa-@Html.Raw(p.Theme.Medium == Medium.Image ? "image" : "music")"></i>
+                                                    if (p.Source != null)
+                                                    {
+                                                        @Html.Raw("</a>")
+                                                    }
+                                                }
+                                            </span>
+                                        </div>
+                                    </div>
                                 }
-                            </div>
-                        </div>
+                                else if (piece.Theme.Medium == Medium.Sound)
+                                {
+                                    <input style="display:none" id="@(everyday.ID)" value="@(piece.URL)" />
+                                }
+                            }
                         }
-                        else if(piece.Theme.Medium == Medium.Sound)
-                        {
-                            <input style="display:none" id="@(everyday.ID)" value="@(piece.URL)" />
-                        }
-                    }
-                    }
-            </div>
+                    </div>
+                </div>
+            </section>
         </div>
-    </section>
-}
+    }
+</div>
