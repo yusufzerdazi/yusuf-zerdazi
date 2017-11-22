@@ -27,12 +27,12 @@
                         @while (CurrentDate > MaxDone && CurrentDate > month.Start.AddDays(-1))
                 {
                             <div class="everyday col-lg-2 col-md-3 col-sm-4 col-6">
-                                <div class="col-12">
+                                <div class="text-container col-12">
                                     <a href="/everydays/upload?date=@(CurrentDate.ToString("yyyy-MM-dd"))" class="mb-4 h-100" style="margin-bottom:0px">
                                         <img class="img-fluid" src="~/images/blank.jpg" alt="">
                                     </a>
+                                    <span class="bottom-right"><i style="margin-right:10px; color: grey" class="far fa-fw fa-music"></i><i style="color: grey" class="far fa-fw fa-image"></i></span>
                                 </div>
-                                <div class="col-12 text-center"><i style="margin-right:10px; color: grey" class="far fa-fw fa-music"></i><i style="color: grey" class="far fa-fw fa-image"></i></div>
                             </div>
                             CurrentDate = CurrentDate.AddDays(-1);
                         }

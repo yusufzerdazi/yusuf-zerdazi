@@ -81,8 +81,6 @@ footer {
     padding-right: 3px;
 }
 
-@media screen and (max-width:250px) {
-    .small-everyday > .bottom-right {
-        display: none;
-    }
+.small-everyday > .bottom-right {
+    display: none;
 }
