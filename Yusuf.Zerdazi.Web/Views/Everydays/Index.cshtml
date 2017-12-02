@@ -25,7 +25,7 @@
                 <div class="section__content">
                     <div class="row text-center text-lg-left">
                         @while (CurrentDate > MaxDone && CurrentDate > month.Start.AddDays(-1))
-                {
+                        {
                             <div class="everyday col-lg-2 col-md-3 col-sm-4 col-6">
                                 <div class="text-container col-12">
                                     <a href="/everydays/upload?date=@(CurrentDate.ToString("yyyy-MM-dd"))" class="mb-4 h-100" style="margin-bottom:0px">
@@ -38,24 +38,54 @@
                         }
 
                         @foreach (var everyday in Model.Everydays.Where(x => x.Month == month))
-                {
-                            @foreach (var piece in everyday.Pieces)
-                    {
-                        if (piece.Theme.Medium == Medium.Image)
                         {
+                            @foreach (var piece in everyday.Pieces)
+                            {
+                                if (piece.Theme.Medium == Medium.Image || piece.Theme.Medium == Medium.Video)
+                                {
                                     <div class="@Html.Raw(small ? "small-everyday" : "everyday") col-lg-2 col-md-3 col-sm-4 col-6">
                                         <div class="@Html.Raw(small ? "small-everyday" : "") text-container col-12">
-                                            <a data-fancybox="gallery" href="@Html.Raw(piece.URL + "?width=1000&height=1000&id=" + everyday.ID)" class="mb-4 h-100" data-caption="@Html.Raw(everyday.Pieces.Single(x => x.Theme.Medium == Medium.Image).Title)">
-                                                <img class="img-fluid" src="@Html.Raw(piece.URL + "?width=250&height=250&cropmode=center")" alt="">
+                                            @{
+                                                var imageUrl = "";
+                                                var embedUrl = "";
+
+                                                
+                                                switch (piece.Theme.Medium)
+                                                {
+                                                    case Medium.Image:
+                                                        embedUrl = piece.URL + "?width=1000&height=1000&id=" + everyday.ID;
+                                                        imageUrl = piece.URL + "?width=275&height=275&cropmode=center";
+                                                        break;
+                                                    case Medium.Video:
+                                                        embedUrl = piece.URL;
+                                                        imageUrl = $"https://img.youtube.com/vi/{piece.URL.Split("?v=").Last()}/maxresdefault.jpg";
+                                                        break;
+                                                }
+                                            }
+                                            <a data-fancybox="gallery" href="@(embedUrl)" class="mb-4 h-100" data-caption="@Html.Raw(everyday.Pieces.Single(x => x.Theme.Medium == Medium.Image || x.Theme.Medium == Medium.Video).Title)">
+                                                <img class="img-fluid" src="@(imageUrl)" alt="">
                                             </a>
                                             <span class="bottom-right">
                                                 @foreach (var p in everyday.Pieces.OrderByDescending(x => x.Theme.Medium))
                                                 {
+                                                    var icon = "";
+                                                    switch (p.Theme.Medium)
+                                                    {
+                                                        case Medium.Image:
+                                                            icon = "fa-image";
+                                                            break;
+                                                        case Medium.Video:
+                                                            icon = "fa-video";
+                                                            break;
+                                                        case Medium.Sound:
+                                                            icon = "fa-music";
+                                                            break;
+                                                    }
                                                     if (p.Source != null && p.Source.URL != null)
                                                     {
                                                         @Html.Raw("<a href='" + p.Source.URL + "'>")
                                                     }
-                                                    <i title="@Html.Raw(p.Source != null ? p.Source.Title : "")" style="color: @Html.Raw(p.Source == null ? "white" : "grey")" class="popper far fa-fw fa-@Html.Raw(p.Theme.Medium == Medium.Image ? "image" : "music")"></i>
+                                                    <i title="@Html.Raw(p.Source != null ? p.Source.Title : "")" style="color: @Html.Raw(p.Source == null ? "white" : "grey")" class="popper far fa-fw @(icon)"></i>
                                                     if (p.Source != null)
                                                     {
                                                         @Html.Raw("</a>")
@@ -68,12 +98,12 @@
                                 else if (piece.Theme.Medium == Medium.Sound)
                                 {
                                     <input style="display:none" id="@(everyday.ID)" value="@(piece.URL)" />
+                                    }
                                 }
                             }
-                        }
                     </div>
                 </div>
             </section>
         </div>
-    }
+        }
 </div>
