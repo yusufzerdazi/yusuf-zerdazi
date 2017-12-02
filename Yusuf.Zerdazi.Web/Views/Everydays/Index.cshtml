@@ -45,7 +45,7 @@
                         {
                                     <div class="@Html.Raw(small ? "small-everyday" : "everyday") col-lg-2 col-md-3 col-sm-4 col-6">
                                         <div class="@Html.Raw(small ? "small-everyday" : "") text-container col-12">
-                                            <a data-fancybox="gallery" href="@Html.Raw(piece.URL + "?width=1000&height=1000&id=" + everyday.ID)" class="mb-4 h-100" data-caption="@Html.Raw(everyday.Pieces.FirstOrDefault().Title)">
+                                            <a data-fancybox="gallery" href="@Html.Raw(piece.URL + "?width=1000&height=1000&id=" + everyday.ID)" class="mb-4 h-100" data-caption="@Html.Raw(everyday.Pieces.Single(x => x.Theme.Medium == Medium.Image).Title)">
                                                 <img class="img-fluid" src="@Html.Raw(piece.URL + "?width=250&height=250&cropmode=center")" alt="">
                                             </a>
                                             <span class="bottom-right">
