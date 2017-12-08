@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Yusuf.Zerdazi.Web.Models;
 using Yusuf.Zerdazi.Web.Models.AccountViewModels;
 using Yusuf.Zerdazi.Web.Services;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Yusuf.Zerdazi.Web.Controllers
 {
@@ -44,7 +45,7 @@ namespace Yusuf.Zerdazi.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
-            if(HttpContext.Request.Host.Host.Contains("yusuf.zerdazi")){
+            if(HttpContext.Request.GetDisplayUrl().Contains("yusuf.zerdazi")){
                 return Redirect("https://yusufzerdazi.azurewebsites.net" + returnUrl);
             }
             // Clear the existing external cookie to ensure a clean login process
