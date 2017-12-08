@@ -112,8 +112,8 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
         $(".empty").click(function (e) {
-            e.preventDefault();
-            if (window.location.hostname.indexOf("localhost") != -1) {
+            if (window.location.hostname.indexOf("yusuf.zerdazi") != -1) {
+                e.preventDefault();
                 window.location.href = "https://yusufzerdazi.azurewebsites.net" + $(this).attr("href");
             }
         });
