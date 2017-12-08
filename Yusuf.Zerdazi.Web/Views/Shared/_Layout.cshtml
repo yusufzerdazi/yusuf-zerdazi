@@ -18,30 +18,7 @@
 </head>
 <body>
     <header>
-        <div id="header_wave">
-            @if(ViewBag.User != null)
-            {
-                <span style="position: absolute; top:10px; right:10px;"><img width="20" height="20" src="~/images/microsoft.png" /> @(ViewBag.User.Name)</span>
-            }
-            else {
-                var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-                if (loginProviders.Count == 0){
-
-                }
-                else {
-                <form  style="position: absolute; top:10px; right:10px;" asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="" method="post" class="form-horizontal">
-                    <div>
-                        <p>
-                            @foreach (var provider in loginProviders)
-                            {
-                                <button style="width:20px; height: 20px; border:none; background: url(/images/microsoft.png); background-size: 20px 20px;" type="submit" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account" />
-                            }
-                        </p>
-                    </div>
-                </form>
-                }
-            }
-        </div>
+        <div id="header_wave"></div>
         <div class="title">
             <img class="title__image" src="~/images/@(ViewData["Title-Image"]).png" />
         </div>
