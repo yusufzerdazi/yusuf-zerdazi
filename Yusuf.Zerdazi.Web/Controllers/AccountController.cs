@@ -45,9 +45,6 @@ namespace Yusuf.Zerdazi.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
-            if(HttpContext.Request.GetDisplayUrl().Contains("yusuf.zerdazi")){
-                return Redirect("https://yusufzerdazi.azurewebsites.net" + returnUrl);
-            }
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             return ExternalLogin("Microsoft", returnUrl);

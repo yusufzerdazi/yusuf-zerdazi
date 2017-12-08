@@ -28,7 +28,7 @@
                         {
                             <div class="everyday col-lg-2 col-md-3 col-sm-4 col-6">
                                 <div class="text-container col-12">
-                                    <a href="/everydays/upload?date=@(CurrentDate.ToString("yyyy-MM-dd"))" class="mb-4 h-100" style="margin-bottom:0px">
+                                    <a href="/everydays/upload?date=@(CurrentDate.ToString("yyyy-MM-dd"))" class="mb-4 h-100 empty" style="margin-bottom:0px">
                                         <img class="img-fluid" src="~/images/blank.jpg" alt="">
                                     </a>
                                     <span class="bottom-right"><i style="margin-right:10px; color: grey" class="far fa-fw fa-music"></i><i style="color: grey" class="far fa-fw fa-image"></i></span>
@@ -107,3 +107,15 @@
         </div>
         }
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(".empty").click(function (e) {
+            e.preventDefault();
+            if (window.location.hostname.indexOf("localhost") != -1) {
+                window.location.href = "https://yusufzerdazi.azurewebsites.net" + $(this).attr("href");
+            }
+        });
+    </script>
+}
