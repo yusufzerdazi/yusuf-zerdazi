@@ -10,6 +10,12 @@
 @section Styles {
     <link href="@Url.Content("~/css/everydays.css")" rel="stylesheet" />
 }
+
+<h3>
+    "It helps you stay honest, because you have to sit down and do <i>something</i> everyday."
+</h3>
+<h4> - <a href="http://www.beeple-crap.com/everydays.php">Beeple</a></h4>
+
 <div class="row">
     @foreach (var month in Model.Months.Where(x => Model.Everydays.Where(y => y.Month.Start.Month == x.Start.Month).Count() > 0))
     {
