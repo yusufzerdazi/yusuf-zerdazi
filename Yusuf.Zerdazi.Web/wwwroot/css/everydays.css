@@ -84,3 +84,13 @@ footer {
 .small-everyday > .bottom-right {
     display: none;
 }
+
+h3 {
+    color: white;
+    text-align: center;
+}
+
+h4 {
+    color: white;
+    text-align: center;
+}
