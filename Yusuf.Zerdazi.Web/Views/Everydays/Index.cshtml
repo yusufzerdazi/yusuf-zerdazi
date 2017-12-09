@@ -14,6 +14,7 @@
     @foreach (var month in Model.Months.Where(x => Model.Everydays.Where(y => y.Month.Start.Month == x.Start.Month).Count() > 0))
     {
         done++;
+        var isImage = month.Themes.Select(x => x.Medium).Contains(Medium.Image);
         if (!small) { small = done > 1; }
         <div class='@Html.Raw(small ? "col-lg-6 col-6" : "col-12")' style='padding:0;'>
             <section class="container">
@@ -29,9 +30,19 @@
                             <div class="everyday col-lg-2 col-md-3 col-sm-4 col-6">
                                 <div class="text-container col-12">
                                     <a href="/everydays/upload?date=@(CurrentDate.ToString("yyyy-MM-dd"))" class="mb-4 h-100 empty" style="margin-bottom:0px">
-                                        <img class="img-fluid" src="~/images/blank.jpg" alt="">
+                                        <img class="img-fluid" src="~/images/blank@(isImage ? ".jpg" : "_video.png")" alt="">
                                     </a>
-                                    <span class="bottom-right"><i style="margin-right:10px; color: grey" class="far fa-fw fa-music"></i><i style="color: grey" class="far fa-fw fa-image"></i></span>
+                                    <span class="bottom-right">
+                                        @if (isImage)
+                                        {
+                                            <i style="margin-right:10px; color: grey" class="far fa-fw fa-music"></i>
+                                            <i style="color: grey" class="far fa-fw fa-image"></i>
+                                        }
+                                        else
+                                        {
+                                            <i style="color: grey" class="far fa-fw fa-video"></i>
+                                        }
+                                    </span>
                                 </div>
                             </div>
                             CurrentDate = CurrentDate.AddDays(-1);
