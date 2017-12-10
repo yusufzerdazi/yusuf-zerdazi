@@ -3,88 +3,42 @@
     ViewData["Title-Image"] = "yusuf";
 }
 
-<section class="container">
-    <div class="section__title">
-        <h1>Projects</h1>
-    </div>
-    <div class="section__content">
-        <div class="row text-center text-lg-left justify-content-center">
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                <figure class="mb-4">
-                    <a href="projects/slam_robot" class="d-block h-100"><img class="img-fluid" src="~/images/robot.png" alt="" /></a>
-                    <figcaption>
-                        <h5>SLAM Robot<br /><small class="text-muted"><em>May 2, 2017</em></small></h5>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                <figure class="mb-4">
-                    <a href="projects/virtual_lecture_hall" class="d-block h-100"><img class="img-fluid" src="~/images/lecture.png" alt="" /></a>
-                    <figcaption>
-                        <h5>Virtual Lecture Hall<br /><small class="text-muted"><em>April 21, 2015</em></small></h5>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                <figure class="mb-4">
-                    <a href="projects/object_avoiding_robot" class="d-block h-100"><img class="img-fluid" src="~/images/oor.png" alt="" /></a>
-                    <figcaption>
-                        <h5>Object Avoiding Robot<br /><small class="text-muted"><em>October 1, 2014</em></small></h5>
-                    </figcaption>
-                </figure>
-            </div>
+<div class="title">
+    <img class="title__image" src="~/images/yusuf.svg" />
+</div>
+
+<section class="something">
+    <div class="container">
+        <div class="section__title">
+            <img class="section__title__image" src="~/images/tense_small.png" />
+            <h1>
+                Something Is Coming
+            </h1>
+            <h2>
+                January 2018
+            </h2>
         </div>
     </div>
 </section>
-<section class="container">
-    <div class="section__title">
-        <h1>Art</h1>
-    </div>
-    <div class="section__content">
-        <div class="row text-center text-lg-left justify-content-center">
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                <figure class="mb-4">
-                    <a data-fancybox="gallery" href="~/images/tense.png" class="d-block h-100"><img class="img-fluid" src="~/images/tense_small.png" alt="" /></a>
-                    <figcaption>
-                        <h5>Tense<br /><small class="text-muted"><em>June 19, 2017</em></small></h5>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                <figure class="mb-4">
-                    <a data-fancybox="gallery" href="~/images/psych.png" class="d-block h-100"><img class="img-fluid" src="~/images/psych_small.png" alt="" /></a>
-                    <figcaption>
-                        <h5>Psych<br /><small class="text-muted"><em>February 5, 2017</em></small></h5>
-                    </figcaption>
-                </figure>
-            </div>
+<section class="everydays">
+    <div class="container">
+        <div class="section__title" style="padding-bottom:20px">
+            <a asp-controller="everydays" asp-action="index">
+                <img class="title__image art" src="~/images/everydays_title.svg" />
+            </a>
+        </div>
+        <div class="section__content" style="text-align: center;">
+            <p style="color:white;">Inspired by Beeple's <a href="http://beeple-crap.com/everydays.php">Everydays</a> project, I plan to complete some piece of work — an image, a sound, a video, or some combination of these — every day. The aim of this project is to get better at certain skills, and to make myself practice regularly.</p>
+            <p style="color:white;">Of course, sometimes life will get in the way and I will miss days, although I will try to catch up on the days I miss.</p>
         </div>
     </div>
 </section>
-<section class="container">
-    <div class="section__title">
-        <h1>Music</h1>
-    </div>
-
-    <div class="section__content">
-        <div class="row text-center text-lg-left justify-content-center">
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                <figure class="mb-4">
-                    <iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/331707895&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
-                    <figcaption>
-                        <h5>Tense<br /><small class="text-muted"><em>June 19, 2017</em></small></h5>
-                    </figcaption>
-                </figure>
-            </div>
-
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                <figure class="mb-4">
-                    <iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/143903857&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
-                    <figcaption>
-                        <h5>The Mondays<br /><small class="text-muted"><em>March 14, 2012</em></small></h5>
-                    </figcaption>
-                </figure>
-            </div>
+<section class="the-mondays">
+    <div class="container">
+        <div class="section__title" style="padding-bottom:20px">
+            <a href="https://soundcloud.com/the_mondays">
+                <img class="section__title__image art" src="~/images/the-mondays.svg" />
+            </a>
         </div>
     </div>
 </section>
