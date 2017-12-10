@@ -19,24 +19,13 @@
 <body>
     <header>
         <div id="header_wave"></div>
+        <!--
         <div class="title">
             <img class="title__image" src="~/images/@(ViewData["Title-Image"]).png" />
-        </div>
+        </div>-->
     </header>
 
-    <nav class="container">
-        <ul>
-            <li><a href="../">Home</a></li>
-            <li><a href="../everydays">Everydays</a></li>
-            @*<li><a href="../balance">Blog</a></li>*@
-        </ul>
-    </nav>
-
-    <section class="container body-content">
-        @RenderBody()
-    </section>
-
-    <div id='waveform' style=""></div>
+    @RenderBody()
 
     <footer class="footer">
         <div class="container">
@@ -63,6 +52,7 @@
 
     <script type="text/javascript" src="~/js/p5.js"></script>
     <script type="text/javascript" src="~/js/p5.dom.js"></script>
+    <script type="text/javascript" src="~/js/p5.svg.js"></script>
     <script type="text/javascript" src="~/js/setup.js"></script>
     <script type="text/javascript" src="~/js/header.js"></script>
     <script type="text/javascript" src="~/js/audio.js"></script>

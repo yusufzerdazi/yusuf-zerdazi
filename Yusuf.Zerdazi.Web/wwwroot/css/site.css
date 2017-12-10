@@ -101,6 +101,7 @@ header {
 .title {
     text-align: center;
     padding: 10px 0 15px;
+    border-bottom: solid 1px #ccc;
 }
 
 .title__image {
@@ -145,10 +146,11 @@ nav {
 /* Sections
 -------------------------------------------------- */
 section {
+    padding-top: 20px;
     padding-bottom: 20px;
 }
 
-    section img:hover {
+    section img.art:hover {
         opacity: 0.7;
     }
 
@@ -159,10 +161,14 @@ section {
 .section__title {
     color: #203647;
     text-align: center;
-    margin-bottom:20px;
 }
     .section__title h1 {
         font-family: 'Open Sans', sans-serif;
+    }
+
+    .section__title__image {
+        max-height: 200px;
+        object-fit: contain;
     }
 
 .section__date {
@@ -206,6 +212,14 @@ footer {
 
 .row {
     margin: 0;
+}
+
+.the-mondays {
+    background-color: #1e1e1e;
+}
+
+.everydays {
+    background-color: black;
 }
 
 /* ==========================================================================

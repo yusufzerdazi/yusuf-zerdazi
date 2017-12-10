@@ -27,11 +27,7 @@ function setup() {
 
 function magnitude(x) {
     var half = width / 2;
-    if (x < half) {
-        return max(0, (half - 20) - x) / half;
-    } else {
-        return max(0, x - half - 20) / half;
-    }
+    return (x - half) * (x - half)/400000;
 }
 
 
@@ -57,7 +53,6 @@ function drawTiledImage() {
     while (x + width_map[img_enum] > -width) {
         image(img_map[img_enum], x, 0, width_map[img_enum], 150);
         x -= width_map[(img_enum+1) % 2] - 1;
-        console.log(x);
         img_enum = (img_enum + 1) % 2
     }
 }
