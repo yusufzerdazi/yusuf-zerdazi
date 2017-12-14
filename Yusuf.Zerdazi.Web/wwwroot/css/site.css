@@ -109,6 +109,27 @@ header {
     width: 100%;
 }
 
+header{
+    position: relative;
+    height: 150px;
+}
+
+.banner {
+    height: 150px;
+    width:100%;
+    position: absolute;
+    z-index: -1;
+    background: black url(../images/banner_final.svg);
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#header_wave{
+    position:absolute;
+}
+
+
 /* Navigation
 -------------------------------------------------- */
 nav {
