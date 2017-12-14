@@ -10,7 +10,7 @@ var mainUrl = window.location.origin + "/images/tile_main_small.png";
 var joinUrl = window.location.origin + "/images/tile_join_small.png";
 
 if (window.location.href.includes("everydays")) {
-    bgColour = 0;
+    bgColour = (0, 0);
 }
 
 function setup() {
@@ -60,12 +60,13 @@ function drawTiledImage() {
 }
 
 function draw() {
-    background(bgColour);
+    clear();
+    background(0,0);
     
 
-    drawTiledImage();
-    setGradient(0, 0, width / 2, height, color(0, 255), color(0, 0), X_AXIS);
-    setGradient(width / 2, 0, width / 2, height, color(0, 0), color(0, 255), X_AXIS);
+    //drawTiledImage();
+    //setGradient(0, 0, width / 2, height, color(0, 255), color(0, 0), X_AXIS);
+    //setGradient(width / 2, 0, width / 2, height, color(0, 0), color(0, 255), X_AXIS);
 
     fill(bgColour);
     noStroke();
