@@ -65,7 +65,7 @@
                                                 @{
                                                     var imageUrl = "";
                                                     var embedUrl = "";
-
+                                                    var isViewSync = piece.URL.Contains("viewsync");
 
                                                     switch (piece.Theme.Medium)
                                                     {
@@ -74,12 +74,20 @@
                                                             imageUrl = piece.URL + "?width=275&height=275&cropmode=center";
                                                             break;
                                                         case Medium.Video:
-                                                            embedUrl = piece.URL;
-                                                            imageUrl = $"https://img.youtube.com/vi/{piece.URL.Split("?v=").Last()}/maxresdefault.jpg";
+                                                            if (isViewSync)
+                                                            {
+                                                                embedUrl = piece.URL;
+                                                                imageUrl = $"https://img.youtube.com/vi/{piece.URL.Split("&v=").Last().Split("&t=").First()}/maxresdefault.jpg";
+                                                            }
+                                                            else
+                                                            {
+                                                                embedUrl = piece.URL;
+                                                                imageUrl = $"https://img.youtube.com/vi/{piece.URL.Split("?v=").Last()}/maxresdefault.jpg";
+                                                            }
                                                             break;
                                                     }
                                                 }
-                                                <a data-fancybox="gallery" href="@(embedUrl)" class="mb-4 h-100" data-caption="@Html.Raw(everyday.Pieces.Single(x => x.Theme.Medium == Medium.Image || x.Theme.Medium == Medium.Video).Title)">
+                                                <a @(isViewSync ? $"data-type=iframe data-src={embedUrl}" : $"href={embedUrl}") data-fancybox="gallery" class="mb-4 h-100" data-caption="@Html.Raw(everyday.Pieces.Single(x => x.Theme.Medium == Medium.Image || x.Theme.Medium == Medium.Video).Title)" style="cursor:pointer;">
                                                     <img class="img-fluid art" src="@(imageUrl)" alt="">
                                                 </a>
                                                 <span class="bottom-right">
