@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="angular-project\src\app\NewFolder\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
