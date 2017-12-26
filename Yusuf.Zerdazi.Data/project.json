@@ -1,0 +1,11 @@
+﻿{
+  "dependencies": {
+    "Microsoft.EntityFrameworkCore.Design": {
+      "version": "2.0.1-*",
+      "type": "build"
+    }
+  },
+  "tools": {
+    "Microsoft.EntityFrameworkCore.Tools": "2.0.1-*"
+  }
+}

@@ -1,0 +1,17 @@
+<div class="title">
+    <img src="./assets/images/everydays_black.svg" />
+</div>
+
+<div *ngIf="loading" class="loading_container">
+    <i class="far fa-fw fa-spinner fa-4x fa-pulse"></i>
+</div>
+
+<section class="container">
+    <div class="row">
+        <div *ngFor="let month of months; let i = index" class="{{i != 0 ? 'col-lg-6 col-6 month_small' : 'col-12'}} month_container">
+            <div class="container">
+                <month [month]="month" (selected)='onSelected($event)'></month>
+            </div>
+        </div>
+    </div>
+</section>

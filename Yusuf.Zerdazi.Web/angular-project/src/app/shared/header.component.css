@@ -1,0 +1,21 @@
+header {
+    position: relative;
+    text-align: center;
+    height: 150px;
+    cursor: pointer;
+}
+
+.banner {
+    height: 150px;
+    width:100%;
+    position: absolute;
+    z-index: -1;
+    background: black url(/assets/images/banner.svg);
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#header_wave{
+    position:absolute;
+}

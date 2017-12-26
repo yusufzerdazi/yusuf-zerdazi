@@ -1,0 +1,12 @@
+.month_container {
+    padding-bottom: 20px;
+}
+
+.month_small {
+    font-size: 0.8em;
+}
+
+.loading_container {
+    text-align: center;
+    margin-top:30px;
+}
