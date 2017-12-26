@@ -5,16 +5,15 @@ iframe.style.cssText = 'height: 0; background-color: transparent; margin: 0; pad
 
 // Register our event when the iframe loads
 iframe.onload = function() {
-  // The trick here is that because this iframe has 100% width 
-  // it should fire a window resize event when anything causes it to 
-  // resize (even scrollbars on the outer document)
-  iframe.contentWindow.addEventListener('resize', function() {
-    try {
-      var evt = document.createEvent('UIEvents');
-      evt.initUIEvent('resize', true, false, window, 0);
-      window.dispatchEvent(evt);
-    } catch(e) {}
-  });
+    // The trick here is that because this iframe has 100% width 
+    // it should fire a window resize event when anything causes it to 
+    // resize (even scrollbars on the outer document)
+    iframe.contentWindow.addEventListener('resize', function() {
+        try {
+            var evt = new UIEvent('resize');
+            window.dispatchEvent(evt);
+        }   catch(e) {}
+    });
 };
 
 // Stick the iframe somewhere out of the way
@@ -23,10 +22,10 @@ document.body.appendChild(iframe);
 var yoff = 0.0;
 
 function setup() {
-    can = createCanvas($('body').innerWidth(), 150).parent('header_wave');
+    can = createCanvas(document.body.clientWidth, 150).parent('header_wave');
 
-    $( window ).resize(function() {
-        resizeCanvas($('body').innerWidth(), 150);
+    window.addEventListener('resize', function() {
+        resizeCanvas(document.body.clientWidth, 150);
     });
 }
 

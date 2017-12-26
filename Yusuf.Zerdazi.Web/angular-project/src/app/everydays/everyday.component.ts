@@ -87,5 +87,11 @@ export class EverydayComponent {
                     medium: this.display.theme.medium }
         });
     }
+
+    openSource(piece: Piece): void {
+        if(piece.source && piece.source.url){
+            window.open(piece.source.url, "_blank");
+        }
+    }
 }
 
