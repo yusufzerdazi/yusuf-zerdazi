@@ -1,0 +1,4 @@
+<img *ngIf="data.medium == 0" width="100%" src="{{data.image + '?width=1000&height=800&cropmode=none'}}" />
+<video width="100%" *ngIf="data.medium == 2" controls>
+    <source src="{{data.image}}" type="video/webm">
+</video>

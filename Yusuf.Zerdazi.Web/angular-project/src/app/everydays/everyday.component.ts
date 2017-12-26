@@ -1,8 +1,10 @@
-import { Component, Input, Output, OnChanges, EventEmitter } from "@angular/core";
+import { Component, Input, Output, OnChanges, EventEmitter, Inject } from "@angular/core";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Medium } from './medium';
 import { Everyday } from "./everyday";
 import { Piece } from "./piece";
 import * as $ from 'jquery';
+import { EverydayModalComponent } from "./everyday.modal.component";
 
 @Component({
     selector: 'everyday',
@@ -16,6 +18,10 @@ export class EverydayComponent {
     playing: boolean = false;
     @Input() everyday: Everyday;
     @Output() selected: EventEmitter<number> = new EventEmitter<number>();
+
+    constructor(public dialog: MatDialog){
+
+    }
 
     ngOnChanges(): void {
         for(let piece of this.everyday.pieces){
@@ -68,4 +74,18 @@ export class EverydayComponent {
         element.pause();
         this.playing = false;
     }
+
+    open(): void {
+        if(!this.audio){
+            this.pause();
+        }
+        if(this.display.theme.medium != Medium.Image){
+            this.selected.emit(this.media.id);
+        }
+        let dialogRef = this.dialog.open(EverydayModalComponent, {
+            data: { image: this.display.url,
+                    medium: this.display.theme.medium }
+        });
+    }
 }
+

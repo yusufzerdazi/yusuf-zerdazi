@@ -34,6 +34,7 @@ namespace Yusuf.Zerdazi.Services
                     .ThenInclude(e => e.Source)
                 .Include(m => m.Themes)
                 .Where(m => m.Everydays.Any())
+                .OrderByDescending(m => m.Start)
                 .ToListAsync();
             months.ForEach(m => m.Everydays = m.Everydays.OrderByDescending(e => e.Date).ToArray());
             return months;

@@ -20,16 +20,14 @@ iframe.onload = function() {
 // Stick the iframe somewhere out of the way
 document.body.appendChild(iframe);
 
-var yoff = 0.0;        // 2nd dimension of perlin noise
-var isOverCircle;
-var Y_AXIS = 1;
-var X_AXIS = 2;
-var leftColour = [255, 255, 255];
-var rightColour = [255, 255, 255];
-var bgColour = [255, 255, 255];
+var yoff = 0.0;
 
 function setup() {
-    createCanvas($('body').innerWidth(), 150).parent('header_wave');
+    can = createCanvas($('body').innerWidth(), 150).parent('header_wave');
+
+    $( window ).resize(function() {
+        resizeCanvas($('body').innerWidth(), 150);
+    });
 }
 
 function magnitude(x) {
@@ -38,27 +36,22 @@ function magnitude(x) {
 }
 
 function draw() {
-    clear();
-    background(0,0);
-
-    fill(bgColour);
+    fill(255);
     noStroke();
     beginShape();
 
     var xoff = 0;
-
     for (var x = 0; x < width + 10; x += 10) {
         var y = map(0.75 * magnitude(x) * (noise(xoff, yoff) - 1), 0, 1, 200, 300) - 50;
         vertex(x, y);
         xoff += 0.05;
     }
+
     vertex(width, 150);
     vertex(0, 150);
+
+    clear();
     endShape(CLOSE);
 
     yoff += 0.01;
 }
-
-$( window ).resize(function() {
-    resizeCanvas($('body').innerWidth(), 150);
-});

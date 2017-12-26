@@ -12,6 +12,7 @@ export class EverydaysComponent{
     errorMessage: string;
     months: Month[];
     playing: number;
+    loading: boolean = true;
     @ViewChildren(MonthComponent) children;
 
     constructor(private _everydaysService: EverydaysService){
@@ -19,9 +20,15 @@ export class EverydaysComponent{
     }
 
     ngOnInit(): void {
+
         this._everydaysService.getEverydays()
-            .subscribe(months => this.months = months,
-                       error => this.errorMessage = <any>error);
+            .subscribe(
+                months => {
+                    this.months = months;
+                    this.loading = false;
+                },
+            error => this.errorMessage = <any>error
+        );
     }
 
     onSelected(id: number){

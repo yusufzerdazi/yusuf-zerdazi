@@ -24,8 +24,4 @@ export class MonthComponent {
         this.date = this.monthNames[monthDate.getMonth()] + " " + monthDate.getFullYear().toString();
         this.isVideo = this.month.themes.map(x => x.medium).includes(2);
     }
-
-    onSelected(id: number): void {
-        this.selected.emit(id);
-    }
 }
