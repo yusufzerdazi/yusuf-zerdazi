@@ -3,7 +3,7 @@
         <img (click)="open()" id="{{display.id}}" *ngIf="display.theme.medium == 0" class="fade dim" src="{{display.url + '?width=275&height=275&cropmode=center'}}"
             alt="">
         <div (click)="open()" *ngIf="display.theme.medium == 2" class="everyday_video_container fade">
-            <video id="{{display.id}}">
+            <video id="{{display.id}}" preload="metadata">
                 <source src="{{display.url}}" type="video/webm">
             </video>
         </div>
@@ -13,9 +13,9 @@
     <ng-template #title></ng-template>
     <span class="inner_icon bottom_right">
         <span class="tooltip_container" *ngFor="let piece of everyday.pieces" [style.color]="piece.source ? 'grey' : 'white'">
-            <span (click)="openSource(piece)" (mouseenter)="t.open();l.open();" (mouseleave)="t.close();l.close();" class="tooltips tooltip">
-                <span class="tooltip" [ngbTooltip]="piece.title" container="body" placement="bottom" triggers="manual" #t="ngbTooltip"></span>
-                <span class="tooltip" [ngbTooltip]="(piece.source && piece.source.title != piece.title) ? piece.source.title : ''" container="body" triggers="manual" #l="ngbTooltip"></span>
+            <span (click)="openSource(piece)" (mouseenter)="t.open();l.open();" (mouseleave)="t.close();l.close();" class="tooltips tooltip_element">
+                <span class="tooltip_element" [ngbTooltip]="piece.title" container="body" placement="bottom" triggers="manual" #t="ngbTooltip"></span>
+                <span class="tooltip_element" [ngbTooltip]="(piece.source && piece.source.title != piece.title) ? piece.source.title : ''" container="body" triggers="manual" #l="ngbTooltip"></span>
             </span>
             <i class="far fa-fw {{getIcon(piece)}}"></i>
         </span>
