@@ -2,6 +2,7 @@ header {
     position: relative;
     text-align: center;
     height: 150px;
+    cursor: pointer;
 }
 
 .banner {

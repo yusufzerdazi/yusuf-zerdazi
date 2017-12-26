@@ -1,0 +1,74 @@
+.bottom-right {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    background-color: rgba(0,0,0,0.75);
+    display: inline-block;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.bottom-left {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: inline-block;
+    background-color: rgba(0,0,0,0.75);
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+
+.fancybox-container {
+    height: calc(100% - 60px);
+}
+
+.everyday {
+    padding: 0px;
+}
+
+.everyday-video-container{
+    padding-top: 56.25%;
+    width: 100%;
+    position: relative;
+    background-color: #FFFFFF;
+    opacity: 1;
+}
+
+.everyday-video-container:hover{
+    opacity: 0.75;
+}
+
+.everyday-video {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.small-everyday {
+    border: 0;
+    padding: 0px;
+    font-size: 0.8em;
+}
+
+.text-container {
+    position: relative;
+    text-align: center;
+    padding: 0;
+    cursor: pointer;
+}
+
+.small-everyday > .bottom-right {
+    display: none;
+}
+
+.everyday-container{
+    padding-top:0;
+}
+
+.everyday-image {
+    max-width: 100%;
+}

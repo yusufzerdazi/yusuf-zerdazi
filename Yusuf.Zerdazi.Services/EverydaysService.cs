@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Yusuf.Zerdazi.Data;
@@ -27,12 +28,15 @@ namespace Yusuf.Zerdazi.Services
 
         public async Task<IList<Month>> GetAllMonths()
         {
-            return await _context.Months
+            var months = await _context.Months
                 .Include(m => m.Everydays)
                     .ThenInclude(e => e.Pieces)
                     .ThenInclude(e => e.Source)
                 .Include(m => m.Themes)
+                .Where(m => m.Everydays.Any())
                 .ToListAsync();
+            months.ForEach(m => m.Everydays = m.Everydays.OrderByDescending(e => e.Date).ToArray());
+            return months;
         }
 
         public async Task<IList<Piece>> GetAllPieces()

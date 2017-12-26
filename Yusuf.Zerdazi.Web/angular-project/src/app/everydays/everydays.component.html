@@ -1,3 +1,11 @@
-<div class="container">
-    
+<div class="title">
+    <img class="title__image" src="./assets/images/everydays_black.svg" />
 </div>
+
+<section class="container">
+    <div class="col-md-12">
+        <div *ngFor="let month of months; let i = index" class="{{i == -1 ? 'col-lg-6 col-6' : 'col-12'}} month-container">
+            <month [month]="month" (selected)='onSelected($event)'></month>
+        </div>
+    </div>
+</section>

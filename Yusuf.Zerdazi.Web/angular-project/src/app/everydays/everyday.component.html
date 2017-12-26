@@ -1,0 +1,29 @@
+<div class="text-container col-12">
+    <div class="art">
+        <img id="{{display.id}}" *ngIf="display.theme.medium == 0" class="art everyday-image" src="{{display.url + '?width=275&height=275&cropmode=center'}}"
+            alt="">
+        <div *ngIf="display.theme.medium == 2" class="everyday-video-container">
+            <video id="{{display.id}}" class="everyday-video">
+                <source src="{{display.url}}" type="video/webm">
+            </video>
+        </div>
+        <audio style="display:none" *ngIf="audio" id="{{audio.id}}" preload="none" src="{{audio.url}}"></audio>
+    </div>
+    <span class="bottom-right">
+        <span *ngFor="let piece of everyday.pieces" matTooltip="{{piece.title}}" [matTooltipPosition]="'below'" [style.color]="piece.source ? 'grey' : 'white'">
+            <span matTooltip="{{piece.source && piece.source.title != piece.title ? piece.source.title : ''}}" [matTooltipPosition]="'above'">
+                <i class="far fa-fw {{getIcon(piece)}}"></i>
+            </span>
+        </span>
+    </span>
+    <span [hidden]="playing" (click)="toggle()" class="bottom-left">
+        <span [style.color]="'white'">
+            <i class="far fa-fw fa-play"></i>
+        </span>
+    </span>
+    <span [hidden]="!playing" (click)="toggle()" class="bottom-left">
+        <span [style.color]="'white'">
+            <i class="far fa-fw fa-pause"></i>
+        </span>
+    </span>
+</div>

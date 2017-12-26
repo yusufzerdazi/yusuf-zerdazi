@@ -1,3 +1,25 @@
+// Create an invisible iframe
+var iframe = document.createElement('iframe');
+iframe.id = "hacky-scrollbar-resize-listener";
+iframe.style.cssText = 'height: 0; background-color: transparent; margin: 0; padding: 0; overflow: hidden; border-width: 0; position: absolute; width: 100%;';
+
+// Register our event when the iframe loads
+iframe.onload = function() {
+  // The trick here is that because this iframe has 100% width 
+  // it should fire a window resize event when anything causes it to 
+  // resize (even scrollbars on the outer document)
+  iframe.contentWindow.addEventListener('resize', function() {
+    try {
+      var evt = document.createEvent('UIEvents');
+      evt.initUIEvent('resize', true, false, window, 0);
+      window.dispatchEvent(evt);
+    } catch(e) {}
+  });
+};
+
+// Stick the iframe somewhere out of the way
+document.body.appendChild(iframe);
+
 var yoff = 0.0;        // 2nd dimension of perlin noise
 var isOverCircle;
 var Y_AXIS = 1;
@@ -5,10 +27,6 @@ var X_AXIS = 2;
 var leftColour = [255, 255, 255];
 var rightColour = [255, 255, 255];
 var bgColour = [255, 255, 255];
-
-if (window.location.href.includes("everydays")) {
-    bgColour = (0, 0);
-}
 
 function setup() {
     createCanvas($('body').innerWidth(), 150).parent('header_wave');
@@ -39,32 +57,8 @@ function draw() {
     endShape(CLOSE);
 
     yoff += 0.01;
-    
-    // get distance between mouse and circle
-    var distance = dist(mouseX, mouseY, width / 2, 75);
-
-    // if the distance is less than the circle's radius
-    if (distance < 75) {
-        isOverCircle = true;
-    } else {
-        isOverCircle = false;
-    }
-    // draw a circle
-    fill(0, 0, 0, 1);
-    if (isOverCircle == true) {
-        cursor(HAND);
-    } else {
-        cursor(ARROW);
-    }
 }
 
-function mousePressed() {
-    if (isOverCircle == true) {
-        window.open(window.location.origin, "_self")
-    }
-}
-
-function windowResized() {
-    console.log(windowWidth);
-    resizeCanvas(windowWidth, 150);
-}
+$( window ).resize(function() {
+    resizeCanvas($('body').innerWidth(), 150);
+});

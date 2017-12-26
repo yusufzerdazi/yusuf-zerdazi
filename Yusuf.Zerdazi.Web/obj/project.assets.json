@@ -13216,6 +13216,9 @@
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
       "projectUniqueName": "C:\\Users\\yusuf\\Desktop\\Repos\\Yusuf.Zerdazi\\Yusuf.Zerdazi.Web\\Yusuf.Zerdazi.Web.csproj",
       "projectName": "Yusuf.Zerdazi.Web",
@@ -13240,11 +13243,11 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\yusuf\\Desktop\\Repos\\Yusuf.Zerdazi\\Yusuf.Zerdazi.Data\\Yusuf.Zerdazi.Data.csproj": {
-              "projectPath": "C:\\Users\\yusuf\\Desktop\\Repos\\Yusuf.Zerdazi\\Yusuf.Zerdazi.Data\\Yusuf.Zerdazi.Data.csproj"
-            },
             "C:\\Users\\yusuf\\Desktop\\Repos\\Yusuf.Zerdazi\\Yusuf.Zerdazi.Services\\Yusuf.Zerdazi.Services.csproj": {
               "projectPath": "C:\\Users\\yusuf\\Desktop\\Repos\\Yusuf.Zerdazi\\Yusuf.Zerdazi.Services\\Yusuf.Zerdazi.Services.csproj"
+            },
+            "C:\\Users\\yusuf\\Desktop\\Repos\\Yusuf.Zerdazi\\Yusuf.Zerdazi.Data\\Yusuf.Zerdazi.Data.csproj": {
+              "projectPath": "C:\\Users\\yusuf\\Desktop\\Repos\\Yusuf.Zerdazi\\Yusuf.Zerdazi.Data\\Yusuf.Zerdazi.Data.csproj"
             }
           }
         }
@@ -13258,20 +13261,20 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "2.0.1"
+          },
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+            "target": "Package",
+            "version": "2.0.0"
+          },
           "Microsoft.NETCore.App": {
             "target": "Package",
             "version": "2.0.0",
             "autoReferenced": true
           },
           "Microsoft.AspNetCore.All": {
-            "target": "Package",
-            "version": "2.0.0"
-          },
-          "Microsoft.EntityFrameworkCore": {
-            "target": "Package",
-            "version": "2.0.1"
-          },
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "2.0.0"
           }

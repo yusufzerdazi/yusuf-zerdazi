@@ -3471,6 +3471,9 @@
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
       "projectUniqueName": "C:\\Users\\yusuf\\Desktop\\Repos\\Yusuf.Zerdazi\\Yusuf.Zerdazi.Services\\Yusuf.Zerdazi.Services.csproj",
       "projectName": "Yusuf.Zerdazi.Services",
