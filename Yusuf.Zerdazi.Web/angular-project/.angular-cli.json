@@ -19,14 +19,11 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "./assets/css/fa-svg-with-js.css",
         "styles.css"
       ],
       "scripts": [
         "../node_modules/p5/lib/p5.min.js",
-        "./assets/js/header.js",
-        "./assets/js/fontawesome-all.min.js"
+        "./assets/js/header.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

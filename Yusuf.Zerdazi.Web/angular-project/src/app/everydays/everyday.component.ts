@@ -93,5 +93,16 @@ export class EverydayComponent {
             window.open(piece.source.url, "_blank");
         }
     }
+
+    getThumbnail(): string {
+        switch(this.display.theme.medium){
+            case(Medium.Image):
+                return this.display.url + "?width=275&height=275&cropmode=center";
+            case(Medium.Video):
+                return this.display.url.replace('/root/content', '/driveItem/thumbnails/0/large/content');
+            default:
+                return '';
+        }
+    }
 }
 
