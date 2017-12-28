@@ -77,6 +77,7 @@ export class EverydayComponent {
             element = $("#" + this.display.id).get(0);
         } else {
             element = $("#fs" + this.display.id).get(0);
+            element.src = this.display.url + "?width=2000&height=2000&cropmode=none";
         }
         
         if(element.requestFullscreen){
@@ -104,7 +105,7 @@ export class EverydayComponent {
             case(Medium.Image):
                 return this.display.url + "?width=275&height=275&cropmode=center";
             case(Medium.Video):
-                return this.display.url.replace('/root/content', '/driveItem/thumbnails/0/large/content');
+                return this.display.url.replace('/root/content', '/driveItem/thumbnails/0/medium/content');
             default:
                 return '';
         }

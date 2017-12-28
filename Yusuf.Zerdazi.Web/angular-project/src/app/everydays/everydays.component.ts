@@ -10,7 +10,8 @@ import * as $ from 'jquery';
   })
 export class EverydaysComponent{
     errorMessage: string;
-    months: Month[];
+    finishedLoading: boolean = false;
+    months: Month[] = new Array<Month>();
     playing: number;
     loading: boolean = true;
     @ViewChildren(MonthComponent) children;
@@ -20,11 +21,10 @@ export class EverydaysComponent{
     }
 
     ngOnInit(): void {
-
-        this._everydaysService.getEverydays()
+        this._everydaysService.getMonth(this.months.length)
             .subscribe(
-                months => {
-                    this.months = months;
+                month => {
+                    this.months.push(month);
                     this.loading = false;
                 },
             error => this.errorMessage = <any>error
@@ -38,6 +38,24 @@ export class EverydaysComponent{
                     everyday.pause();
                 }
             }
+        }
+    }
+
+    onScroll () {
+        if(!this.finishedLoading && !this.loading){
+            this.loading = true;
+            this._everydaysService.getMonth(this.months.length)
+                .subscribe(
+                    month => {
+                        this.loading = false;
+                        this.months.push(month);
+                    },
+                error => {
+                    this.errorMessage = <any>error;
+                    this.finishedLoading = true;
+                    this.loading = false;
+                } 
+            );
         }
     }
 }

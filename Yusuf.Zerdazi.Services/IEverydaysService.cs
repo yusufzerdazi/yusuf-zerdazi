@@ -9,6 +9,7 @@ namespace Yusuf.Zerdazi.Services
     {
         Task<IList<Everyday>> GetAllEverydays();
         Task<IList<Month>> GetAllMonths();
+        Task<Month> GetMonth(DateTime start);
         Task<IList<Piece>> GetAllPieces();
         Task<IList<Piece>> GetPiecesForMonth(Month month);
         Task<IList<Month>> GetMonthForDate(DateTime date);
