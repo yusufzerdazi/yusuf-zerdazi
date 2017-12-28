@@ -18,6 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { MonthComponent } from './everydays/month.component';
 import { EverydayComponent } from './everydays/everyday.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     BrowserAnimationsModule,
     NgbTooltipModule,
+    InfiniteScrollModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([
       { path: 'everydays', component: EverydaysComponent },

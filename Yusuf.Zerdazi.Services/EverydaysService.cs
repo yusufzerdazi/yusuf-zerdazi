@@ -40,6 +40,27 @@ namespace Yusuf.Zerdazi.Services
             return months;
         }
 
+        public async Task<Month> GetMonth(DateTime start)
+        {
+            var month = await _context.Months
+                .Include(m => m.Everydays)
+                    .ThenInclude(e => e.Pieces)
+                    .ThenInclude(e => e.Source)
+                .Include(m => m.Themes)
+                .Where(m => m.Start == start)
+                .Where(m => m.Everydays.Any())
+                .OrderByDescending(m => m.Start)
+                .FirstOrDefaultAsync();
+
+            if(month == null)
+            {
+                return month;
+            }
+
+            month.Everydays = month.Everydays.OrderByDescending(e => e.Date).ToArray();
+            return month;
+        }
+
         public async Task<IList<Piece>> GetAllPieces()
         {
             return await _context.Pieces.ToListAsync();

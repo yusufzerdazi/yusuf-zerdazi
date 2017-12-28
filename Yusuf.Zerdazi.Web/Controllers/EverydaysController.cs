@@ -26,5 +26,19 @@ namespace Yusuf.Zerdazi.Web.Controllers
             var everydays = await _everydays.GetAllMonths();
             return Ok(everydays);
         }
+
+        [HttpGet]
+        [Route("month/{index}")]
+        public async Task<IActionResult> Month(int index)
+        {
+            var current = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 0);
+            var start = current.AddMonths(-index);
+            var everydays = await _everydays.GetMonth(start);
+            if (everydays == null)
+            {
+                return NotFound("Finished");
+            }
+            return Ok(everydays);
+        }
     }
 }
