@@ -8,7 +8,7 @@
 
 <section class="container">
     <div class="row">
-        <div *ngFor="let month of months; let i = index" class="{{i != 0 ? 'col-lg-6 col-6 month_small' : 'col-12'}} month_container">
+        <div *ngFor="let month of months; let i = index" class="{{i == -1 ? 'col-lg-6 col-6 month_small' : 'col-12'}} month_container">
             <div class="container">
                 <month [month]="month" (selected)='onSelected($event)'></month>
             </div>

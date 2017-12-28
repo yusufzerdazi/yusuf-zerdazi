@@ -1,10 +1,8 @@
 import { Component, Input, Output, OnChanges, EventEmitter, Inject } from "@angular/core";
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Medium } from './medium';
 import { Everyday } from "./everyday";
 import { Piece } from "./piece";
 import * as $ from 'jquery';
-import { EverydayModalComponent } from "./everyday.modal.component";
 
 @Component({
     selector: 'everyday',
@@ -18,10 +16,6 @@ export class EverydayComponent {
     playing: boolean = false;
     @Input() everyday: Everyday;
     @Output() selected: EventEmitter<number> = new EventEmitter<number>();
-
-    constructor(public dialog: MatDialog){
-
-    }
 
     ngOnChanges(): void {
         for(let piece of this.everyday.pieces){
@@ -76,16 +70,27 @@ export class EverydayComponent {
     }
 
     open(): void {
-        if(!this.audio){
-            this.pause();
+        this.selected.emit(this.media.id);
+
+        var element;
+        if(this.display.theme.medium == Medium.Video){
+            element = $("#" + this.display.id).get(0);
+        } else {
+            element = $("#fs" + this.display.id).get(0);
         }
-        if(this.display.theme.medium != Medium.Image){
-            this.selected.emit(this.media.id);
+        
+        if(element.requestFullscreen){
+            element.requestFullscreen();
+        } 
+        else if (element.webkitRequestFullscreen){
+            element.webkitRequestFullscreen();
         }
-        let dialogRef = this.dialog.open(EverydayModalComponent, {
-            data: { image: this.display.url,
-                    medium: this.display.theme.medium }
-        });
+        else if (element.mozRequestFullScreen){
+            element.mozRequestFullScreen();
+        }
+        else if (element.msRequestFullscreen){
+            element.msRequestFullscreen();
+        }
     }
 
     openSource(piece: Piece): void {

@@ -1,10 +1,11 @@
 <section class="text_container">
     <div class="everyday">
+        <img width="0%" height="0%" style="position: absolute" id="fs{{display.id}}" *ngIf="display.theme.medium == 0" [src]="display.url">
         <img (click)="open()" id="{{display.id}}" *ngIf="display.theme.medium == 0" class="fade dim" [src]="getThumbnail()"
             alt="">
-        <div (click)="open()" *ngIf="display.theme.medium == 2" class="everyday_video_container fade">
+        <div (click)="open();play();" *ngIf="display.theme.medium == 2" class="everyday_video_container fade">
             <video id="{{display.id}}" preload="none" [poster]="getThumbnail()">
-                <source src="{{display.url}}" type="video/webm">
+                <source src="{{display.url}}" type="video/mp4">
             </video>
         </div>
         <audio style="display:none" *ngIf="audio" id="{{audio.id}}" preload="none" src="{{audio.url}}"></audio>
