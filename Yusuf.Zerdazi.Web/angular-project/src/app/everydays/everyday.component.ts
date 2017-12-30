@@ -105,7 +105,7 @@ export class EverydayComponent {
             case(Medium.Image):
                 return this.display.url + "?width=275&height=275&cropmode=center";
             case(Medium.Video):
-                return this.display.url.replace('/root/content', '/driveItem/thumbnails/0/medium/content');
+                return this.display.url.replace('/root/content', '/driveItem/thumbnails/0/large/content');
             default:
                 return '';
         }
