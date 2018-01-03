@@ -7,8 +7,8 @@
 }
 
 .loading_container {
-    text-align: center;
-    margin: 30px;
-    padding-bottom: 30px;
     display: block;
+    text-align: center;
+    padding-bottom: 30px;
+    padding-top: 10px;
 }
