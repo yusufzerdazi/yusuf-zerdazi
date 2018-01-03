@@ -25,6 +25,7 @@ export class EverydaysComponent{
             .subscribe(
                 month => {
                     this.months.push(month);
+                    //this.months = this.months.slice();
                     this.loading = false;
                 },
             error => this.errorMessage = <any>error
@@ -47,15 +48,20 @@ export class EverydaysComponent{
             this._everydaysService.getMonth(this.months.length)
                 .subscribe(
                     month => {
-                        this.loading = false;
                         this.months.push(month);
+                        this.loading = false;
+                        //this.months = this.months.slice();
                     },
                 error => {
-                    this.errorMessage = <any>error;
+                    //this.errorMessage = <any>error;
                     this.finishedLoading = true;
                     this.loading = false;
                 } 
             );
         }
+    }
+
+    trackById(index: number, month: Month): number {
+        return month.id;
     }
 }
