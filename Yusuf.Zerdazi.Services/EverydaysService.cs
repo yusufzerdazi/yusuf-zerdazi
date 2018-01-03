@@ -48,7 +48,6 @@ namespace Yusuf.Zerdazi.Services
                     .ThenInclude(e => e.Source)
                 .Include(m => m.Themes)
                 .Where(m => m.Start == start)
-                .Where(m => m.Everydays.Any())
                 .OrderByDescending(m => m.Start)
                 .FirstOrDefaultAsync();
 
