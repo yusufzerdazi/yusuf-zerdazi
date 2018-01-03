@@ -14,7 +14,7 @@
     <ng-template #title></ng-template>
     <span class="inner_icon bottom_right">
         <span class="tooltip_container" *ngFor="let piece of everyday.pieces" [style.color]="piece.source ? 'grey' : 'white'">
-            <span (click)="openSource(piece)" (mouseenter)="t.open();l.open();" (mouseleave)="t.close();l.close();" class="tooltips tooltip_element">
+            <span (click)="openSource(piece)" (mouseenter)="t.open(); l.open();" (mouseleave)="t.close(); l.close();" class="tooltips tooltip_element">
                 <span class="tooltip_element" [ngbTooltip]="piece.title" container="body" placement="bottom" triggers="manual" #t="ngbTooltip"></span>
                 <span class="tooltip_element" [ngbTooltip]="(piece.source && piece.source.title != piece.title) ? piece.source.title : ''" container="body" triggers="manual" #l="ngbTooltip"></span>
             </span>
