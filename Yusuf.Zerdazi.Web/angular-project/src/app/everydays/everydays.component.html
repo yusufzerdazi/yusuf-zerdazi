@@ -13,5 +13,5 @@
 </section>
 
 <span class="loading_container">
-    <i *ngIf="loading" class="fas fa-fw fa-spinner fa-4x fa-pulse loading"></i>
+    <i (click)="onScroll()" *ngIf="!finishedLoading" class="fas fa-fw fa-3x {{loading ? 'fa-spinner fa-pulse' : 'fa-chevron-down load_more'}} loading"></i>
 </span>

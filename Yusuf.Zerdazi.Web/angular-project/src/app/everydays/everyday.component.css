@@ -39,7 +39,6 @@
     position: relative;
     text-align: center;
     padding: 0;
-    cursor: pointer;
 }
 
 vg-controls {
@@ -47,11 +46,27 @@ vg-controls {
     height: 30px;
 }
 
-vg-fullscreen {
+vg-fullscreen, vg-play-pause {
     height: 30px;
     width: 30px;
 }
 
 ng-template {
     z-index: 1001;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+vg-player > video {
+    opacity: 1;
+}
+
+vg-player:not(.fullscreen):hover > video {
+    opacity:0.80;
+}
+
+vg-player:not(.fullscreen) {
+    background-color: #FFF;
 }
