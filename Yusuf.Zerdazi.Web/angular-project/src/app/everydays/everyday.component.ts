@@ -85,7 +85,11 @@ export class EverydayComponent {
     }
 
     pause(): void{
-        this.api.getDefaultMedia().pause();
+        this.api.pause();
+    }
+
+    toggle(): void {
+        this.api.state == "playing" ? this.api.pause() : this.api.play();
     }
 
     openSource(piece: Piece): void {
