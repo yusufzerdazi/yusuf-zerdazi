@@ -12,9 +12,10 @@ using Yusuf.Zerdazi.Data.Models;
 namespace Yusuf.Zerdazi.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180128174333_AddedExplicitColumn")]
+    partial class AddedExplicitColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

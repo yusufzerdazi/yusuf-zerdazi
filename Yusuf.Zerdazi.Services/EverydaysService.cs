@@ -36,7 +36,27 @@ namespace Yusuf.Zerdazi.Services
                 .Where(m => m.Everydays.Any())
                 .OrderByDescending(m => m.Start)
                 .ToListAsync();
-            months.ForEach(m => m.Everydays = m.Everydays.OrderByDescending(e => e.Date).ToArray());
+
+            months.ForEach(m => m.Everydays = m.Everydays
+                .OrderByDescending(e => e.Date)
+                .ToArray()
+            );
+
+            foreach(var month in months)
+            {
+                foreach(var everyday in month.Everydays)
+                {
+                    everyday.Pieces.OrderByDescending(p => p.Theme);
+                    foreach(var piece in everyday.Pieces)
+                    {
+                        if (piece.Explicit)
+                        {
+                            piece.URL = null;
+                        }
+                    }
+                }
+            }
+
             return months;
         }
 

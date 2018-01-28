@@ -17,6 +17,7 @@ namespace Yusuf.Zerdazi.Data.Models
         public Theme Theme { get; set; }
         public string Title { get; set; }
         public string URL { get; set; }
+        public bool Explicit { get; set; }
         public Piece Source { get; set; }
     }
 }
