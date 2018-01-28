@@ -6,4 +6,3 @@ C:\Users\yusuf\Desktop\Repos\Yusuf.Zerdazi\Yusuf.Zerdazi.Data\obj\Debug\netcorea
 C:\Users\yusuf\Desktop\Repos\Yusuf.Zerdazi\Yusuf.Zerdazi.Data\bin\Debug\netcoreapp2.0\Yusuf.Zerdazi.Data.pdb
 C:\Users\yusuf\Desktop\Repos\Yusuf.Zerdazi\Yusuf.Zerdazi.Data\obj\Debug\netcoreapp2.0\Yusuf.Zerdazi.Data.dll
 C:\Users\yusuf\Desktop\Repos\Yusuf.Zerdazi\Yusuf.Zerdazi.Data\obj\Debug\netcoreapp2.0\Yusuf.Zerdazi.Data.pdb
-C:\Users\yusuf\Desktop\Repos\Yusuf.Zerdazi\Yusuf.Zerdazi.Data\obj\Debug\netcoreapp2.0\Yusuf.Zerdazi.Data.csprojResolveAssemblyReference.cache
