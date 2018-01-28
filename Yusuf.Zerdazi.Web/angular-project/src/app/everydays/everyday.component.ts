@@ -28,9 +28,17 @@ export class EverydayComponent {
                 if(this.display.theme.medium == 0){
                     if(event){
                         this.selected.emit(this.media.id)
-                        this.api.getDefaultMedia().elem.setAttribute("poster", this.display.url + "?width=2000&height=2000&cropmode=none");
+                        if(this.display.explicit){
+                            this.api.getDefaultMedia().elem.setAttribute("poster", "./assets/images/explicit_large.jpg");
+                        } else {
+                            this.api.getDefaultMedia().elem.setAttribute("poster", this.display.url + "?width=2000&height=2000&cropmode=none");
+                        }
                     } else {
-                        this.api.getDefaultMedia().elem.setAttribute("poster", this.display.url + "?width=275&height=275&cropmode=center")
+                        if(this.display.explicit){
+                            this.api.getDefaultMedia().elem.setAttribute("poster", "./assets/images/explicit.jpg");
+                        } else {
+                            this.api.getDefaultMedia().elem.setAttribute("poster", this.display.url + "?width=275&height=275&cropmode=center");
+                        }
                     }
                 }
             }
@@ -60,7 +68,11 @@ export class EverydayComponent {
 
         switch(this.display.theme.medium){
             case(Medium.Image):
-                this.thumbnail = this.display.url + "?width=275&height=275&cropmode=center";
+                if(this.display.explicit){
+                    this.thumbnail = "./assets/images/explicit.jpg";
+                } else {
+                    this.thumbnail = this.display.url + "?width=275&height=275&cropmode=center";
+                }
                 break;
             case(Medium.Video):
                 this.thumbnail = this.display.url.replace('/root/content', '/driveItem/thumbnails/0/large/content');
@@ -89,7 +101,9 @@ export class EverydayComponent {
     }
 
     toggle(): void {
-        this.api.state == "playing" ? this.api.pause() : this.api.play();
+        if(!this.media.explicit){
+            this.api.state == "playing" ? this.api.pause() : this.api.play();
+        }
     }
 
     openSource(piece: Piece): void {

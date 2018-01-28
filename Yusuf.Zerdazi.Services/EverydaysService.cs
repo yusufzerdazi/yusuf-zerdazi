@@ -77,6 +77,19 @@ namespace Yusuf.Zerdazi.Services
             }
 
             month.Everydays = month.Everydays.OrderByDescending(e => e.Date).ToArray();
+
+            foreach (var everyday in month.Everydays)
+            {
+                everyday.Pieces = everyday.Pieces.OrderByDescending(p => p.Theme).ToArray();
+                foreach (var piece in everyday.Pieces)
+                {
+                    if (piece.Explicit)
+                    {
+                        piece.URL = null;
+                    }
+                }
+            }
+
             return month;
         }
 

@@ -6,4 +6,5 @@ export class Piece {
     url: string;
     source: Piece;
     theme: Theme;
+    explicit: boolean;
 }
