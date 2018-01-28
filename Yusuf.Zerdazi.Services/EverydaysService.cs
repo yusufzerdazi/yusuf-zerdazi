@@ -80,7 +80,6 @@ namespace Yusuf.Zerdazi.Services
 
             foreach (var everyday in month.Everydays)
             {
-                everyday.Pieces = everyday.Pieces.OrderByDescending(p => p.Theme).ToArray();
                 foreach (var piece in everyday.Pieces)
                 {
                     if (piece.Explicit)
