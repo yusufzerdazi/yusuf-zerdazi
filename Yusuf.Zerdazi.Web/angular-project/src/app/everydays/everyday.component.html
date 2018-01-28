@@ -3,7 +3,7 @@
         <vg-player class="{{media.theme.medium == 2 ? 'video_everyday' : 'image_everyday'}}" (onPlayerReady)="onPlayerReady($event)">
             <vg-buffering></vg-buffering>
             <vg-controls>
-                <vg-play-pause></vg-play-pause>
+                <vg-play-pause *ngIf="!media.explicit"></vg-play-pause>
                 <vg-fullscreen></vg-fullscreen>
             </vg-controls>
             <video #mediae [vgMedia]="mediae" id="{{display.id}}" preload="none" [poster]="thumbnail" class="pointer fade" (click)="toggle()" >
@@ -14,7 +14,7 @@
     <ng-template #source></ng-template>
     <ng-template #title></ng-template>
     <span class="inner_icon bottom_right">
-        <span class="tooltip_container" *ngFor="let piece of everyday.pieces" [style.color]="piece.source ? 'grey' : 'white'">
+        <span class="tooltip_container" *ngFor="let piece of everyday.pieces" [style.color]="piece.explicit ? 'red' : (piece.source ? 'grey' : 'white')">
             <span (click)="openSource(piece)" (mouseenter)="t.open(); l.open();" (mouseleave)="t.close(); l.close();" class="tooltips tooltip_element {{piece.source ? 'pointer' : ''}}">
                 <span class="tooltip_element" [ngbTooltip]="piece.title" container="body" placement="bottom" triggers="manual" #t="ngbTooltip"></span>
                 <span class="tooltip_element" [ngbTooltip]="(piece.source && piece.source.title != piece.title) ? piece.source.title : ''" container="body" triggers="manual" #l="ngbTooltip"></span>
