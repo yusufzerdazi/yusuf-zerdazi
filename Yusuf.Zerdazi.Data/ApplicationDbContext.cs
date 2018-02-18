@@ -15,6 +15,7 @@ namespace Yusuf.Zerdazi.Data
         public DbSet<Month> Months { get; set; }
         public DbSet<Theme> Themes { get; set; }
         public DbSet<Piece> Pieces { get; set; }
+        public DbSet<Meal> Meals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -26,14 +26,14 @@ export class EverydayComponent {
         this.api.fsAPI.onChangeFullscreen.subscribe(
             event => {
                 if(this.display.theme.medium == 0){
-                    if(event){
+                    if(this.media && event){
                         this.selected.emit(this.media.id)
                         if(this.display.explicit){
                             this.api.getDefaultMedia().elem.setAttribute("poster", "./assets/images/explicit_large.jpg");
                         } else {
                             this.api.getDefaultMedia().elem.setAttribute("poster", this.display.url + "?width=2000&height=2000&cropmode=none");
                         }
-                    } else {
+                    } else if(this.media) {
                         if(this.display.explicit){
                             this.api.getDefaultMedia().elem.setAttribute("poster", "./assets/images/explicit.jpg");
                         } else {
@@ -101,7 +101,7 @@ export class EverydayComponent {
     }
 
     toggle(): void {
-        if(!this.media.explicit){
+        if(this.media && !this.media.explicit){
             this.api.state == "playing" ? this.api.pause() : this.api.play();
         }
     }

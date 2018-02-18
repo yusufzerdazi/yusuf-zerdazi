@@ -35,7 +35,7 @@ export class EverydaysComponent{
     onSelected(id: number){
         for(var month of this.children._results){
             for(var everyday of month.children._results){
-                if(everyday.media.id != id){
+                if(everyday.media && everyday.media.id != id){
                     everyday.pause();
                 }
             }
