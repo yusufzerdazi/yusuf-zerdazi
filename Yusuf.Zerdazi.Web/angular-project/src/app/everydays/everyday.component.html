@@ -1,13 +1,13 @@
 <section class="text_container">
     <div class="everyday">
-        <vg-player class="{{media.theme.medium == 2 ? 'video_everyday' : 'image_everyday'}}" (onPlayerReady)="onPlayerReady($event)">
-            <vg-buffering></vg-buffering>
+        <vg-player class="{{(media && media.theme.medium == 2) ? 'video_everyday' : 'image_everyday'}}" (onPlayerReady)="onPlayerReady($event)">
+            <vg-buffering *ngIf="media"></vg-buffering>
             <vg-controls>
-                <vg-play-pause *ngIf="!media.explicit"></vg-play-pause>
+                <vg-play-pause *ngIf="media && !media.explicit"></vg-play-pause>
                 <vg-fullscreen></vg-fullscreen>
             </vg-controls>
-            <video #mediae [vgMedia]="mediae" id="{{display.id}}" preload="none" [poster]="thumbnail" class="pointer fade" (click)="toggle()" >
-                <source [src]="media.url" [type]="media.theme.medium == 2 ? 'video/mp4' : 'audio/mp3'">
+            <video #mediae [vgMedia]="mediae" id="{{display.id}}" preload="none" [poster]="thumbnail" class="pointer fade" (click)="media ? toggle(): ''" >
+                <source [src]="media ? media.url : ''" [type]="media ? (media.theme.medium == 2 ? 'video/mp4' : 'audio/mp3') : ''">
             </video>
         </vg-player>
     </div>
