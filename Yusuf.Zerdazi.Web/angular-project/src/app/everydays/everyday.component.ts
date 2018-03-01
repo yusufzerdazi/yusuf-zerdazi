@@ -1,4 +1,5 @@
 import { Component, Input, Output, OnChanges, EventEmitter, Inject } from "@angular/core";
+import { EverydaysService } from './everydays.service';
 import { Medium } from './medium';
 import { Everyday } from "./everyday";
 import { Piece } from "./piece";
@@ -14,11 +15,16 @@ export class EverydayComponent {
     display: Piece;
     audio: Piece;
     media: Piece;
+    sources: Piece[];
     api: VgAPI;
     playing: boolean = false;
     thumbnail: string;
     @Input() everyday: Everyday;
     @Output() selected: EventEmitter<number> = new EventEmitter<number>();
+
+    constructor(private _everydaysService: EverydaysService){
+
+    }
 
     onPlayerReady(api:VgAPI) {
         this.api = api
@@ -58,10 +64,12 @@ export class EverydayComponent {
                 case(Medium.Video):
                     this.display = piece;
                     this.media = piece;
+                    this.sources = [this.media];
                     break;
                 case(Medium.Sound):
                     this.audio = piece;
                     this.media = piece;
+                    this.sources = [this.media];
                     break;
             }
         }
@@ -107,7 +115,25 @@ export class EverydayComponent {
     }
 
     openSource(piece: Piece): void {
-        if(piece.source && piece.source.url){
+        if(piece.explicit){
+            this._everydaysService.getPiece(piece.id).subscribe(
+                p => {
+                    if(this.media.id == piece.id){
+                        this.media.url = p.url;
+                        this.media.explicit = false;
+                        this.everyday.pieces = [p,this.display];
+                        this.sources = [this.media];
+                        console.log(this.media);
+                    }
+                    if(this.display.id == piece.id){
+                        this.display.url = p.url;
+                        this.display.explicit = false;
+                        this.thumbnail = this.display.url + "?width=275&height=275&cropmode=center";
+                        this.everyday.pieces = [this.media,p];
+                    }
+                });
+        }
+        else if(piece.source && piece.source.url){
             window.open(piece.source.url, "_blank");
         }
     }

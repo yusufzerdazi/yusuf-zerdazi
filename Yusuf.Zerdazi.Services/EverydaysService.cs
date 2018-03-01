@@ -20,111 +20,53 @@ namespace Yusuf.Zerdazi.Services
             _context = context;
         }
 
-        public async Task<IList<EverydayDto>> GetAllEverydays()
+        public async Task<PieceDto> GetPieceAsync(int id, bool showExplicit = false)
         {
-            var everydays = await _context.Everydays
-                .Include(e => e.Pieces).ThenInclude(p => p.Theme)
-                .Select(e => Mapper.Map<EverydayDto>(e))
-                .ToListAsync();
-            return everydays;
+            var piece = await _context.Pieces
+                .Include(p => p.Theme)
+                .Select(p => Mapper.Map<PieceDto>(p))
+                .SingleAsync(e => e.Id == id);
+            piece.Filter(showExplicit);
+            return piece;
         }
 
-        public async Task<IList<MonthDto>> GetAllMonths()
+        public async Task<IList<MonthDto>> GetAllMonthsAsync()
         {
-            var months = await _context.Months
-                .Include(m => m.Everydays).ThenInclude(e => e.Pieces).ThenInclude(e => e.Source)
-                .Include(m => m.Everydays).ThenInclude(e => e.Pieces).ThenInclude(p => p.Theme)
-                .Where(m => m.Everydays.Any())
-                .OrderByDescending(m => m.Start)
+            var months = await GetMonths()
                 .Select(m => Mapper.Map<MonthDto>(m))
                 .ToListAsync();
-
-            months.ForEach(m => m.Everydays = m.Everydays
-                .OrderByDescending(e => e.Date)
-                .ToList()
-            );
-
             foreach(var month in months)
             {
-                foreach(var everyday in month.Everydays)
-                {
-                    everyday.Pieces.OrderByDescending(p => p.Theme);
-                    foreach(var piece in everyday.Pieces)
-                    {
-                        if (piece.Explicit)
-                        {
-                            piece.URL = null;
-                        }
-                    }
-                }
+                month.Order();
+                month.Filter();
             }
-
             return months;
         }
 
-        public async Task<MonthDto> GetMonth(DateTime start)
+        public async Task<MonthDto> GetMonthAsync(DateTime start)
         {
-            var month = await _context.Months
-                .Include(m => m.Everydays).ThenInclude(e => e.Pieces).ThenInclude(e => e.Source)
-                .Include(m => m.Everydays).ThenInclude(e => e.Pieces).ThenInclude(p => p.Theme)
+            var month = await GetMonths()
                 .Where(m => m.Start == start)
-                .OrderByDescending(m => m.Start)
                 .Select(m => Mapper.Map<MonthDto>(m))
                 .SingleAsync();
-
-            if(month == null)
-            {
-                return month;
-            }
-
-            month.Everydays = month.Everydays.OrderByDescending(e => e.Date).ToList();
-
-            foreach (var everyday in month.Everydays)
-            {
-                foreach (var piece in everyday.Pieces)
-                {
-                    if (piece.Explicit)
-                    {
-                        piece.URL = null;
-                    }
-                }
-            }
-
+            month.Order();
+            month.Filter();
             return month;
-        }
-
-        public async Task<IList<PieceDto>> GetAllPieces()
-        {
-            return await _context.Pieces
-                .Select(p => Mapper.Map<PieceDto>(p))
-                .ToListAsync();
-        }
-
-        public async Task<IList<PieceDto>> GetPiecesForMonth(Month month)
-        {
-            return await _context.Months
-                .Where(e => e == month)
-                .Include(m => m.Everydays)
-                    .ThenInclude(e => e.Pieces)
-                    .ThenInclude(p => p.Theme)
-                .Select(m => m.Everydays
-                    .Select(e => e.Pieces))
-                .SelectMany(x => x)
-                .SelectMany(x => x)
-                .Select(p => Mapper.Map<PieceDto>(p))
-                .ToListAsync();
-        }
-
-        public async Task<MonthDto> GetMonthForDate(DateTime date)
-        {
-            var monthStart = date.AddDays(-date.Day + 1);
-            return await GetMonth(monthStart);
         }
 
         public async Task<MonthDto> GetMonthFromEnd(int i)
         {
-            return await GetMonthForDate((await _context.Everydays.OrderByDescending(e => e.Date)
-                .FirstAsync()).Date.AddMonths(-i));
+            var startDate = (await GetMonths().LastAsync()).Start.AddMonths(-i);
+            return await GetMonthAsync(startDate);
+        }
+
+        private IQueryable<Month> GetMonths()
+        {
+            return _context.Months
+                .Include(m => m.Everydays).ThenInclude(e => e.Pieces).ThenInclude(e => e.Source)
+                .Include(m => m.Everydays).ThenInclude(e => e.Pieces).ThenInclude(p => p.Theme)
+                .Where(m => m.Everydays.Any())
+                .OrderBy(m => m.Start);
         }
     }
 }
