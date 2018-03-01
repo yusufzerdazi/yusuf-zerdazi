@@ -1,9 +1,0 @@
-C:\Users\yusuf\Desktop\Repos\Yusuf.Zerdazi\Yusuf.Zerdazi.Data\bin\Debug\netcoreapp2.0\Yusuf.Zerdazi.Data.deps.json
-C:\Users\yusuf\Desktop\Repos\Yusuf.Zerdazi\Yusuf.Zerdazi.Data\bin\Debug\netcoreapp2.0\Yusuf.Zerdazi.Data.dll
-C:\Users\yusuf\Desktop\Repos\Yusuf.Zerdazi\Yusuf.Zerdazi.Data\obj\Debug\netcoreapp2.0\Yusuf.Zerdazi.Data.csproj.CoreCompileInputs.cache
-C:\Users\yusuf\Desktop\Repos\Yusuf.Zerdazi\Yusuf.Zerdazi.Data\obj\Debug\netcoreapp2.0\Yusuf.Zerdazi.Data.AssemblyInfoInputs.cache
-C:\Users\yusuf\Desktop\Repos\Yusuf.Zerdazi\Yusuf.Zerdazi.Data\obj\Debug\netcoreapp2.0\Yusuf.Zerdazi.Data.AssemblyInfo.cs
-C:\Users\yusuf\Desktop\Repos\Yusuf.Zerdazi\Yusuf.Zerdazi.Data\bin\Debug\netcoreapp2.0\Yusuf.Zerdazi.Data.pdb
-C:\Users\yusuf\Desktop\Repos\Yusuf.Zerdazi\Yusuf.Zerdazi.Data\obj\Debug\netcoreapp2.0\Yusuf.Zerdazi.Data.dll
-C:\Users\yusuf\Desktop\Repos\Yusuf.Zerdazi\Yusuf.Zerdazi.Data\obj\Debug\netcoreapp2.0\Yusuf.Zerdazi.Data.pdb
-C:\Users\yusuf\Desktop\Repos\Yusuf.Zerdazi\Yusuf.Zerdazi.Data\obj\Debug\netcoreapp2.0\Yusuf.Zerdazi.Data.csprojResolveAssemblyReference.cache
