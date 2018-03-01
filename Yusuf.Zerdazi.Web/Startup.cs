@@ -11,6 +11,9 @@ using System.IO;
 using Yusuf.Zerdazi.Data;
 using Microsoft.EntityFrameworkCore;
 using Yusuf.Zerdazi.Services;
+using AutoMapper;
+using Yusuf.Zerdazi.Data.Models;
+using Yusuf.Zerdazi.Shared.Dtos;
 
 namespace Yusuf.Zerdazi.Web
 {
@@ -27,6 +30,20 @@ namespace Yusuf.Zerdazi.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            Mapper.Initialize(cfg => {
+                cfg.CreateMap<Everyday, EverydayDto>();
+                cfg.CreateMap<Theme, ThemeDto>();
+                cfg.CreateMap<Piece, PieceDto>();
+                cfg.CreateMap<Month, MonthDto>()
+                    .ForMember(m => m.Themes, 
+                        opt => opt.MapFrom(n => Mapper.Map<List<ThemeDto>>(n.Everydays
+                            .SelectMany(e => e.Pieces)
+                            .Select(p => p.Theme)
+                            .GroupBy(t => t.Id)
+                            .Select(t => t.First()))));
+            });
+            
+
             services.AddDbContext<ApplicationDbContext>(options =>
                       options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IEverydaysService, EverydaysService>();

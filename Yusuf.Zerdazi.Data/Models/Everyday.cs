@@ -12,7 +12,7 @@ namespace Yusuf.Zerdazi.Data.Models
 
         }
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public ICollection<Piece> Pieces { get; set; }
     }

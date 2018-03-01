@@ -31,9 +31,7 @@ namespace Yusuf.Zerdazi.Web.Controllers
         [Route("month/{index}")]
         public async Task<IActionResult> Month(int index)
         {
-            var current = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            var start = current.AddMonths(-index);
-            var everydays = await _everydays.GetMonth(start);
+            var everydays = await _everydays.GetMonthFromEnd(index);
             if (everydays == null)
             {
                 return NotFound("Finished");
