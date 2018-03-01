@@ -8,12 +8,9 @@ namespace Yusuf.Zerdazi.Services
 {
     public interface IEverydaysService
     {
-        Task<IList<EverydayDto>> GetAllEverydays();
-        Task<IList<MonthDto>> GetAllMonths();
-        Task<MonthDto> GetMonth(DateTime start);
-        Task<IList<PieceDto>> GetAllPieces();
-        Task<IList<PieceDto>> GetPiecesForMonth(Month month);
-        Task<MonthDto> GetMonthForDate(DateTime date);
+        Task<PieceDto> GetPieceAsync(int id, bool showExplicit = false);
+        Task<IList<MonthDto>> GetAllMonthsAsync();
+        Task<MonthDto> GetMonthAsync(DateTime start);
         Task<MonthDto> GetMonthFromEnd(int i);
     }
 }

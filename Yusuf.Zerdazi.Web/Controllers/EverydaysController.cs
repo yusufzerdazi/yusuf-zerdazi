@@ -23,8 +23,15 @@ namespace Yusuf.Zerdazi.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var everydays = await _everydays.GetAllMonths();
+            var everydays = await _everydays.GetAllMonthsAsync();
             return Ok(everydays);
+        }
+
+        [HttpGet, Route("piece/{id}")]
+        public async Task<IActionResult> Piece(int id, bool showExplicit = false)
+        {
+            var everyday = await _everydays.GetPieceAsync(id, showExplicit);
+            return Ok(everyday);
         }
 
         [HttpGet]

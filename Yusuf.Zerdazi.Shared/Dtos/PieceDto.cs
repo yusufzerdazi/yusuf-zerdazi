@@ -8,5 +8,17 @@
         public string URL { get; set; }
         public bool Explicit { get; set; }
         public PieceDto Source { get; set; }
+
+        public void Filter(bool showExplicit = false)
+        {
+            if (Explicit && !showExplicit)
+            {
+                URL = null;
+            }
+            else
+            {
+                Explicit = false;
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@
                 <vg-fullscreen></vg-fullscreen>
             </vg-controls>
             <video #mediae [vgMedia]="mediae" id="{{display.id}}" preload="none" [poster]="thumbnail" class="pointer fade" (click)="media ? toggle(): ''" >
-                <source [src]="media ? media.url : ''" [type]="media ? (media.theme.medium == 2 ? 'video/mp4' : 'audio/mp3') : ''">
+                <source *ngFor="let video of sources" [src]="video ? video.url : ''" [type]="video ? (video.theme.medium == 2 ? 'video/mp4' : 'audio/mp3') : ''">
             </video>
         </vg-player>
     </div>
@@ -15,9 +15,9 @@
     <ng-template #title></ng-template>
     <span class="inner_icon bottom_right">
         <span class="tooltip_container" *ngFor="let piece of everyday.pieces" [style.color]="piece.explicit ? 'red' : (piece.source ? 'grey' : 'white')">
-            <span (click)="openSource(piece)" (mouseenter)="t.open(); l.open();" (mouseleave)="t.close(); l.close();" class="tooltips tooltip_element {{piece.source ? 'pointer' : ''}}">
-                <span class="tooltip_element" [ngbTooltip]="piece.title" container="body" placement="bottom" triggers="manual" #t="ngbTooltip"></span>
-                <span class="tooltip_element" [ngbTooltip]="(piece.source && piece.source.title != piece.title) ? piece.source.title : ''" container="body" triggers="manual" #l="ngbTooltip"></span>
+            <span (click)="openSource(piece)" (mouseenter)="t.open(); l.open();" (mouseleave)="t.close(); l.close();" class="tooltips tooltip_element {{piece.source || piece.explicit ? 'pointer' : ''}}">
+                <span class="tooltip_element" [ngbTooltip]="piece.explicit ? 'Show explicit/suggestive content' : piece.title" container="body" placement="bottom" triggers="manual" #t="ngbTooltip"></span>
+                <span class="tooltip_element" [ngbTooltip]="(!piece.explicit && piece.source && piece.source.title != piece.title) ? piece.source.title : ''" container="body" triggers="manual" #l="ngbTooltip"></span>
             </span>
             <i class="fas fa-fw {{getIcon(piece)}}"></i>
         </span>
