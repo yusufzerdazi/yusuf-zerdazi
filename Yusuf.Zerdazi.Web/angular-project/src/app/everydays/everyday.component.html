@@ -1,12 +1,13 @@
-<section class="text_container">
+<section class="text_container {{media && media.theme.medium == 2 ? 'video' : 'image'}}" (mouseenter)="showOptions()" (mouseleave)="hideOptions()">
     <div class="everyday">
-        <vg-player class="{{(media && media.theme.medium == 2) ? 'video_everyday' : 'image_everyday'}}" (onPlayerReady)="onPlayerReady($event)">
+        <vg-player class="{{(media && media.theme.medium == 2) ? 'video_everyday' : 'image_everyday'}}" (onPlayerReady)="onPlayerReady($event)" [ngStyle]="{'background-color':bgColor}">
             <vg-buffering *ngIf="media"></vg-buffering>
-            <vg-controls>
+            <vg-controls [hidden]="!optionsVisible">
                 <vg-play-pause *ngIf="media && !media.explicit"></vg-play-pause>
                 <vg-fullscreen></vg-fullscreen>
             </vg-controls>
-            <video #mediae [vgMedia]="mediae" id="{{display.id}}" preload="none" [poster]="thumbnail" class="pointer fade" (click)="media ? toggle(): ''" >
+            <canvas (click)="media ? toggle(): ''" class="pointer" style="width:100%" id="vis{{media.id}}" *ngIf="display == null"></canvas>
+            <video #mediae crossorigin="anonymous" [vgMedia]="mediae" id="{{display ? display.id : media.id}}" preload="none" [poster]="thumbnail" class="pointer" (click)="media ? toggle(): ''" >
                 <source *ngFor="let video of sources" [src]="video ? video.url : ''" [type]="video ? (video.theme.medium == 2 ? 'video/mp4' : 'audio/mp3') : ''">
             </video>
         </vg-player>
@@ -14,7 +15,7 @@
     <ng-template #source></ng-template>
     <ng-template #title></ng-template>
     <span class="inner_icon bottom_right">
-        <span class="tooltip_container" *ngFor="let piece of everyday.pieces" [style.color]="piece.explicit ? 'red' : (piece.source ? 'grey' : 'white')">
+        <span [hidden]="!optionsVisible" class="tooltip_container" *ngFor="let piece of everyday.pieces" [style.color]="piece.explicit ? 'red' : (piece.source ? 'grey' : 'white')">
             <span (click)="openSource(piece)" (mouseenter)="t.open(); l.open();" (mouseleave)="t.close(); l.close();" class="tooltips tooltip_element {{piece.source || piece.explicit ? 'pointer' : ''}}">
                 <span class="tooltip_element" [ngbTooltip]="piece.explicit ? 'Show explicit/suggestive content' : piece.title" container="body" placement="bottom" triggers="manual" #t="ngbTooltip"></span>
                 <span class="tooltip_element" [ngbTooltip]="(!piece.explicit && piece.source && piece.source.title != piece.title) ? piece.source.title : ''" container="body" triggers="manual" #l="ngbTooltip"></span>

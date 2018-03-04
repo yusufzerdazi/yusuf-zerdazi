@@ -15,5 +15,6 @@ namespace Yusuf.Zerdazi.Data.Models
         public int Id { get; set; }
         public DateTime Start { get; set; }
         public ICollection<Everyday> Everydays { get; set; }
+        public ICollection<Theme> Themes { get; set; }
     }
 }

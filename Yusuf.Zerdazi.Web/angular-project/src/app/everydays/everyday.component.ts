@@ -5,6 +5,7 @@ import { Everyday } from "./everyday";
 import { Piece } from "./piece";
 import * as $ from 'jquery';
 import {VgAPI} from 'videogular2/core';
+import {Visualiser} from '../../assets/visualiser/visualiser';
 
 @Component({
     selector: 'everyday',
@@ -12,6 +13,7 @@ import {VgAPI} from 'videogular2/core';
     styleUrls: ['./everyday.component.css']
 })
 export class EverydayComponent {
+    visualiser:Visualiser;
     display: Piece;
     audio: Piece;
     media: Piece;
@@ -19,6 +21,8 @@ export class EverydayComponent {
     api: VgAPI;
     playing: boolean = false;
     thumbnail: string;
+    bgColor:string = getRandomColor();
+    optionsVisible:boolean = false;
     @Input() everyday: Everyday;
     @Output() selected: EventEmitter<number> = new EventEmitter<number>();
 
@@ -51,7 +55,25 @@ export class EverydayComponent {
         );
 
         this.api.subscriptions.play.subscribe(
-            event => this.selected.emit(this.media.id)
+            event => {
+                
+                if(!this.display){
+                    if(this.visualiser){
+                        this.visualiser.play();
+                    } else {
+                        this.visualiser = new Visualiser(this.media.id);
+                    }
+                }
+                this.selected.emit(this.media.id)
+            }
+        )
+
+        this.api.subscriptions.pause.subscribe(
+            event => {
+                if(!this.display){
+                    this.visualiser.stop();
+                }
+            }
         )
     }
     
@@ -73,21 +95,22 @@ export class EverydayComponent {
                     break;
             }
         }
-
-        switch(this.display.theme.medium){
-            case(Medium.Image):
-                if(this.display.explicit){
-                    this.thumbnail = "./assets/images/explicit.jpg";
-                } else {
-                    this.thumbnail = this.display.url + "?width=275&height=275&cropmode=center";
-                }
-                break;
-            case(Medium.Video):
-                this.thumbnail = this.display.url.replace('/root/content', '/driveItem/thumbnails/0/large/content');
-                break;
-            default:
-                this.thumbnail = '';
-                break;
+        if(this.display){
+            switch(this.display.theme.medium){
+                case(Medium.Image):
+                    if(this.display.explicit){
+                        this.thumbnail = "./assets/images/explicit.jpg";
+                    } else {
+                        this.thumbnail = this.display.url + "?width=275&height=275&cropmode=center";
+                    }
+                    break;
+                case(Medium.Video):
+                    this.thumbnail = this.display.url.replace('/root/content', '/driveItem/thumbnails/0/large/content');
+                    break;
+                default:
+                    this.thumbnail = '';
+                    break;
+            }
         }
     }
 
@@ -137,5 +160,21 @@ export class EverydayComponent {
             window.open(piece.source.url, "_blank");
         }
     }
+
+    showOptions(){
+        this.optionsVisible = true;
+    }
+
+    hideOptions(){
+        this.optionsVisible = false;
+    }
 }
 
+function getRandomColor(){
+    var letters = 'BCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * letters.length)];
+    }
+    return color;
+}
