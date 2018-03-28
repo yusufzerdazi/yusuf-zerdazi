@@ -1,17 +1,18 @@
-<div class="title">
-    <img src="./assets/images/everydays_black.svg" />
-</div>
+<a  [routerLink]="['']">
+    <div class="header_title">
+    </div>
+</a>
 
-<section class="container" infiniteScroll [infiniteScrollDistance]="0" (scrolled)="onScroll()">
+<section class="container-fluid" class="everydays" infiniteScroll [infiniteScrollDistance]="1" (scrolled)="onScroll()">
     <div class="row">
         <div *ngFor="let month of months; let i = index; trackBy: trackById" class="{{i == -1 ? 'col-lg-6 col-6 month_small' : 'col-12'}} month_container">
-            <div class="container">
+            <div class="container-fluid">
                 <month [month]="month" (selected)='onSelected($event)'></month>
             </div>
         </div>
     </div>
 </section>
 
-<span class="loading_container">
-    <i (click)="onScroll()" *ngIf="!finishedLoading" class="fas fa-fw fa-3x {{loading ? 'fa-spinner fa-pulse' : 'fa-chevron-down load_more'}} loading"></i>
+<span *ngIf="!finishedLoading" class="loading_container">
+    <i (click)="onScroll()" class="fas fa-fw fa-3x {{loading ? 'fa-spinner fa-pulse' : 'fa-chevron-down load_more'}} loading"></i>
 </span>

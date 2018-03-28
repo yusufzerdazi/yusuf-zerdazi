@@ -3,7 +3,7 @@
     display: inline-block;
     padding-left: 3px;
     padding-right: 3px;
-    z-index: 1000;
+    z-index: 301;
 }
 
 .tooltip_container {
@@ -69,7 +69,7 @@ vg-fullscreen, vg-play-pause {
 }
 
 ng-template {
-    z-index: 1001;
+    z-index: 302;
 }
 
 .pointer {

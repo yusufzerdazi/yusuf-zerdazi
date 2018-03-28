@@ -1,12 +1,14 @@
-<div>
-    <div class="section_title">
-        <h1>{{date}}</h1>
-        <h2>{{title}}</h2>
-    </div>
+<div [ngStyle]="monthStyles" class="month">
+    <div style="background: inherit;" class="container">
+        <div style="background: inherit;" class="section_title">
+            <h1 style="background: inherit;background-clip: text;color: transparent;filter: invert(1);">{{date}}</h1>
+            <h2 style="background: inherit;background-clip: text;color: transparent;filter: invert(1);">{{title}}</h2>
+        </div>
 
-    <div class="section_content row text-center text-lg-left">
-        <div *ngFor="let everyday of month.everydays" class="{{!this.isVideo ? 'col-lg-2 col-md-3 col-sm-4 col-6' : 'col-lg-3 col-md-4 col-sm-6'}} everyday_container">
-            <everyday [everyday]="everyday" (selected)='selected.emit($event)'></everyday>
+        <div class="section_content row text-center text-lg-left">
+            <div *ngFor="let everyday of month.everydays" class="{{!this.isVideo ? 'col-lg-2 col-md-3 col-sm-4 col-6' : 'col-lg-3 col-md-4 col-sm-6'}} everyday_container">
+                <everyday [everyday]="everyday" (selected)='selected.emit($event)'></everyday>
+            </div>
         </div>
     </div>
 </div>

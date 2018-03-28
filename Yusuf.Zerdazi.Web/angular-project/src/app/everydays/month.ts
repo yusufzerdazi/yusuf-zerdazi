@@ -3,6 +3,7 @@ import { Everyday } from './everyday';
 
 export class Month {
     id: number;
+    imageUrl: string;
     start: Date;
     themes: Theme[];
     everydays: Everyday[];

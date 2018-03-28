@@ -17,11 +17,23 @@ export class MonthComponent {
     monthNames: string[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ];
+    monthStyles: object;
 
     ngOnChanges(): void {
         var monthDate = new Date(this.month.start);
         this.title = this.month.themes.map(t => t.title).join(" and ");
         this.date = this.monthNames[monthDate.getMonth()] + " " + monthDate.getFullYear().toString();
         this.isVideo = this.month.themes.map(x => x.medium).includes(2);
+
+        this.monthStyles = {
+            'background' : 'linear-gradient(\
+                rgba(255, 255, 255, 0.5),\
+                rgba(255, 255, 255, 0.5)\
+              ), url('+ this.month.imageUrl +')',
+            'background-attachment': 'fixed',
+            'background-position': 'center top',
+            'background-repeat' : 'no-repeat',
+            'background-size': 'cover'
+        }
     }
 }

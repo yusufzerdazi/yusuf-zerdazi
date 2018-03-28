@@ -12,9 +12,10 @@ using Yusuf.Zerdazi.Shared.Enums;
 namespace Yusuf.Zerdazi.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180327221242_AddMonthBackgrounds")]
+    partial class AddMonthBackgrounds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,5 +1,17 @@
+.everydays {
+    padding: 0;
+}
+
+.everydays > .row {
+    margin: 0;
+}
+
 .month_container {
-    padding-bottom: 20px;
+    padding: 0;
+}
+
+.month_container > .container-fluid {
+    padding: 0;
 }
 
 .month_small {
@@ -10,8 +22,15 @@
     display: block;
     text-align: center;
     padding-bottom: 30px;
+    padding-top: 30px;
 }
 
 .load_more {
     cursor: pointer;
+}
+
+.header_title{
+    background: url(/assets/images/everydays_title.svg);
+    background-repeat: no-repeat;
+    background-position: center;
 }

@@ -1,9 +1,31 @@
-
-
 .the-mondays {
     background-color: #1e1e1e;
 }
 
 .everydays {
     background-color: black;
+}
+
+.header_title{
+    background: url(/assets/images/yusuf.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.everydays {
+    /* top, transparent black, faked with gradient */ 
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.7), 
+      rgba(0, 0, 0, 0.7)
+    ), url(/assets/images/everydays_background.jpg);
+    background-attachment: fixed;
+}
+
+.the-mondays {
+    /* top, transparent black, faked with gradient */ 
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.7), 
+      rgba(0, 0, 0, 0.7)
+    ), url(/assets/images/the_mondays_background.jpg);
+    background-attachment: fixed;
 }
