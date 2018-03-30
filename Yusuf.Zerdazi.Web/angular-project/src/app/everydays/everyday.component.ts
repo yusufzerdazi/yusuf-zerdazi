@@ -117,11 +117,11 @@ export class EverydayComponent {
     getIcon(piece: Piece): string{
         switch(piece.theme.medium){
             case(Medium.Image):
-                return "fa-image";
+                return "image";
             case(Medium.Video):
-                return "fa-video";
+                return "video";
             case(Medium.Sound):
-                return "fa-music";
+                return "music";
             default:
                 return "";
         }

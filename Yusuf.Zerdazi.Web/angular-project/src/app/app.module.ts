@@ -16,6 +16,13 @@ import { VgControlsModule } from 'videogular2/controls';
 import { VgOverlayPlayModule } from 'videogular2/overlay-play';
 import { VgBufferingModule } from 'videogular2/buffering';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faImage, faVideo, faMusic, faSpinner, faChevronDown } from '@fortawesome/pro-solid-svg-icons';
+import { faLinkedin, faGithub, faSoundcloud, faTwitter, faFacebook } from '@fortawesome/free-brands-svg-icons';
+
+library.add(faImage, faVideo, faMusic, faSpinner, faChevronDown, faLinkedin, faGithub, faSoundcloud, faTwitter, faFacebook);
+
 // Custom components
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header.component';
@@ -46,6 +53,7 @@ import { EverydayComponent } from './everydays/everyday.component';
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
+    FontAwesomeModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([
       { path: 'everydays', component: EverydaysComponent },

@@ -20,7 +20,7 @@
                 <span class="tooltip_element" [ngbTooltip]="piece.explicit ? 'Show explicit/suggestive content' : piece.title" container="body" placement="bottom" triggers="manual" #t="ngbTooltip"></span>
                 <span class="tooltip_element" [ngbTooltip]="(!piece.explicit && piece.source && piece.source.title != piece.title) ? piece.source.title : ''" container="body" triggers="manual" #l="ngbTooltip"></span>
             </span>
-            <i class="fas fa-fw {{getIcon(piece)}}"></i>
+            <fa-icon [icon]="['fas', getIcon(piece)]"></fa-icon>
         </span>
     </span>
 </section>

@@ -1,8 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
-@import "~@fortawesome/fontawesome-pro-webfonts/css/fontawesome.css";
-@import "~@fortawesome/fontawesome-pro-webfonts/css/fa-solid.css";
-@import "~@fortawesome/fontawesome-pro-webfonts/css/fa-brands.css";
 @import "~videogular2/fonts/videogular.css";
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
@@ -13,7 +10,7 @@ html {
 
 body {
     padding: 0;
-    margin-bottom: 60px; /* Margin bottom by footer height */
+    margin-bottom: 50px; /* Margin bottom by footer height */
 }
 
 .title {
@@ -45,7 +42,7 @@ section {
 }
 
 .section_title {
-    color: #203647;
+    color: #000;
     text-align: center;
     padding: 10px;
 }

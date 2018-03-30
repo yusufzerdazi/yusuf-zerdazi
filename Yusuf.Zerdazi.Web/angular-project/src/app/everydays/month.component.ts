@@ -26,14 +26,15 @@ export class MonthComponent {
         this.isVideo = this.month.themes.map(x => x.medium).includes(2);
 
         this.monthStyles = {
-            'background' : 'linear-gradient(\
-                rgba(255, 255, 255, 0.5),\
-                rgba(255, 255, 255, 0.5)\
-              ), url('+ this.month.imageUrl +')',
+            // 'background' : 'linear-gradient(\
+            //     rgba(255, 255, 255, 0.5),\
+            //     rgba(255, 255, 255, 0.5)\
+            //   ), url('+ this.month.imageUrl +')',
+            'background': monthDate.getMonth() % 2 == 0 ? "#fafafa" : "white",
             'background-attachment': 'fixed',
             'background-position': 'center top',
             'background-repeat' : 'no-repeat',
-            'background-size': 'cover'
+            'background-size': '1920px'
         }
     }
 }

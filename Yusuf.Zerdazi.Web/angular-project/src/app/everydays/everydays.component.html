@@ -14,5 +14,7 @@
 </section>
 
 <span *ngIf="!finishedLoading" class="loading_container">
-    <i (click)="onScroll()" class="fas fa-fw fa-3x {{loading ? 'fa-spinner fa-pulse' : 'fa-chevron-down load_more'}} loading"></i>
+    <a [style.cursor]="loading ? none : 'pointer'">
+        <fa-icon (click)="onScroll()" [icon]="['fas', loading ? 'spinner' : 'chevron-down']" class="loading" [pulse]="loading ? true : false" size="2x"></fa-icon>
+    </a>
 </span>
