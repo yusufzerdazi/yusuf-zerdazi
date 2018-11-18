@@ -14,18 +14,9 @@
 
 .everydays {
     /* top, transparent black, faked with gradient */ 
-    background: linear-gradient(
-      rgba(0, 0, 0, 0.7), 
-      rgba(0, 0, 0, 0.7)
-    ), url(/assets/images/everydays_background.jpg);
-    background-attachment: fixed;
+    background-color: black;
 }
 
 .the-mondays {
-    /* top, transparent black, faked with gradient */ 
-    background: linear-gradient(
-      rgba(0, 0, 0, 0.7), 
-      rgba(0, 0, 0, 0.7)
-    ), url(/assets/images/the_mondays_background.jpg);
-    background-attachment: fixed;
+    background-color: #1e1e1e;
 }
