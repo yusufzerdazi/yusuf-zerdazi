@@ -12,7 +12,7 @@ export class HeaderComponent {
   }
   ngOnInit() {
     /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-    particlesJS.load('header_wave', './assets/particles/particlesjs-config.json', function () {
+    particlesJS.load('header_wave', 'assets/particles/particlesjs-config.json', function () {
       //console.log('callback - particles.js config loaded');
     });
   }
