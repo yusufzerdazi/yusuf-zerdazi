@@ -12,7 +12,7 @@ export class FooterComponent {
   }
   ngOnInit() {
     /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-    particlesJS.load('footer', 'assets/particles/particlesjs-config.json', function () {
+    particlesJS.load('footer', '../../assets/particles/particlesjs-config.json', function () {
       //console.log('callback - particles.js config loaded');
     });
   }
