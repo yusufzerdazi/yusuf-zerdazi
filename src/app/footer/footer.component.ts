@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { headerFooterParticles } from '../_config/particlesjs-config';
 
 declare var particlesJS: any;
 
@@ -12,7 +13,7 @@ export class FooterComponent {
   }
   ngOnInit() {
     /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-    particlesJS.load('footer', 'assets/particles/particlesjs-config.json', function () {
+    particlesJS('footer', headerFooterParticles, function () {
       //console.log('callback - particles.js config loaded');
     });
   }
