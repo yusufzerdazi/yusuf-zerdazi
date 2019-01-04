@@ -1,0 +1,14 @@
+<div class="value_container">
+    <img (click)="overlay = true" src="{{img}}" class="value_image dim" />
+    <h2>{{title}}</h2>
+
+    <div (click)="overlay = false" class="overlay" [style.display]="overlay ? 'block' : 'none'" >
+      <div class="overlay_text">
+        <h1>{{title}}</h1>
+        <img src="{{img}}" class="value_image_overlay" />
+        <p>
+          <ng-content></ng-content>
+        </p>
+      </div>
+    </div> 
+  </div>

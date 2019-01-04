@@ -21,3 +21,25 @@ header {
     height: 150px;
     background: black;
 }
+
+.header_title{
+    background: url(/assets/images/yusuf.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+nav {
+    text-align: center;
+    font-size: 1.25rem;
+}
+
+nav a {
+    font-family: 'Open Sans', sans-serif;
+    text-transform: uppercase;
+    color: black;
+}
+
+nav a:hover {
+    color: #666;
+    text-decoration: none;
+}

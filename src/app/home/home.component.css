@@ -6,12 +6,6 @@
     background-color: black;
 }
 
-.header_title{
-    background: url(/assets/images/yusuf.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
 .everydays {
     /* top, transparent black, faked with gradient */ 
     background-color: black;

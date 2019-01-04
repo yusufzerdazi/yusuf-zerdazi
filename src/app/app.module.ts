@@ -12,6 +12,8 @@ import { faImage, faVideo, faMusic, faSpinner, faChevronDown } from '@fortawesom
 import { faLinkedin, faGithub, faSoundcloud, faTwitter, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
+import { ValuesComponent } from './values/values.component';
+import { ValueComponent } from './value/value.component';
 
 library.add(faImage, faVideo, faMusic, faSpinner, faChevronDown, faLinkedin, faGithub, faSoundcloud, faTwitter, faFacebook);
 
@@ -20,24 +22,20 @@ library.add(faImage, faVideo, faMusic, faSpinner, faChevronDown, faLinkedin, faG
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ValuesComponent,
+    ValueComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full'}
-    ], {useHash: true, initialNavigation: 'enabled' }),
+      { path: '', component: HomeComponent, pathMatch: 'full'},
+      { path: 'values', component: ValuesComponent }
+    ]),
     FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-
-/*
-Copyright 2017-2018 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/
