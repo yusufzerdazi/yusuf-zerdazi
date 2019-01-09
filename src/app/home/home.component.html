@@ -14,10 +14,49 @@
           </a>
       </div>
       <div class="section_content">
-          <p style="color:white;">Inspired by Beeple's <a href="http://beeple-crap.com/everydays.php">Everydays</a> project, I plan to complete some piece of work — an image, a sound, a video, or some combination of these — every day. The aim of this project is to get better at certain skills, and to make myself practice regularly.</p>
-          <p style="color:white;">Of course, sometimes life will get in the way and I will miss days, although I will try to catch up on the days I miss.</p>
+          <p style="color:white;">Inspired by Beeple's <a href="http://beeple-crap.com/everydays.php">Everydays</a> project, I plan to
+            complete some piece of work — an image, a sound, a video, or some combination of these — every day. The aim of this project is 
+            to get better at certain skills, and to make myself practice regularly. Of course, sometimes life will get in the way and I 
+            will miss days, although I will try to catch up on the days I miss.</p>
       </div>
   </div>
+</section>
+<section class="raspberry_pi_robot">
+    <div class="container">
+        <div class="section_title link" style="padding-bottom:20px">
+            <a [routerLink]="['raspberry-pi-robot']">
+                <img class="dim" src="assets/images/projects/pi_robot.svg" />
+            </a>
+        </div>
+        <div class="section_content">
+            <p>
+                My final year project was 
+                to construct a robot which used <a href="https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping">Simultaneous Localisation 
+                and Mapping (SLAM)</a> techniques, to map out rooms in real time. The robot was based on a 
+                <a href="https://en.wikipedia.org/wiki/Raspberry_Pi">Raspberry Pi</a>, using 
+                <a href="https://en.wikipedia.org/wiki/Lego_Mindstorms">LEGO Mindstorms</a> 
+                components for sensor data and wheel movement, and streamed data to and from a remote 
+                laptop for control inputs. The project was successful, having major benefits when compared to using raw sensor data to map out rooms, 
+                and there is scope for further work to be done by implementing more robust sensors. I attained 80% in this project, which made up half 
+                of the final year of my degree.
+            </p>
+        </div>
+    </div>
+</section>
+<section class="arduino_robot">
+    <div class="container">
+        <div class="section_title link" style="padding-bottom:20px">
+            <a [routerLink]="['arduino-robot']">
+                <img class="dim" src="assets/images/projects/arduino_robot.svg" />
+            </a>
+        </div>
+        <div class="section_content">
+            <p>
+                At AS-Level, I built and programmed a simple, object avoiding robot using Arduino. I used CAD software to design the chassis, and an infrared sensor to detect objects.
+                Since then, I have improved the robot, which is now Bluetooth controlled. I used a servo motor to control the steering, and a Bluetooth reciever paired with an Android app to control it.
+            </p>
+        </div>
+    </div>
 </section>
 <section class="the-mondays">
   <div class="container">
