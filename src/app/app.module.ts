@@ -14,6 +14,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
 import { ValuesComponent } from './values/values.component';
 import { ValueComponent } from './value/value.component';
+import { ArduinoRobotComponent } from './arduino-robot/arduino-robot.component';
+import { RaspberryPiRobotComponent } from './raspberry-pi-robot/raspberry-pi-robot.component';
+import { NavbarColourService } from './_services/navbar-colour-service';
 
 library.add(faImage, faVideo, faMusic, faSpinner, faChevronDown, faLinkedin, faGithub, faSoundcloud, faTwitter, faFacebook);
 
@@ -24,18 +27,22 @@ library.add(faImage, faVideo, faMusic, faSpinner, faChevronDown, faLinkedin, faG
     HeaderComponent,
     FooterComponent,
     ValuesComponent,
-    ValueComponent
+    ValueComponent,
+    ArduinoRobotComponent,
+    RaspberryPiRobotComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full'},
-      { path: 'values', component: ValuesComponent }
+      { path: 'values', component: ValuesComponent },
+      { path: 'arduino-robot', component: ArduinoRobotComponent },
+      { path: 'raspberry-pi-robot', component: RaspberryPiRobotComponent }
     ]),
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [NavbarColourService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
