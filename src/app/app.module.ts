@@ -39,7 +39,7 @@ library.add(faImage, faVideo, faMusic, faSpinner, faChevronDown, faLinkedin, faG
       { path: 'values', component: ValuesComponent },
       { path: 'arduino-robot', component: ArduinoRobotComponent },
       { path: 'raspberry-pi-robot', component: RaspberryPiRobotComponent }
-    ]),
+    ], {scrollPositionRestoration: 'enabled'}),
     FontAwesomeModule
   ],
   providers: [NavbarColourService],
