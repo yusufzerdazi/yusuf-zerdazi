@@ -7,6 +7,7 @@ header {
 
 .banner {
     height: 150px;
+    width: 150px;
     position: absolute;
     z-index: 312;
     background: url(/assets/images/portrait.svg);
