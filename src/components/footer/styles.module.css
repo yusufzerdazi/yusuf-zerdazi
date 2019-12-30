@@ -1,0 +1,22 @@
+.footerContainer {
+    margin: auto;
+    padding: 10px;
+}
+
+footer {
+    background: black;
+    display:flex;
+    align-items:center;
+    position: absolute;
+    left:0;
+    bottom:0;
+    right:0;
+    width: 100%;
+    height: 52px;
+    margin-bottom:0px;
+    z-index: 1001;
+}
+
+.footerLink:hover {
+    opacity: 0.9;
+}

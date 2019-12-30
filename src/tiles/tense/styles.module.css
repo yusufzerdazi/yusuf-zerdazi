@@ -1,0 +1,22 @@
+.tenseContainer {
+    background-image: linear-gradient(to right, black 50%, white 50%);
+    background-image: -o-linear-gradient(left, black 50%, white 50%);
+    background-image: -moz-linear-gradient(left, black 50%, white 50%);
+    background-image: -webkit-linear-gradient(left, black 50%, white 50%);
+    background-image: -ms-linear-gradient(left, black 50%, white 50%);
+    max-height: 250px;
+    display: block;
+}
+
+.tenseImage {
+    max-height: 250px;
+}
+
+.tenseContainer:hover {
+    opacity: 0.9;
+}
+
+.tenseLink {
+    background-color: white;
+    display: block;
+}

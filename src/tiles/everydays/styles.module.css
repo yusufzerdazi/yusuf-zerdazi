@@ -1,0 +1,29 @@
+.everydaysContainer {
+    max-height: 250px;
+    display: block;
+    position: relative;
+}
+
+.everydaysImage {
+    max-height: 250px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.everydaysLogoImage {
+    position: absolute;
+    height: calc(100% - 50px);
+    top: 25px;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+
+.everydaysContainer:hover {
+    opacity: 0.9;
+}
+
+.everydaysLink {
+    background-color: white;
+    display: block;
+}

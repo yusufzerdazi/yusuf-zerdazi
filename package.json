@@ -1,61 +1,40 @@
 {
-  "name": "yusufzerdazi",
-  "version": "0.0.0",
-  "private": false,
+  "name": "yusuf-zerdazi",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "@angular/animations": "7.1.4",
-    "@angular/common": "7.1.4",
-    "@angular/compiler": "^7.1.4",
-    "@angular/core": "7.1.4",
-    "@angular/forms": "7.1.4",
-    "@angular/http": "7.1.4",
-    "@angular/platform-browser": "7.1.4",
-    "@angular/platform-browser-dynamic": "7.1.4",
-    "@angular/router": "7.1.4",
-    "@fortawesome/angular-fontawesome": "^0.3.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
     "@fortawesome/free-brands-svg-icons": "^5.12.0",
     "@fortawesome/free-solid-svg-icons": "^5.12.0",
     "@fortawesome/pro-solid-svg-icons": "^5.12.0",
-    "bootstrap": "^4.2.1",
-    "core-js": "2.6.1",
-    "flatted": "^2.0.0",
-    "jasmine-core": "2.99.1",
-    "jasmine-marbles": "0.4.1",
-    "node-sass": "^4.13.0",
-    "particles.js": "^2.0.0",
-    "rxjs": "6.3.3",
-    "web-animations-js": "2.3.1",
-    "zone.js": "0.8.26"
+    "@fortawesome/react-fontawesome": "^0.1.8",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.4.0",
+    "@testing-library/user-event": "^7.2.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts": "3.3.0",
+    "react-scroll": "^1.7.15"
   },
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "devDependencies": {
-    "@angular-devkit/build-angular": "^0.13.9",
-    "@angular/cli": "^7.3.9",
-    "@angular/compiler-cli": "^7.1.4",
-    "@angular/language-service": "~7.0.0",
-    "@fortawesome/fontawesome-pro": "^5.12.0",
-    "@types/jasmine": "~2.8.8",
-    "@types/jasminewd2": "~2.0.3",
-    "@types/node": "~8.9.4",
-    "codelyzer": "~4.5.0",
-    "jasmine-core": "~2.99.1",
-    "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~3.0.0",
-    "karma-chrome-launcher": "~2.2.0",
-    "karma-coverage-istanbul-reporter": "~2.0.1",
-    "karma-jasmine": "~1.1.2",
-    "karma-jasmine-html-reporter": "^0.2.2",
-    "protractor": "~5.4.0",
-    "ts-node": "~7.0.0",
-    "tslint": "~5.11.0",
-    "typescript": "~3.1.1"
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

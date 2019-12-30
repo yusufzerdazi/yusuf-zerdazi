@@ -1,0 +1,9 @@
+body {
+  background: black;
+}
+
+.appContainer {
+  padding-bottom:52px;
+  position: relative;
+  min-height: calc(100vh - 2px);
+}

@@ -1,0 +1,16 @@
+.headerContainer {
+    max-width: 700px;
+    margin: auto;
+    padding: 10px;
+}
+
+header {
+    background: black;
+}
+
+.headerImage { 
+    cursor: pointer;
+}
+
+.grow { transition: all .3s ease-in-out; }
+.grow:hover { transform: scale(1.02); }
