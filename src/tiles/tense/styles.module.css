@@ -6,6 +6,7 @@
     background-image: -ms-linear-gradient(left, black 50%, white 50%);
     max-height: 250px;
     display: block;
+    cursor: pointer;
 }
 
 .tenseImage {
@@ -13,10 +14,23 @@
 }
 
 .tenseContainer:hover {
-    opacity: 0.9;
+    opacity: 0.6;
 }
 
-.tenseLink {
-    background-color: white;
+.tenseDescription {
+    
+    text-align: center;
+    max-height: 0;
+    margin: auto;
     display: block;
+    transition: all .5s ease-in-out;
+}
+
+.tenseDescription.expanded {
+    max-height: 2000px;
+    padding: 10px;
+}
+
+.tenseDescription:not(.expanded) {
+    opacity: 0;
 }

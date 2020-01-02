@@ -1,6 +1,10 @@
 .container {
   position: absolute;
-  background: black;
+  background-image: url('../../assets/background.jpg');
+  background-position: center;
+  background-size: 60vw;
+  background-repeat: no-repeat;
+  background-color: black;
   z-index: 1000;
   text-align: center;
   min-height: 100vh;
@@ -16,15 +20,19 @@
 .logo {
   max-width: 1000px;
   cursor: pointer;
+  -webkit-filter: drop-shadow( 2px 2px 4px rgba(0, 0, 0, .7));
+  filter: drop-shadow( 2px 2px 4px rgba(0, 0, 0, .7));
 }
 
-.grow { transition: all .3s ease-in-out; cursor: pointer; }
+.grow { transition: transform .3s ease-in-out; cursor: pointer; }
 .grow:hover { transform: scale(1.03); }
 
 .iconLogo {
   max-height: 40px;
   height: 3.5vw;
   padding: 0 2vw;
+  -webkit-filter: drop-shadow( 2px 2px 4px rgba(0, 0, 0, .7));
+  filter: drop-shadow( 2px 2px 4px rgba(0, 0, 0, .7));
 }
 
 .values {
@@ -39,6 +47,7 @@
   z-index: -1;
   opacity: 0;
   transition: all .3s ease-in-out;
+  text-shadow: 2px 2px 4px black;
 }
 
 .iconLogo:hover ~ .pageTitle {

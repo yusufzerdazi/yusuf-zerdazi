@@ -17,7 +17,7 @@ function Home(props){
             </span>
             <span className={styles.iconContainer}>
               <img className={styles.iconLogo} src="values/presence.svg"></img>
-              <h3 className={styles.pageTitle}></h3>
+              <h3 className={styles.pageTitle}>Archive</h3>
             </span>
             <span className={styles.iconContainer}>
               <img className={styles.iconLogo} src="values/humanity.svg"></img>
