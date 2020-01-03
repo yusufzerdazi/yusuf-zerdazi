@@ -4,17 +4,22 @@ import Value from '../../components/value';
 import styles from './styles.module.css';
 import { Element } from 'react-scroll'
 
-function Values(props) {
+class Values extends React.Component {
+  constructor(props){
+    super(props);
+  }
+
+  render() {
     return (
       <Element id='values' name='values'>
-      <section id="values" className="values" style={{ display: props.hidden ? 'none' : 'block'}}>
+      <section className="values" style={{ display: this.props.hidden ? 'none' : 'block'}}>
         <div className="container">
           <div className={styles.title}>
             <h1>Values</h1>
           </div>
           <div className="row">
             <div className="col-md-4 col-6">
-              <Value title="Balance" img="values/balance.svg">
+              <Value parent={this.myInput} title="Balance" img="values/balance.svg">
                 Whether it be diet, beliefs, how much we sleep or the amount we drink, we should strive to not devolve into excess.
                 Excess in any aspect of life, whether it's the amount of time we spend scrolling through Facebook or the number of runs we've
                 been on in a day, will inevitably lead to either dissatisfaction or burnout. We've evolved as humans to maintain homeostasis. 
@@ -23,7 +28,7 @@ function Values(props) {
             </div>
 
             <div className="col-md-4 col-6">
-              <Value title="Persistence" img="values/persistence.svg">
+              <Value parent={this.myInput} title="Persistence" img="values/persistence.svg">
                 Improvement can only be achieved through practice, and to change ourselves, we have to challenge ourselves.
                 If we live in comfort, we stagnate, neither evolving nor developing. I think we should always push to the precipice 
                 of our abilities in whatever we do, and in this, push it further into the ocean of possibility.
@@ -91,6 +96,7 @@ function Values(props) {
       </section>
       </Element>
     );
+  }
 }
 
 export default Values;

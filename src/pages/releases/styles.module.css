@@ -2,3 +2,7 @@
     text-align: center;
     padding-top: 10px;
 }
+
+.sourceLink:hover {
+    opacity: 0.6;
+}

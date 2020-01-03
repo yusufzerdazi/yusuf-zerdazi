@@ -6,12 +6,6 @@
     cursor: pointer;
 }
 
-.value_image_container {
-    background-color: white;
-    max-height: 250px;
-    max-width: 250px;
-}
-
 .value_container{
     margin: auto;
     text-align: center;
@@ -36,7 +30,7 @@ h1, h2, h3 {
 }
 
 .value_image:hover {
-    opacity: 0.9;
+    opacity: 0.6;
 }
 
 .overlay {
