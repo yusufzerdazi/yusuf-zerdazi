@@ -9,6 +9,8 @@ import './App.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import { isMobile } from 'react-device-detect';
+import Projects from './pages/projects';
 
 library.add(fab);
 
@@ -23,10 +25,11 @@ class App extends React.Component {
   render(){
     return (
       <div className="appContainer">
-        {this.state.home ? <Home enterSite={this.hideHome}/> : ''}
+        {this.state.home && !isMobile ? <Home enterSite={this.hideHome}/> : ''}
         <Header exitSite={this.showHome}/>
-        <Releases hidden={this.state.home}/>
-        <Values hidden={this.state.home}/>
+        <Releases hidden={this.state.home && !isMobile}/>
+        <Projects hidden={this.state.home && !isMobile}/>
+        <Values hidden={this.state.home && !isMobile}/>
         <Footer/>
       </div>
     );

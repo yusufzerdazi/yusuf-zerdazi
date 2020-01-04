@@ -18,12 +18,6 @@ code {
   height: 0; overflow: hidden;
 }
 
-.video-container-50 {
-  width: 50%;
-  display: inline-block;
-  padding: 10px;
-}
-  
 .video-container iframe,
 .video-container object,
 .video-container embed {

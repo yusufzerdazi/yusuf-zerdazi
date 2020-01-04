@@ -10,13 +10,28 @@
     width: 100%;
 }
 
-.tileForegroundImage {
+.small {
+    height: 175px;
+}
+
+.small > .tileForegroundImageContainer {
+    padding: 10px;
+}
+
+.tileForegroundImageContainer {
     position: absolute;
-    height: calc(100% - 50px);
-    top: 25px;
-    margin: auto;
     left: 0;
     right: 0;
+    height: 100%;
+    padding: 25px;
+    display: inline-flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+}
+
+.tileForegroundImage {
+    max-height: 100%;
+    max-width: 100%;
 }
 
 .tileContainer:hover {
