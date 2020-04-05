@@ -9,7 +9,6 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 import Projects from './pages/projects';
-import background from './assets/background.mp4';
 
 library.add(fab);
 
@@ -25,7 +24,7 @@ class App extends React.Component {
     return (
       <div className="appContainer">
         <video autoPlay muted loop id="myVideo">
-          <source src={background} type="video/mp4" />
+          <source src="background.mp4" type="video/mp4" />
         </video>
         <Header/>
         <Releases/>

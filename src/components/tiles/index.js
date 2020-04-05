@@ -51,7 +51,7 @@ class Tiles extends React.Component {
 
     return (
       <>
-        <div class="row">
+        <div className="row">
           {tiles}
         </div>
       </>
