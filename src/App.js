@@ -23,9 +23,11 @@ class App extends React.Component {
   render(){
     return (
       <div className="appContainer">
-        <video autoPlay muted loop id="myVideo">
-          <source src="background.mp4" type="video/mp4" />
-        </video>
+        <div className="videoContainer">
+          <video autoPlay muted loop id="myVideo">
+            <source src="background.mp4" type="video/mp4" />
+          </video>
+        </div>
         <Header/>
         <Releases/>
         <Projects/>
