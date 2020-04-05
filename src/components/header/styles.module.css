@@ -4,10 +4,6 @@
     padding: 10px;
 }
 
-header {
-    background: black;
-}
-
 .headerImage { 
     cursor: pointer;
 }

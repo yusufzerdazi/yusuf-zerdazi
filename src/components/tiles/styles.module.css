@@ -1,0 +1,24 @@
+.tileImage
+{
+    /* border: 1px solid black; */
+    max-height: 250px;
+    max-width: 250px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.tileContainer {
+    margin: auto;
+    text-align: center;
+    padding-bottom: 20px;
+    max-width: 250px;
+}
+
+.textContainer {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.tileImage:hover {
+    opacity: 0.6;
+}

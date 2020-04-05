@@ -14,7 +14,6 @@ footer {
     height: 52px;
     margin-bottom:0px;
     z-index: 1001;
-    background: black;
 }
 
 .footerLink:hover {

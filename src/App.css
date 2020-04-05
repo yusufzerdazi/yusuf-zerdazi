@@ -1,5 +1,5 @@
 body {
-  background: black;
+  background: white;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -9,4 +9,19 @@ body {
   padding-bottom:52px;
   position: relative;
   min-height: calc(100vh - 2px);
+}
+
+/* Style the video: 100% width and height to cover the entire window */
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1000;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', sans-serif;
+  color: white;
 }

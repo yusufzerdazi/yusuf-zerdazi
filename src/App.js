@@ -1,6 +1,5 @@
 import React from 'react';
 import Releases from './pages/releases';
-import Home from './components/home';
 import Values from './pages/values';
 import Header from './components/header';
 import Footer from './components/footer'
@@ -9,8 +8,8 @@ import './App.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-import { isMobile } from 'react-device-detect';
 import Projects from './pages/projects';
+import background from './assets/background.mp4';
 
 library.add(fab);
 
@@ -25,11 +24,13 @@ class App extends React.Component {
   render(){
     return (
       <div className="appContainer">
-        {this.state.home && !isMobile ? <Home enterSite={this.hideHome}/> : ''}
-        <Header exitSite={this.showHome}/>
-        <Releases hidden={this.state.home && !isMobile}/>
-        <Projects hidden={this.state.home && !isMobile}/>
-        <Values hidden={this.state.home && !isMobile}/>
+        <video autoPlay muted loop id="myVideo">
+          <source src={background} type="video/mp4" />
+        </video>
+        <Header/>
+        <Releases/>
+        <Projects/>
+        <Values/>
         <Footer/>
       </div>
     );

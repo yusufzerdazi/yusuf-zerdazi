@@ -6,3 +6,12 @@
 .sourceLink:hover {
     opacity: 0.6;
 }
+
+.tileImage
+{
+    /* border: 1px solid black; */
+    max-height: 250px;
+    max-width: 250px;
+    width: 100%;
+    cursor: pointer;
+}
