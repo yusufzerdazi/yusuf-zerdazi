@@ -29,7 +29,10 @@ class Tiles extends React.Component {
       tiles.push(
         <div key={i} onClick={this.expand.bind(this, i)} className="col-md-4 col-6">
           <div className={styles.tileContainer}>
-            <img className={styles.tileImage} src={this.props.children[i].props.image}></img>
+            <div className={styles.imageContainer}>
+              <img className={styles.tileImage} src={this.props.children[i].props.image}></img>
+              {this.props.children[i].props.tooltip ? <div className={styles.topright}>{this.props.children[i].props.tooltip}</div> : null}
+            </div>
             {this.props.children[i].props.title ? <h2>{this.props.children[i].props.title}</h2> : null}
           </div>
         </div>
