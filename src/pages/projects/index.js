@@ -27,7 +27,7 @@ class Projects extends React.Component {
             <h1>Projects</h1>
           </div>
           <Tiles>
-            <div image={everydays} >
+            <div image={everydays} tooltip="Ongoing">
               <h2>Everydays</h2>
               <p>Inspired by Beeple's <a href="http://beeple-crap.com/everydays.php">Everydays</a> project, I plan to
                 complete some piece of work — an image, a sound, a video, or some combination of these — every day. The aim of this project is 
