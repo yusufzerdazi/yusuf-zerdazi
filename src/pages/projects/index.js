@@ -60,7 +60,9 @@ class Projects extends React.Component {
             <div image={lecturehall}>
               <h2>Virtual Lecture Hall</h2>
               <p>In this university assignment I created a 3D virtual lecture hall using JavaScript and WEB-GL. Check it out below - try kicking all the shapes outside the door onto the roof for an easter egg!</p>
-              <iframe id="serviceFrameSend" src="./virtual-lecture-hall/index.html" width="100%" height="500" frameborder="0" />
+              <div class="video-container">
+                <iframe width="560" height="315" id="serviceFrameSend" src="./virtual-lecture-hall/index.html" width="100%" height="100%" frameborder="0" />
+              </div>
             </div>
             <div image={rcRobot} >
               <h2>Arduino Robot</h2>
