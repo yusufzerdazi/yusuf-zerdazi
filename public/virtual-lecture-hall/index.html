@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Lecture Hall</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <style>
+      /* make the body fill the window */
+      html, body {
+      margin: 0px;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      }
+      /* make any canvas fill its container */
+      canvas {
+      width: 100%;
+      height: 100%;
+      }
+      .container {
+        position: relative;
+      }
+      #overlay {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+      }
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10px;
+}
+    </style>
+  </head>
+
+  <body onload="main()">
+    <div class="container">
+      <canvas id="webgl">
+        Please use a browser that supports "canvas"
+      </canvas>
+      <div id="overlay">
+        <table cellpadding="2">
+        <tr>
+          <td>Mouse</td>
+          <td>Look (click to lock cursor)</td>
+        </tr>
+        <tr>
+          <td>⬆,⬇,⬅,➡</td>
+          <td>Look</td>
+        </tr>
+        <tr>
+          <td>W,A,S,D</td>
+          <td>Move</td>
+        </tr>
+        <tr>
+          <td>Space</td>
+          <td>Jump/Fly Up</td>
+        </tr>
+        <tr>
+          <td>Shift (Hold)</td>
+          <td>Sprint</td>
+        </tr>
+        <tr>
+          <td>Z</td>
+          <td>Fly Down</td>
+        </tr>
+        <tr>
+          <td>1,2,3,4</td>
+          <td>Lights On/Off</td>
+        </tr>
+        <tr>
+          <td>E</td>
+          <td>Open/Close Door</td>
+        </tr>
+        <tr>
+          <td>I</td>
+          <td>Enable/Disable Fly Mode</td>
+        </tr>
+        <tr>
+          <td>O</td>
+          <td>Enable/Disable Fan</td>
+        </tr>
+        <tr>
+          <td>P</td>
+          <td>Enable Party Lights</td>
+        </tr>
+        <tr>
+          <td>Q</td>
+          <td>Spawn Entity</td>
+        </tr>
+        <tr>
+          <td>H</td>
+          <td>Show/Hide Controls</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+    <script src="./lib/webgl-utils.js"></script>
+    <script src="./lib/webgl-debug.js"></script>
+    <script src="./lib/cuon-utils.js"></script>
+    <script src="./lib/cuon-matrix.js"></script>
+    <script src="LectureHall.js"></script>
+  </body>
+</html>
