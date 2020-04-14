@@ -9,7 +9,9 @@ import instagram from '../../assets/everyda.ys_nametag.png';
 import catfeeder from '../../assets/catfeeder.jpg';
 import security from '../../assets/security.jpg';
 import lecturehall from '../../assets/lecture-hall.jpg';
+import nomobile from '../../assets/no-mobile.png';
 import Tiles from '../../components/tiles';
+import { isMobile } from 'react-device-detect';
 
 class Projects extends React.Component {
   constructor(props){
@@ -67,9 +69,9 @@ class Projects extends React.Component {
             <div image={lecturehall}>
               <h2>Virtual Lecture Hall</h2>
               <p>In this university assignment I created a 3D virtual lecture hall using JavaScript and WEB-GL. Check it out below - try kicking all the shapes outside the door onto the roof for an easter egg!</p>
-              <div class="video-container">
+              { !isMobile ? <div class="video-container">
                 <iframe width="560" height="315" id="serviceFrameSend" src="./virtual-lecture-hall/index.html" width="100%" height="100%" frameborder="0" />
-              </div>
+              </div> : <><img height="50px" src={nomobile}></img><p style={{fontWeight:"900"}}>Not mobile compatible</p></> }
             </div>
             <div image={rcRobot} >
               <h2>Arduino Robot</h2>
