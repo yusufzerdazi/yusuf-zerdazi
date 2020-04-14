@@ -10,7 +10,6 @@ import catfeeder from '../../assets/catfeeder.jpg';
 import security from '../../assets/security.jpg';
 import lecturehall from '../../assets/lecture-hall.jpg';
 import nomobile from '../../assets/no-mobile.png';
-import flow from '../../assets/flow.png';
 import Tiles from '../../components/tiles';
 import { isMobile } from 'react-device-detect';
 
@@ -44,7 +43,6 @@ class Projects extends React.Component {
               <p>There's numerous home security systems available, most of which are at least a hundred pounds. However, with a simple Raspberry Pi and a camera, it's possible to achieve a similar result for less than fifty.</p>
               <p>The Raspberry Pi streams its live camera input, and uses a package called <a href="https://motion-project.github.io/">Motion</a> to detect if anything moves. If it does, it calls a webhook which gives me a phone notification through <a href="https://ifttt.com/">IFTTT</a>.</p>
               <p>This notification gives me a link to view the camera live-stream, so I can see what the camera has detected.</p>
-              <p><img width="100%" style={{maxWidth:"700px"}} src={flow}></img></p>
             </div>
             <div image={catfeeder}>
               <h2>Automatic Cat Feeder</h2>
