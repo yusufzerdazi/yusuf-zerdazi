@@ -7,6 +7,7 @@ import everydays from '../../assets/everydays.svg';
 import robot from '../../assets/robot.png';
 import instagram from '../../assets/everyda.ys_nametag.png';
 import catfeeder from '../../assets/catfeeder.jpg';
+import security from '../../assets/security.jpg';
 import lecturehall from '../../assets/lecture-hall.jpg';
 import Tiles from '../../components/tiles';
 
@@ -34,6 +35,12 @@ class Projects extends React.Component {
                 to get better at certain skills, and to make myself practice regularly. Of course, sometimes life will get in the way and I 
                 will miss days, although I will try to catch up on the days I miss.</p>
               <a href="https://instagram.com/everyda.ys"><h4><img height="150px" className={styles.sourceLink} src={instagram}></img></h4></a>
+            </div>
+            <div image={security}>
+              <h2>Security Camera</h2>
+              <p>There's numerous home security systems available, most of which are at least a hundred pounds. However, with a simple Raspberry Pi and a camera, it's possible to achieve a similar result for less than fifty.</p>
+              <p>The Raspberry Pi streams its live camera input, and uses a package called <a href="https://motion-project.github.io/">Motion</a> to detect if anything moves. If it does, it calls a webhook which gives me a phone notification through <a href="https://ifttt.com/">IFTTT</a>.</p>
+              <p>This notification gives me a link to view the camera live-stream, so I can see what the camera has detected.</p>
             </div>
             <div image={catfeeder}>
               <h2>Automatic Cat Feeder</h2>
