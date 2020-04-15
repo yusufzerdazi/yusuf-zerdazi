@@ -13,11 +13,11 @@ function Footer() {
           <a className={styles.footerLink} href="https://github.com/yusufzerdazi" title="GitHub">
             <FontAwesomeIcon icon={['fab','github']} size="2x" fixedWidth color="white"></FontAwesomeIcon>
           </a>
-          <a className={styles.footerLink} href="https://facebook.com/yusufzerdazi" title="Facebook">
-            <FontAwesomeIcon icon={['fab','facebook']} size="2x" fixedWidth color="white"></FontAwesomeIcon>
+          <a className={styles.footerLink} href="https://www.youtube.com/channel/UCTZsbno68JdiCQbL_6sjdzg" title="YouTube">
+            <FontAwesomeIcon icon={['fab','youtube']} size="2x" fixedWidth color="white"></FontAwesomeIcon>
           </a>
-          <a className={styles.footerLink} href="https://twitter.com/yusufzerdazi" title="Twitter">
-            <FontAwesomeIcon icon={['fab','twitter']} size="2x" fixedWidth color="white"></FontAwesomeIcon>
+          <a className={styles.footerLink} href="https://yusufzerdazi.bandcamp.com" title="Bandcamp">
+            <FontAwesomeIcon icon={['fab','bandcamp']} size="2x" fixedWidth color="white"></FontAwesomeIcon>
           </a>
           <a className={styles.footerLink} href="https://soundcloud.com/yusufzerdazi" title="Soundcloud">
             <FontAwesomeIcon icon={['fab','soundcloud']} size="2x" fixedWidth color="white"></FontAwesomeIcon>
