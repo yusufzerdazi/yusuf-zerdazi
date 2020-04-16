@@ -43,10 +43,10 @@ class Projects extends React.Component {
               <p>There's numerous home security systems available, most of which are at least a hundred pounds. However, with a simple Raspberry Pi and a camera, it's possible to achieve a similar result for less than fifty.</p>
               <p>The Raspberry Pi streams its live camera input, and uses a package called <a href="https://motion-project.github.io/">Motion</a> to detect if anything moves. If it does, it calls a webhook which gives me a phone notification through <a href="https://ifttt.com/">IFTTT</a>. 
               This notification gives me a link to view the camera live-stream, so I can see what the camera has detected.</p>
-              <p>Here's a <a href="http://pi.zerdazi.com:8081">live stream</a> of my cat's bed:</p>
+              <p>Here's a <a href="https://pi.zerdazi.com:8081">live stream</a> of my cat's bed:</p>
               <div className="stream-container-container">
                 <div className="stream-container">
-                  <iframe width="640" height="480" src="https://pi.zerdazi.com:8081" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                  <img className={styles.streamImage} src="https://pi.zerdazi.com:8081"></img>
                 </div>
               </div>
             </div>
