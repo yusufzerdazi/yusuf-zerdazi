@@ -46,7 +46,7 @@ class Projects extends React.Component {
               <p>Here's a <a href="http://pi.zerdazi.com:8081">live stream</a> of my cat's bed:</p>
               <div className="stream-container-container">
                 <div className="stream-container">
-                  <iframe width="640" height="480" src="http://pi.zerdazi.com:8081" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                  <iframe width="640" height="480" src="https://pi.zerdazi.com:8081" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 </div>
               </div>
             </div>
