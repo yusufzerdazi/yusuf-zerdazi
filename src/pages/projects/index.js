@@ -41,8 +41,14 @@ class Projects extends React.Component {
             <div image={security}>
               <h2>Security Camera</h2>
               <p>There's numerous home security systems available, most of which are at least a hundred pounds. However, with a simple Raspberry Pi and a camera, it's possible to achieve a similar result for less than fifty.</p>
-              <p>The Raspberry Pi streams its live camera input, and uses a package called <a href="https://motion-project.github.io/">Motion</a> to detect if anything moves. If it does, it calls a webhook which gives me a phone notification through <a href="https://ifttt.com/">IFTTT</a>.</p>
-              <p>This notification gives me a link to view the camera live-stream, so I can see what the camera has detected.</p>
+              <p>The Raspberry Pi streams its live camera input, and uses a package called <a href="https://motion-project.github.io/">Motion</a> to detect if anything moves. If it does, it calls a webhook which gives me a phone notification through <a href="https://ifttt.com/">IFTTT</a>. 
+              This notification gives me a link to view the camera live-stream, so I can see what the camera has detected.</p>
+              <p>Here's a <a href="http://pi.zerdazi.com:8081">live stream</a> of my cat's bed:</p>
+              <div className="stream-container-container">
+                <div className="stream-container">
+                  <iframe width="640" height="480" src="http://pi.zerdazi.com:8081" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                </div>
+              </div>
             </div>
             <div image={catfeeder}>
               <h2>Automatic Cat Feeder</h2>
@@ -69,8 +75,8 @@ class Projects extends React.Component {
             <div image={lecturehall}>
               <h2>Virtual Lecture Hall</h2>
               <p>In this university assignment I created a 3D virtual lecture hall using JavaScript and WEB-GL. Check it out below - try kicking all the shapes outside the door onto the roof for an easter egg!</p>
-              { !isMobile ? <div class="video-container">
-                <iframe width="560" height="315" id="serviceFrameSend" src="./virtual-lecture-hall/index.html" width="100%" height="100%" frameborder="0" />
+              { !isMobile ? <div className="video-container">
+                <iframe width="560" height="315" id="serviceFrameSend" src="./virtual-lecture-hall/index.html" width="100%" height="100%" frameBorder="0" />
               </div> : <><img height="50px" src={nomobile}></img><p style={{fontWeight:"900"}}>Not mobile compatible</p></> }
             </div>
             <div image={rcRobot} >
