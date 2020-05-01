@@ -7,10 +7,21 @@ import './App.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import { fas } from '@fortawesome/pro-solid-svg-icons'
 import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 import Projects from './pages/projects';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from "@material-ui/core/CssBaseline";
+
 
 library.add(fab);
+library.add(fas);
+
+const darkTheme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+});
 
 class App extends React.Component {
   constructor(props){
@@ -22,18 +33,21 @@ class App extends React.Component {
 
   render(){
     return (
-      <div className="appContainer">
-        <div className="videoContainer">
-          <video autoPlay muted loop id="myVideo">
-            <source src="background.mp4" type="video/mp4" />
-          </video>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <div className="appContainer">
+          <div className="videoContainer">
+            <video autoPlay muted loop id="myVideo">
+              <source src="background.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <Header/>
+          <Releases/>
+          <Projects/>
+          <Values/>
+          <Footer/>
         </div>
-        <Header/>
-        <Releases/>
-        <Projects/>
-        <Values/>
-        <Footer/>
-      </div>
+      </ThemeProvider>
     );
   }
 

@@ -13,6 +13,7 @@ import nomobile from '../../assets/no-mobile.png';
 import Tiles from '../../components/tiles';
 import { isMobile } from 'react-device-detect';
 import InstagramEmbed from 'react-instagram-embed';
+import Everydays from '../../components/everydays';
 
 class Projects extends React.Component {
   constructor(props){
@@ -38,18 +39,7 @@ class Projects extends React.Component {
                 to get better at certain skills, and to make myself practice regularly. Of course, sometimes life will get in the way and I 
                 will miss days, although I will try to catch up on the days I miss.</p>
                 <div className={styles.instagramPost}>
-                <InstagramEmbed
-                  url='https://instagr.am/p/B_KIeHKh3da/'
-                  maxWidth={320}
-                  hideCaption={true}
-                  containerTagName='div'
-                  protocol=''
-                  injectScript
-                  onLoading={() => {}}
-                  onSuccess={() => {}}
-                  onAfterRender={() => {}}
-                  onFailure={() => {}}
-                />
+                <Everydays></Everydays>
                 </div>
             </div>
             <div image={security}>

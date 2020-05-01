@@ -1,0 +1,55 @@
+.box{
+	width:40px;
+    height:40px;
+    display: inline-block;
+}
+ 
+.red{
+	background:#f00;
+}
+
+.imageEveryday {
+    border-bottom: solid yellow 2px;
+}
+
+.musicEveryday {
+    border-bottom: solid lightblue 2px;
+}
+
+.videoEveryday {
+    border-bottom: solid pink 2px;
+}
+
+.musicEveryday.imageEveryday {
+    border-bottom: solid lightgreen 2px;
+}
+
+
+.hideMissedDays {
+    display: none;
+}
+
+.splitByMonth {
+    height: 10px;
+    display: block;
+}
+
+.dontSplitByMonth {
+    display: none;
+}
+
+.typeIcon {
+    padding: 0 15px;
+}
+
+.typeIconClick {
+    cursor: pointer;
+}
+
+.highlighted {
+    opacity: 0.2;
+}
+
+.show {
+    opacity: 1;
+}
