@@ -13,8 +13,8 @@ class Everydays extends React.Component {
     this.state = {isLoading: true}
 
     this.image = ["drawing", "photoshop", "illustrator", "sharpie", "watercolour", "symbol", "photography", "computergenerated", "texture", "albumdiscovery"];
-    this.sound = ["ableton", "guitar", "beat", "rap", "fieldrecording"];
-    this.video = ["dance"];
+    this.sound = ["ableton", "guitar", "beat", "rap", "fieldrecording", "singing"];
+    this.video = ["dance", "videoediting"];
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.highlightType = this.highlightType.bind(this);
