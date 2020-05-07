@@ -23,7 +23,7 @@ class Everydays extends React.Component {
     fetch("https://everydaysstorage.blob.core.windows.net/everydays/everydays.json")
       .then(response => response.json())
       .then((jsonData) => {
-        jsonData.sort((a, b) => (a.timestamp > b.timestamp) ? 1 : -1);
+        jsonData.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1);
         this.getEverydayTypes(jsonData);
         this.setState({
           isLoading: false, 
@@ -73,20 +73,17 @@ class Everydays extends React.Component {
     }
     else{
       this.setState({highlighted: type});
+      this.setState({videoClass: styles.videoEveryday + " " + styles.highlighted});
+      this.setState({imageClass: styles.imageEveryday + " " + styles.highlighted});
+      this.setState({soundClass: styles.musicEveryday + " " + styles.highlighted});
       switch(type){
         case("sound"):
-          this.setState({videoClass: styles.videoEveryday + " " + styles.highlighted});
-          this.setState({imageClass: styles.imageEveryday + " " + styles.highlighted});
           this.setState({soundClass: styles.musicEveryday + " " + styles.show});
           break;
         case("image"):
-          this.setState({videoClass: styles.videoEveryday + " " + styles.highlighted});
-          this.setState({soundClass: styles.musicEveryday + " " + styles.highlighted});
           this.setState({imageClass: styles.imageEveryday + " " + styles.show});
           break;
         case("video"):
-          this.setState({imageClass: styles.imageEveryday + " " + styles.highlighted});
-          this.setState({soundClass: styles.musicEveryday + " " + styles.highlighted});
           this.setState({videoClass: styles.videoEveryday + " " + styles.show});
           break;
       }
@@ -107,16 +104,20 @@ class Everydays extends React.Component {
       return <FontAwesomeIcon icon={['fas','spinner']} pulse size="2x" fixedWidth color="white"></FontAwesomeIcon>
     }
 
-    var now = new Date();
+    var lastDate = new Date(this.state.everydays[this.state.everydays.length - 1].timestamp);
     var i = 0;
     var j = 0;
-    var previousDate=new Date(this.state.everydays[0].timestamp);
-    for (var d = new Date(this.state.everydays[0].timestamp); d <= now; d.setDate(d.getDate() + 1)) {
+    var previousDate=null;
+    var monthCount = 0;
+    for (var d = new Date(); d >= lastDate; d.setDate(d.getDate() - 1)) {
       var date = d.toISOString().substring(0, 10);
-      if(d.getMonth() !== previousDate.getMonth()){
-        everydays.push(<span className={this.state.splitByMonth ? styles.splitByMonth : styles.dontSplitByMonth} key={"br"+j}/>)
+      if(previousDate == null || (d.getMonth() !== previousDate.getMonth())){
+        everydays.push(<span className={this.state.splitByMonth && (previousDate != null && (monthCount > 0 || this.state.showMissedDays)) ? styles.splitByMonth : styles.dontSplitByMonth} key={"br"+j}/>)
+        everydays.push(<span className={this.state.splitByMonth && (previousDate == null || d.getFullYear() !== previousDate.getFullYear()) ? styles.yearHeader : styles.dontSplitByMonth} key={"yr"+j}><h4>{d.getFullYear()}</h4></span>)
+        monthCount = 0;
       }
       if(i < this.state.everydays.length && this.state.everydays[i].timestamp === date){
+        monthCount++;
         everydays.push(
           <span key={j}>
           <a href={this.state.everydays[i].permalink}>

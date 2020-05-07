@@ -34,6 +34,10 @@
     display: block;
 }
 
+.yearHeader {
+    display: block;
+}
+
 .dontSplitByMonth {
     display: none;
 }
