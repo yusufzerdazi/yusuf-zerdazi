@@ -1,0 +1,14 @@
+.blmContainer{
+    display: block;
+    text-align: center;
+}
+
+.blm {
+    max-width: 450px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.blm:hover {
+    opacity: 0.6;
+}

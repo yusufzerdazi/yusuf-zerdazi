@@ -4,6 +4,8 @@ import styles from './styles.module.css';
 import { Element } from 'react-scroll'
 import rcRobot from '../../assets/rc-robotbg.png';
 import everydays from '../../assets/everydays.svg';
+import hitbox from '../../assets/hitbox.svg';
+import hitboxVideo from '../../assets/hitbox.mp4';
 import robot from '../../assets/robot.png';
 import instagram from '../../assets/everyda.ys_nametag.png';
 import catfeeder from '../../assets/catfeeder.jpg';
@@ -32,8 +34,17 @@ class Projects extends React.Component {
             <h1>Projects</h1>
           </div>
           <Tiles>
-            <div image={everydays} tooltip="Ongoing">
-              <h2>Everydays</h2>
+            <div title="Hitbox" image={hitbox}>
+              <video className={styles.hitboxVideo} id="background-video" loop autoPlay muted controls>
+                <source src={hitboxVideo} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <p>The aim of the game, as usual, is to kill each other. Damage is dealt when players collide, the quicker player hurting the 
+                slower player. Quicker collisions deal more damage. Players can boost to quickly increase their speed, but must wait for their 
+                boost cooldown to deplete before boosting again. Crouching makes players invulnerable to horizontal damage, but they can't 
+                move and can still be hit from above. Play it <a href="https://hitbox.online">here</a>.</p>
+            </div>
+            <div title="Everydays" image={everydays} tooltip="Ongoing">
               <p>Inspired by Beeple's <a href="http://beeple-crap.com/everydays.php">Everydays</a> project, I plan to
                 complete some piece of work — an image, a sound, a video, or some combination of these — every day. The aim of this project is 
                 to get better at certain skills, and to make myself practice regularly. Of course, sometimes life will get in the way and I 
@@ -42,8 +53,7 @@ class Projects extends React.Component {
                 <Everydays></Everydays>
                 </div>
             </div>
-            <div image={security}>
-              <h2>Security Camera</h2>
+            <div title="Security Camera" image={security}>
               <p>There's numerous home security systems available, most of which are at least a hundred pounds. However, with a simple Raspberry Pi and a camera, it's possible to achieve a similar result for less than fifty.</p>
               <p>The Raspberry Pi streams its live camera input, and uses a package called <a href="https://motion-project.github.io/">Motion</a> to detect if anything moves. If it does, it calls a webhook which gives me a phone notification through <a href="https://ifttt.com/">IFTTT</a>. 
               This notification gives me a link to view the camera live-stream, so I can see what the camera has detected.</p>
@@ -54,8 +64,7 @@ class Projects extends React.Component {
                 </div>
               </div>
             </div>
-            <div image={catfeeder}>
-              <h2>Automatic Cat Feeder</h2>
+            <div title="Automatic Cat Feeder" image={catfeeder}>
               <p>Using a Raspberry Pi (with a camera), an Arduino and a Pringles can, I created an automatic cat food dispenser.</p>
               <p>The Raspberry Pi camera intermittently takes pictures and sends them to <a href="https://azure.microsoft.com/en-gb/services/cognitive-services/">Azure Cognitive Services</a>. If it detects a cat, the Pi sends a signal to the Arduino which turns a servo motor, releasing food stored in the Pringles can.</p>
               <p>To avoid overfeeding, it's programmed to only release food twice a day. However, this is made more complicated since we have multiple cats; the second cat might eat food intended for the first. This is already an issue in our household, made evident by their discrepency in size.</p>
@@ -64,8 +73,7 @@ class Projects extends React.Component {
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/ElRrdRDLgLk" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
               </div>
             </div>
-            <div image={robot} >
-              <h2>Raspberry Pi Robot</h2>
+            <div title="Raspberry Pi Robot" image={robot} >
               <p>
                   My final year project was 
                   to construct a robot which used <a href="https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping">Simultaneous Localisation 
@@ -76,15 +84,13 @@ class Projects extends React.Component {
                   of the final year of my degree.
               </p>
             </div>
-            <div image={lecturehall}>
-              <h2>Virtual Lecture Hall</h2>
+            <div title="Virtual Lecture Hall" image={lecturehall}>
               <p>In this university assignment I created a 3D virtual lecture hall using JavaScript and WEB-GL. Check it out below - try kicking all the shapes outside the door onto the roof for an easter egg!</p>
               { !isMobile ? <div className="video-container">
                 <iframe width="560" height="315" id="serviceFrameSend" src="./virtual-lecture-hall/index.html" width="100%" height="100%" frameBorder="0" />
               </div> : <><img height="50px" src={nomobile}></img><p style={{fontWeight:"900"}}>Not mobile compatible</p></> }
             </div>
-            <div image={rcRobot} >
-              <h2>Arduino Robot</h2>
+            <div title="Arduino Robot" image={rcRobot} >
               <p>
                   At AS-Level, I built and programmed a simple, object avoiding robot using Arduino. I used CAD software to design the chassis, and an infrared sensor to detect objects.
                   Since then, I have improved the robot, which is now Bluetooth controlled. I used a servo motor to control the steering, and a Bluetooth reciever paired with an Android app to control it.
