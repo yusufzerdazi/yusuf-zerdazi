@@ -1,6 +1,7 @@
 import React from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import ScopedCssBaseline from "@material-ui/core/CssBaseline";
+import StarfieldAnimation from 'react-starfield-animation'
 import styles from './styles.module.css';
 
 import Releases from '../releases';
@@ -29,9 +30,13 @@ function Home(props){
     return (<ThemeProvider theme={darkTheme}>
         <div className="appContainer">
         <div className="videoContainer">
-            <video autoPlay muted loop id="myVideo">
-            <source src="background.mp4" type="video/mp4" />
-            </video>
+          <StarfieldAnimation
+            style={{
+              position: 'absolute',
+              width: '100%',
+              height: '100%'
+            }}
+          />
         </div>
         <Header/>
         <div className={styles.blmContainer}>
