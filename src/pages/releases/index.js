@@ -16,12 +16,8 @@ function Releases(props) {
             <h1>Releases</h1>
           </div>
           <Tiles>
-            <div title="Vibe" image={vibe}>
-              <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/762911440&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
-            </div>
-            <div title="Tense" image={tense}>
-              <iframe className="row-full" width="100%" height="280" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/909691150&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
-            </div>
+            <div title="Vibe" image={vibe} link="https://distrokid.com/hyperfollow/yusufzerdazi/vibe"></div>
+            <div title="Tense" image={tense} link="https://distrokid.com/hyperfollow/yusufzerdazi/tense"></div>
             <div title="The Mondays" image={mondaysbg}>
               <p className="row-full">The Mondays were a rock and roll group from Bingham, Nottinghamshire. They performed covers of songs by artists such as Oasis, 
               The Libertines, The Rolling Stones, The Eagles, Led Zeppelin, Lynyrd Skynrd and many more, as well as writing their own material. They were composed 

@@ -2,6 +2,7 @@
 import React from 'react';
 import styles from './styles.module.css';
 import Collapsible from 'react-collapsible';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Tiles extends React.Component {
   constructor(props){
@@ -27,15 +28,20 @@ class Tiles extends React.Component {
 
     for (var i=0; i<this.props.children.length; i++) {
       tiles.push(
-        <div key={i} onClick={this.expand.bind(this, i)} className="col-md-4 col-6">
-          <div className={styles.tileContainer}>
-            <div className={styles.imageContainer}>
-              <img className={styles.tileImage} src={this.props.children[i].props.image}></img>
-              {this.props.children[i].props.tooltip ? <div className={styles.topright}>{this.props.children[i].props.tooltip}</div> : null}
+        <a href={this.props.children[i].props.link} className="col-md-4 col-6">
+          <div key={i} onClick={this.expand.bind(this, i, this.props.children[i].props.link)}>
+            <div className={styles.tileContainer}>
+              <div className={styles.imageContainer}>
+                <img className={styles.tileImage} src={this.props.children[i].props.image}></img>
+                {this.props.children[i].props.tooltip ? <div className={styles.topright}>{this.props.children[i].props.tooltip}</div> : null}
+                {this.props.children[i].props.link ? <div className={styles.topleft}>
+                  <FontAwesomeIcon icon={['fas','external-link']} size="2x" fixedWidth color="white"></FontAwesomeIcon>
+                </div> : null}
+              </div>
+              {this.props.children[i].props.title ? <h3>{this.props.children[i].props.title}</h3> : null}
             </div>
-            {this.props.children[i].props.title ? <h3>{this.props.children[i].props.title}</h3> : null}
           </div>
-        </div>
+        </a>
       );
     }
 
@@ -61,8 +67,10 @@ class Tiles extends React.Component {
     );
   }
 
-  expand(index, event){
-    if(!this.state.transitioning){
+  expand(index, link){
+    if(link){
+    }
+    else if(!this.state.transitioning){
       const alreadyOpened = this.state.opened;
       this.setState({ opened: false, transitioning: true })
       setTimeout(() => {

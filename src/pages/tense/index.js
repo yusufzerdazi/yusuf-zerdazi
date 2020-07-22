@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Tense(props){
-  window.location.href = 'https://soundcloud.com/yusufzerdazi/sets/tense';
+  window.location.href = 'https://distrokid.com/hyperfollow/yusufzerdazi/tense';
   return <></>;
 }
 

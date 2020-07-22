@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Vibe(props){
-    window.location.href = 'https://soundcloud.com/yusufzerdazi/vibe';
+    window.location.href = 'https://distrokid.com/hyperfollow/yusufzerdazi/vibe';
     return <></>;
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from "@material-ui/core/CssBaseline";
+import ScopedCssBaseline from "@material-ui/core/CssBaseline";
 import styles from './styles.module.css';
 
 import Releases from '../releases';
@@ -14,11 +14,19 @@ const darkTheme = createMuiTheme({
     palette: {
       type: 'dark',
     },
+    overrides: {
+      MuiCssBaseline: {
+        '@global': {
+          body: {
+            backgroundColor: 'black',
+          },
+        },
+      },
+    },
   });
 
 function Home(props){
     return (<ThemeProvider theme={darkTheme}>
-        <CssBaseline />
         <div className="appContainer">
         <div className="videoContainer">
             <video autoPlay muted loop id="myVideo">
@@ -32,7 +40,9 @@ function Home(props){
           </a>
         </div>
         <Releases/>
-        <Projects/>
+        <ScopedCssBaseline>
+          <Projects/>
+        </ScopedCssBaseline>
         <Values/>
         <Footer/>
         </div>
