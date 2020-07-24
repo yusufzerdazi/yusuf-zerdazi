@@ -5,6 +5,7 @@ import { Element } from 'react-scroll'
 import tense from '../../assets/tense.svg';
 import mondaysbg from '../../assets/mondays.jpg';
 import vibe from '../../assets/Vibe.jpg';
+import actualise from '../../assets/actualise.jpg';
 import Tiles from '../../components/tiles';
 
 function Releases(props) {
@@ -16,6 +17,7 @@ function Releases(props) {
             <h1>Releases</h1>
           </div>
           <Tiles>
+            <div title="Actualise" large={true} image={actualise} tooltip="New" link="https://distrokid.com/hyperfollow/yusufzerdazi/actualise"></div>
             <div title="Vibe" image={vibe} link="https://distrokid.com/hyperfollow/yusufzerdazi/vibe"></div>
             <div title="Tense" image={tense} link="https://distrokid.com/hyperfollow/yusufzerdazi/tense"></div>
             <div title="The Mondays" image={mondaysbg}>

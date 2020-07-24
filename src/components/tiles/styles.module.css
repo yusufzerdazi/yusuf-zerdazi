@@ -1,16 +1,25 @@
 .tileImage
 {
     /* border: 1px solid black; */
-    max-height: 250px;
-    max-width: 250px;
+    max-height: 750px;
+    max-width: 750px;
     width: 100%;
     cursor: pointer;
 }
 
+.tileImage.notLarge {
+    max-height: 250px;
+    max-width: 250px;
+}
+
 .tileContainer {
+    max-width: 750px;
     margin: auto;
     text-align: center;
     padding-bottom: 20px;
+}
+
+.tileContainer.notLarge {
     max-width: 250px;
 }
 

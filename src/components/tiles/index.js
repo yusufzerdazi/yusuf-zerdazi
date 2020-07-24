@@ -28,11 +28,11 @@ class Tiles extends React.Component {
 
     for (var i=0; i<this.props.children.length; i++) {
       tiles.push(
-        <a href={this.props.children[i].props.link} className="col-md-4 col-6">
+        <a href={this.props.children[i].props.link} className={this.props.children[i].props.large ? "col-12" : "col-md-4 col-6"}>
           <div key={i} onClick={this.expand.bind(this, i, this.props.children[i].props.link)}>
-            <div className={styles.tileContainer}>
+            <div className={styles.tileContainer + ' ' + (!this.props.children[i].props.large ? styles.notLarge : '')}>
               <div className={styles.imageContainer}>
-                <img className={styles.tileImage} src={this.props.children[i].props.image}></img>
+                <img className={styles.tileImage + ' ' + (!this.props.children[i].props.large ? styles.notLarge : '')} src={this.props.children[i].props.image}></img>
                 {this.props.children[i].props.tooltip ? <div className={styles.topright}>{this.props.children[i].props.tooltip}</div> : null}
                 {this.props.children[i].props.link ? <div className={styles.topleft}>
                   <FontAwesomeIcon icon={['fas','external-link']} size="2x" fixedWidth color="white"></FontAwesomeIcon>
