@@ -5,7 +5,7 @@ import './App.css';
 import Home from './pages/home';
 import Vibe from './pages/vibe';
 import Tense from './pages/tense';
-import Actualise from './pages/actualise';
+import Solace from './pages/solace';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
@@ -36,8 +36,8 @@ class App extends React.Component {
           <Route path="/tense">
             <Tense />
           </Route>
-          <Route path="/actualise">
-            <Actualise />
+          <Route path="/solace">
+            <Solace />
           </Route>
           <Route path="/">
             <Home />
