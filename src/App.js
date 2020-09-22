@@ -7,19 +7,12 @@ import Vibe from './pages/vibe';
 import Tense from './pages/tense';
 import Solace from './pages/solace';
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { fas } from '@fortawesome/pro-solid-svg-icons'
-
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-
-library.add(fab);
-library.add(fas);
 
 class App extends React.Component {
   constructor(props){

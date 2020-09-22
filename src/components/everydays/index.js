@@ -5,7 +5,6 @@ import ReactTooltip from 'react-tooltip';
 import empty from '../../assets/empty.png';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Everydays extends React.Component {
   constructor(props){
@@ -101,7 +100,7 @@ class Everydays extends React.Component {
     const everydays = [];
 
     if(this.state.isLoading){
-      return <FontAwesomeIcon icon={['fas','spinner']} pulse size="2x" fixedWidth color="white"></FontAwesomeIcon>
+      return <span><i className="fas fa-spinner fa-pulse fa-2x fa-fw" color="white"/></span>
     }
 
     var lastDate = new Date(this.state.everydays[this.state.everydays.length - 1].timestamp);
@@ -161,14 +160,14 @@ class Everydays extends React.Component {
         </div>
         <div>
           <p>
-          <span className={styles.typeIcon + ' ' + styles.musicTypeIcon}>
-            <FontAwesomeIcon onClick={() => this.highlightType("sound")} className={styles.typeIconClick} icon={['fas','music']} size="lg" fixedWidth color="lightblue"></FontAwesomeIcon>
+          <span onClick={() => this.highlightType("sound")} className={styles.typeIcon + ' ' + styles.musicTypeIcon}>
+            <i className={"fas fa-music fa-lg fa-fw " + styles.typeIconClick} color="lightblue"/>
           </span>
-          <span className={styles.typeIcon}>
-            <FontAwesomeIcon onClick={() => this.highlightType("image")} className={styles.typeIconClick} icon={['fas','image']} size="lg" fixedWidth color="yellow"></FontAwesomeIcon>
+          <span onClick={() => this.highlightType("image")} className={styles.typeIcon}>
+            <i className={"fas fa-image fa-lg fa-fw " + styles.typeIconClick} color="yellow"/>
           </span>
-          <span className={styles.typeIcon}>
-            <FontAwesomeIcon onClick={() => this.highlightType("video")} className={styles.typeIconClick} icon={['fas','video']} size="lg" fixedWidth color="pink"></FontAwesomeIcon>
+          <span onClick={() => this.highlightType("video")} className={styles.typeIcon}>
+            <i className={"fas fa-video fa-lg fa-fw " + styles.typeIconClick}  color="pink"/>
           </span>
           </p>
         </div>

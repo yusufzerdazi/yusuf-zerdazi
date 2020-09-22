@@ -2,7 +2,6 @@
 import React from 'react';
 import styles from './styles.module.css';
 import Collapsible from 'react-collapsible';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Tiles extends React.Component {
   constructor(props){
@@ -28,14 +27,14 @@ class Tiles extends React.Component {
 
     for (var i=0; i<this.props.children.length; i++) {
       tiles.push(
-        <a href={this.props.children[i].props.link} className={this.props.children[i].props.large ? "col-12" : "col-md-4 col-6"}>
-          <div key={i} onClick={this.expand.bind(this, i, this.props.children[i].props.link)}>
+        <a key={i} href={this.props.children[i].props.link} className={this.props.children[i].props.large ? "col-12" : "col-md-4 col-6"}>
+          <div onClick={this.expand.bind(this, i, this.props.children[i].props.link)}>
             <div className={styles.tileContainer + ' ' + (!this.props.children[i].props.large ? styles.notLarge : '')}>
               <div className={styles.imageContainer}>
                 <img className={styles.tileImage + ' ' + (!this.props.children[i].props.large ? styles.notLarge : '')} src={this.props.children[i].props.image}></img>
                 {this.props.children[i].props.tooltip ? <div className={styles.topright}>{this.props.children[i].props.tooltip}</div> : null}
                 {this.props.children[i].props.link ? <div className={styles.topleft}>
-                  <FontAwesomeIcon icon={['fas','external-link']} size="2x" fixedWidth color="white"></FontAwesomeIcon>
+                  <i className="fas fa-external-link fa-2x fa-fw" color="white"/>
                 </div> : null}
               </div>
               {this.props.children[i].props.title ? <h3>{this.props.children[i].props.title}</h3> : null}
