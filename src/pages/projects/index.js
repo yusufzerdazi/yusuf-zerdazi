@@ -34,7 +34,7 @@ class Projects extends React.Component {
             <h1>Projects</h1>
           </div>
           <Tiles>
-            <div title="Hitbox" image={hitbox}>
+            <div title="Hitbox" image={hitbox} tooltip="Ongoing">
               <video className={styles.hitboxVideo} id="background-video" loop autoPlay muted controls>
                 <source src={hitboxVideo} type="video/mp4" />
                 Your browser does not support the video tag.
