@@ -36,7 +36,7 @@ class App extends React.Component {
           <Route path="/tense">
             <Tense />
           </Route>
-          <Route path="/solace">
+          <Route path={["/solace", "/actualise"]}>
             <Solace />
           </Route>
           <Route path="/">
