@@ -19,7 +19,7 @@ class Everydays extends React.Component {
     this.highlightType = this.highlightType.bind(this);
     this.unhighlightTypes = this.unhighlightTypes.bind(this);
     setTimeout(() =>
-    fetch("https://everydaysstorage.blob.core.windows.net/everydays/everydays.json")
+    fetch("https://everydays.blob.core.windows.net/everydays/everydays.json")
       .then(response => response.json())
       .then((jsonData) => {
         jsonData.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1);
@@ -124,10 +124,10 @@ class Everydays extends React.Component {
               (this.state.everydays[i].image ? this.state.imageClass : '') + ' ' +
               (this.state.everydays[i].sound ? this.state.soundClass : '') + ' ' +
               (this.state.everydays[i].video ? this.state.videoClass : '')
-            } loading="lazy" data-tip data-for={''+j} width="30px" height="30px" src={"https://everydaysstorage.blob.core.windows.net/everydayssmall/" + this.state.everydays[i].timestamp + ".jpg"}></img>
+            } loading="lazy" data-tip data-for={''+j} width="30px" height="30px" src={"https://everydays.blob.core.windows.net/everydays/imagesSmall/" + this.state.everydays[i].timestamp + ".jpg"}></img>
           </a>
           <ReactTooltip id={''+j} effect='solid' backgroundColor='rgba(255, 255, 255, 0)'>
-            <img src={this.state.everydays[i].permalink.replace(/\/$/, "") + "/media/?size=m"} loading="lazy"></img>
+            <img src={"https://everydays.blob.core.windows.net/everydays/images/" + this.state.everydays[i].timestamp + ".jpg"} loading="lazy"></img>
           </ReactTooltip>
           </span>
         );
