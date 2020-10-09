@@ -176,6 +176,9 @@ class Everydays extends React.Component {
             {everydays}
           </span>
         </div>
+        <div className={styles.chartContainer}>
+          <iframe className={styles.chart} src="https://app.powerbi.com/reportEmbed?reportId=7e7da67c-dd2f-417e-a1ad-a43770b3120e&autoAuth=true&ctid=4af8322c-80ee-4819-a9ce-863d5afbea1c&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLW5vcnRoLWV1cm9wZS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+        </div>
       </div>
     );
   }

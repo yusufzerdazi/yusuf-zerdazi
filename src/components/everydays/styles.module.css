@@ -57,3 +57,18 @@
 .show {
     opacity: 1;
 }
+
+.chartContainer {
+    width: 100%;
+    padding-top: 60%;
+    position: relative;
+}
+  
+.chart {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
