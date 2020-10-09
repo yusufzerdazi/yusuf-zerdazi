@@ -16,6 +16,7 @@ import Tiles from '../../components/tiles';
 import { isMobile } from 'react-device-detect';
 import InstagramEmbed from 'react-instagram-embed';
 import Everydays from '../../components/everydays';
+import Dreams from '../../components/dreams';
 
 class Projects extends React.Component {
   constructor(props){
@@ -34,6 +35,9 @@ class Projects extends React.Component {
             <h1>Projects</h1>
           </div>
           <Tiles>
+            <div title="Dreams" image={hitbox} tooltip="Ongoing">
+              <Dreams></Dreams>
+            </div>
             <div title="Hitbox" image={hitbox} tooltip="Ongoing">
               <video className={styles.hitboxVideo} id="background-video" loop autoPlay muted controls>
                 <source src={hitboxVideo} type="video/mp4" />
