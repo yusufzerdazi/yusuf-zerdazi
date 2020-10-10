@@ -19,7 +19,7 @@ class Everydays extends React.Component {
     this.highlightType = this.highlightType.bind(this);
     this.unhighlightTypes = this.unhighlightTypes.bind(this);
     setTimeout(() =>
-    fetch("https://everydaysstorage.blob.core.windows.net/everydays/everydays.json")
+    fetch("https://everydays.blob.core.windows.net/everydays/everydays.json")
       .then(response => response.json())
       .then((jsonData) => {
         jsonData.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1);
@@ -124,10 +124,10 @@ class Everydays extends React.Component {
               (this.state.everydays[i].image ? this.state.imageClass : '') + ' ' +
               (this.state.everydays[i].sound ? this.state.soundClass : '') + ' ' +
               (this.state.everydays[i].video ? this.state.videoClass : '')
-            } loading="lazy" data-tip data-for={''+j} width="30px" height="30px" src={"https://everydaysstorage.blob.core.windows.net/everydayssmall/" + this.state.everydays[i].timestamp + ".jpg"}></img>
+            } loading="lazy" data-tip data-for={''+j} width="30px" height="30px" src={"https://everydays.blob.core.windows.net/everydays/imagesSmall/" + this.state.everydays[i].timestamp + ".jpg"}></img>
           </a>
           <ReactTooltip id={''+j} effect='solid' backgroundColor='rgba(255, 255, 255, 0)'>
-            <img src={this.state.everydays[i].permalink.replace(/\/$/, "") + "/media/?size=m"} loading="lazy"></img>
+            <img src={"https://everydays.blob.core.windows.net/everydays/images/" + this.state.everydays[i].timestamp + ".jpg"} loading="lazy"></img>
           </ReactTooltip>
           </span>
         );
@@ -160,24 +160,31 @@ class Everydays extends React.Component {
         </div>
         <div>
           <p>
-          <span onClick={() => this.highlightType("sound")} className={styles.typeIcon + ' ' + styles.musicTypeIcon}>
-            <i className={"fas fa-music fa-lg fa-fw " + styles.typeIconClick} color="lightblue"/>
+          <span onClick={() => this.highlightType("sound")} className={styles.typeIcon + ' ' + styles.musicTypeIcon} data-tip data-for={"music"}>
+          <i className={"fas fa-music fa-lg fa-fw " + styles.typeIconClick} color="lightblue"/>
           </span>
-          <span onClick={() => this.highlightType("image")} className={styles.typeIcon}>
+          <span onClick={() => this.highlightType("image")} className={styles.typeIcon} data-tip data-for={"art"}>
             <i className={"fas fa-image fa-lg fa-fw " + styles.typeIconClick} color="yellow"/>
           </span>
-          <span onClick={() => this.highlightType("video")} className={styles.typeIcon}>
+          <span onClick={() => this.highlightType("video")} className={styles.typeIcon} data-tip data-for={"video"}>
             <i className={"fas fa-video fa-lg fa-fw " + styles.typeIconClick}  color="pink"/>
           </span>
+          <span onClick={() => this.highlightType("favourite")} className={styles.typeIcon} data-tip data-for={"favourite"}>
+            <i className={"fas fa-star fa-lg fa-fw " + styles.typeIconClick}  color="gold"/>
+          </span>
           </p>
+          <ReactTooltip id="music">Filter to music</ReactTooltip>
+          <ReactTooltip id="art">Filter to art</ReactTooltip>
+          <ReactTooltip id="video">Filter to video</ReactTooltip>
+          <ReactTooltip id="favourite">Favourites</ReactTooltip>
         </div>
-        <div>
+        <div className={styles.everydays}>
           <span>
             {everydays}
           </span>
         </div>
         <div className={styles.chartContainer}>
-          <iframe className={styles.chart} src="https://app.powerbi.com/reportEmbed?reportId=7e7da67c-dd2f-417e-a1ad-a43770b3120e&autoAuth=true&ctid=4af8322c-80ee-4819-a9ce-863d5afbea1c&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLW5vcnRoLWV1cm9wZS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+          <iframe className={styles.chart} width="100%" src="https://app.powerbi.com/reportEmbed?reportId=7e7da67c-dd2f-417e-a1ad-a43770b3120e&autoAuth=true&ctid=4af8322c-80ee-4819-a9ce-863d5afbea1c&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLW5vcnRoLWV1cm9wZS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameBorder="0" allowFullScreen={true}></iframe>
         </div>
       </div>
     );

@@ -17,7 +17,7 @@ function Releases(props) {
             <h1>Releases</h1>
           </div>
           <Tiles>
-            <div title="Solace" large={true} image={actualise} tooltip="New" link="https://distrokid.com/hyperfollow/yusufzerdazi/actualise"></div>
+            <div title="Solace" image={actualise} link="https://distrokid.com/hyperfollow/yusufzerdazi/actualise"></div>
             <div title="Vibe" image={vibe} link="https://distrokid.com/hyperfollow/yusufzerdazi/vibe"></div>
             <div title="Tense" image={tense} link="https://distrokid.com/hyperfollow/yusufzerdazi/tense"></div>
             <div title="The Mondays" image={mondaysbg}>

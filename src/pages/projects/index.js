@@ -4,8 +4,10 @@ import styles from './styles.module.css';
 import { Element } from 'react-scroll'
 import rcRobot from '../../assets/rc-robotbg.png';
 import everydays from '../../assets/everydays.svg';
+import dream from '../../assets/dream.svg';
 import hitbox from '../../assets/hitbox.svg';
 import hitboxVideo from '../../assets/hitbox.mp4';
+import piVideo from '../../assets/slam.mp4';
 import robot from '../../assets/robot.png';
 import instagram from '../../assets/everyda.ys_nametag.png';
 import catfeeder from '../../assets/catfeeder.jpg';
@@ -35,7 +37,7 @@ class Projects extends React.Component {
             <h1>Projects</h1>
           </div>
           <Tiles>
-            <div title="Dreams" image={hitbox} tooltip="Ongoing">
+            <div title="Dreams" image={dream} tooltip="Ongoing">
               <Dreams></Dreams>
             </div>
             <div title="Hitbox" image={hitbox} tooltip="Ongoing">
@@ -87,6 +89,10 @@ class Projects extends React.Component {
                   and there is scope for further work to be done by implementing more robust sensors. I attained 80% in this project, which made up half 
                   of the final year of my degree.
               </p>
+              <video className={styles.hitboxVideo} id="background-video" loop autoPlay muted controls>
+                <source src={piVideo} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             </div>
             <div title="Virtual Lecture Hall" image={lecturehall}>
               <p>In this university assignment I created a 3D virtual lecture hall using JavaScript and WEB-GL. Check it out below - try kicking all the shapes outside the door onto the roof for an easter egg!</p>
