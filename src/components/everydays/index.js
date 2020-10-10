@@ -160,21 +160,31 @@ class Everydays extends React.Component {
         </div>
         <div>
           <p>
-          <span onClick={() => this.highlightType("sound")} className={styles.typeIcon + ' ' + styles.musicTypeIcon}>
-            <i className={"fas fa-music fa-lg fa-fw " + styles.typeIconClick} color="lightblue"/>
+          <span onClick={() => this.highlightType("sound")} className={styles.typeIcon + ' ' + styles.musicTypeIcon} data-tip data-for={"music"}>
+          <i className={"fas fa-music fa-lg fa-fw " + styles.typeIconClick} color="lightblue"/>
           </span>
-          <span onClick={() => this.highlightType("image")} className={styles.typeIcon}>
+          <span onClick={() => this.highlightType("image")} className={styles.typeIcon} data-tip data-for={"art"}>
             <i className={"fas fa-image fa-lg fa-fw " + styles.typeIconClick} color="yellow"/>
           </span>
-          <span onClick={() => this.highlightType("video")} className={styles.typeIcon}>
+          <span onClick={() => this.highlightType("video")} className={styles.typeIcon} data-tip data-for={"video"}>
             <i className={"fas fa-video fa-lg fa-fw " + styles.typeIconClick}  color="pink"/>
           </span>
+          <span onClick={() => this.highlightType("favourite")} className={styles.typeIcon} data-tip data-for={"favourite"}>
+            <i className={"fas fa-star fa-lg fa-fw " + styles.typeIconClick}  color="gold"/>
+          </span>
           </p>
+          <ReactTooltip id="music">Filter to music</ReactTooltip>
+          <ReactTooltip id="art">Filter to art</ReactTooltip>
+          <ReactTooltip id="video">Filter to video</ReactTooltip>
+          <ReactTooltip id="favourite">Favourites</ReactTooltip>
         </div>
-        <div>
+        <div className={styles.everydays}>
           <span>
             {everydays}
           </span>
+        </div>
+        <div className={styles.chartContainer}>
+          <iframe className={styles.chart} width="100%" src="https://app.powerbi.com/reportEmbed?reportId=7e7da67c-dd2f-417e-a1ad-a43770b3120e&autoAuth=true&ctid=4af8322c-80ee-4819-a9ce-863d5afbea1c&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLW5vcnRoLWV1cm9wZS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameBorder="0" allowFullScreen={true}></iframe>
         </div>
       </div>
     );
