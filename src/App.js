@@ -6,6 +6,7 @@ import Home from './pages/home';
 import Vibe from './pages/vibe';
 import Tense from './pages/tense';
 import Solace from './pages/solace';
+import DryJanuary from './pages/dry-january';
 
 import {
   BrowserRouter as Router,
@@ -31,6 +32,9 @@ class App extends React.Component {
           </Route>
           <Route path={["/solace", "/actualise"]}>
             <Solace />
+          </Route>
+          <Route path="/dry-january">
+            <DryJanuary />
           </Route>
           <Route path="/">
             <Home />
