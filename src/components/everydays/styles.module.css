@@ -76,3 +76,8 @@
 .everydays {
     padding-bottom: 20px;
 }
+
+.everydaysGraph {
+    max-width: 850px;
+    margin: auto;
+}
