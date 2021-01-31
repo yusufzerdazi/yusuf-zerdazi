@@ -18,6 +18,7 @@ steps:
 - script: |
     npm install
     npm run build
+    ls $(System.DefaultWorkingDirectory)
   displayName: 'npm install and build'
   
 - task: AzureWebApp@1
