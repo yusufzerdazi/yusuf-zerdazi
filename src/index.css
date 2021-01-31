@@ -26,7 +26,7 @@ code {
 
 .stream-container-container {
   max-width: 640px;
-  margin: 0 auto;
+  margin: 0 auto 20px;
 }
 
 .video-container iframe,

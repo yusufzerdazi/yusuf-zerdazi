@@ -19,6 +19,7 @@ import { isMobile } from 'react-device-detect';
 import InstagramEmbed from 'react-instagram-embed';
 import Everydays from '../../components/everydays';
 import Dreams from '../../components/dreams';
+import Camera from '../../components/camera';
 
 class Projects extends React.Component {
   constructor(props){
@@ -65,15 +66,7 @@ class Projects extends React.Component {
                 </div>
             </div>
             <div title="Security Camera" image={security}>
-              <p>There's numerous home security systems available, most of which are at least a hundred pounds. However, with a simple Raspberry Pi and a camera, it's possible to achieve a similar result for less than fifty.</p>
-              <p>The Raspberry Pi streams its live camera input, and uses a package called <a href="https://motion-project.github.io/">Motion</a> to detect if anything moves. If it does, it calls a webhook which gives me a phone notification through <a href="https://ifttt.com/">IFTTT</a>. 
-              This notification gives me a link to view the camera live-stream, so I can see what the camera has detected.</p>
-              <p>Here's a <a href="https://pi.zerdazi.com:8081">live stream</a> of my cat's bed:</p>
-              <div className="stream-container-container">
-                <div className="stream-container">
-                  <img className={styles.streamImage} src="https://pi.zerdazi.com:8081"></img>
-                </div>
-              </div>
+              <Camera></Camera>
             </div>
             <div title="Automatic Cat Feeder" image={catfeeder}>
               <p>Using a Raspberry Pi (with a camera), an Arduino and a Pringles can, I created an automatic cat food dispenser.</p>
