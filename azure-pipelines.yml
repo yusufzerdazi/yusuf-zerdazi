@@ -22,12 +22,20 @@ steps:
     dir
   displayName: 'npm install and build'
   
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'build'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'Pay-As-You-Go(4b89f88e-13f2-4990-bf5f-3ab2e4d5301f)'
     appType: 'webApp'
     appName: 'yusufzerdazi'
-    package: 'build'
+    package: '$(Build.ArtifactStagingDirectory)/**.zip'
     deploymentMethod: 'auto'
 
 - task: PurgeAzureCDNEndpoint@2
