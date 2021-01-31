@@ -16,10 +16,6 @@
     cursor: pointer;
 }
 
-.streamImage {
-    width:100%;
-}
-
 .instagramPost {
     display: inline-block;
     margin: auto;
