@@ -34,7 +34,7 @@ steps:
     azureSubscription: 'Pay-As-You-Go(4b89f88e-13f2-4990-bf5f-3ab2e4d5301f)'
     appType: 'webApp'
     appName: 'yusufzerdazi'
-    package: 'build/**'
+    package: 'build'
     deploymentMethod: 'auto'
 
 - task: PurgeAzureCDNEndpoint@2
