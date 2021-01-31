@@ -15,12 +15,11 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- script: |
-    dir
-    npm install
-    npm run build
-    dir
-  displayName: 'npm install and build'
+- script: npm install
+  displayName: 'npm install'
+
+- script: npm run build
+  displayName: 'npm build'
   
 # - task: ArchiveFiles@2
 #   inputs:
