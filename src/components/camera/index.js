@@ -47,7 +47,7 @@ class Camera extends React.Component {
         </div>
         <h2>Recent Captures</h2>
         { this.state.blobs ? <div className="row">{this.state.blobs.map((blob, i) => {
-          return <div key={i} className="col-md-4"><video className="capture" width="100%" height="100%" controls src={blob.url}></video></div>
+          return <div key={i} className="col-md-4 col-sm-6"><video className="capture" width="100%" height="100%" controls src={blob.url}></video></div>
         })}</div> : <></> }
       </div>
   }
