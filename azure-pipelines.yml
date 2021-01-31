@@ -20,12 +20,18 @@ steps:
     npm run build
   displayName: 'npm install and build'
   
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/build'
+    ArtifactName: 'dist'
+    publishLocation: 'Container'
+  
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'Pay-As-You-Go(4b89f88e-13f2-4990-bf5f-3ab2e4d5301f)'
     appType: 'webApp'
     appName: 'yusufzerdazi'
-    package: '$(System.DefaultWorkingDirectory)/build'
+    package: '$(System.ArtifactsDirectory)/**/*.zip'
     deploymentMethod: 'auto'
 
 - task: PurgeAzureCDNEndpoint@2
