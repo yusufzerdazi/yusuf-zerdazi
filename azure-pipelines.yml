@@ -27,3 +27,12 @@ steps:
     appName: 'yusufzerdazi'
     package: '$(System.DefaultWorkingDirectory)/build'
     deploymentMethod: 'auto'
+
+- task: PurgeAzureCDNEndpoint@2
+  inputs:
+    ConnectedServiceNameSelector: 'ConnectedServiceNameARM'
+    ConnectedServiceNameARM: 'Pay-As-You-Go(4b89f88e-13f2-4990-bf5f-3ab2e4d5301f)'
+    ResourceGroupName: 'yusufzerdazi'
+    EndpointName: 'yusufzerdazi'
+    ProfileName: 'yusufzerdazi'
+    PurgeContent: '/*'
