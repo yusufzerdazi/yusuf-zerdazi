@@ -6,6 +6,7 @@ import rcRobot from '../../assets/rc-robotbg.png';
 import everydays from '../../assets/everydays.svg';
 import dream from '../../assets/dream.svg';
 import hitbox from '../../assets/hitbox.svg';
+import cigttpy from '../../assets/canigotothepubyet.png';
 import hitboxVideo from '../../assets/hitbox.mp4';
 import piVideo from '../../assets/slam.mp4';
 import robot from '../../assets/robot.png';
@@ -20,6 +21,8 @@ import InstagramEmbed from 'react-instagram-embed';
 import Everydays from '../../components/everydays';
 import Dreams from '../../components/dreams';
 import Camera from '../../components/camera';
+import { withAITracking } from '@microsoft/applicationinsights-react-js';
+import { reactPlugin, appInsights } from '../../AppInsights';
 
 class Projects extends React.Component {
   constructor(props){
@@ -38,7 +41,9 @@ class Projects extends React.Component {
             <h1>Projects</h1>
           </div>
           <Tiles>
-            <div title="Dreams" image={dream} tooltip="Ongoing">
+            <div title="Can I Go To The Pub Yet?" link="https://www.canigotothepubyet.com" image={cigttpy}>
+            </div>
+            <div title="Dreams" image={dream}>
               <p>For 5 years, I've kept a dream journal in Google Keep. I thought it would be interesting to use AI to scan my dreams for
                 sentiment over time, key phrases, recurring themes etc. Using Azure's Text Analysis, I scanned all my dreams, saving the results
                 in a Blob Storage account. Power BI allows me to create graphs and infographics based on this data, giving me insight into my
@@ -46,17 +51,9 @@ class Projects extends React.Component {
               </p>
               <Dreams></Dreams>
             </div>
-            <div title="Hitbox" image={hitbox} tooltip="Ongoing">
-              <video className={styles.hitboxVideo} id="background-video" loop autoPlay muted controls>
-                <source src={hitboxVideo} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <p>The aim of the game, as usual, is to kill each other. Damage is dealt when players collide, the quicker player hurting the 
-                slower player. Quicker collisions deal more damage. Players can boost to quickly increase their speed, but must wait for their 
-                boost cooldown to deplete before boosting again. Crouching makes players invulnerable to horizontal damage, but they can't 
-                move and can still be hit from above. Play it <a href="https://hitbox.online">here</a>.</p>
+            <div title="Hitbox" image={hitbox}  link="https://hitbox.online">
             </div>
-            <div title="Everydays" image={everydays} tooltip="Ongoing">
+            <div title="Everydays" image={everydays}>
               <p>Inspired by Beeple's <a href="http://beeple-crap.com/everydays.php">Everydays</a> project, I plan to
                 complete some piece of work — an image, a sound, a video, or some combination of these — every day. The aim of this project is 
                 to get better at certain skills, and to make myself practice regularly. Of course, sometimes life will get in the way and I 
@@ -139,4 +136,4 @@ class Projects extends React.Component {
   }
 }
 
-export default Projects;
+export default withAITracking(reactPlugin, Projects);

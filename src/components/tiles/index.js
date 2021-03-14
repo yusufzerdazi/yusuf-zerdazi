@@ -2,6 +2,8 @@
 import React from 'react';
 import styles from './styles.module.css';
 import Collapsible from 'react-collapsible';
+import { withAITracking } from '@microsoft/applicationinsights-react-js';
+import { reactPlugin, appInsights } from '../../AppInsights';
 
 class Tiles extends React.Component {
   constructor(props){
@@ -80,4 +82,4 @@ class Tiles extends React.Component {
   }
 }
 
-export default Tiles;
+export default withAITracking(reactPlugin,Tiles);

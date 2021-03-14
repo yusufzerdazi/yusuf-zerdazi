@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './styles.module.css';
 import xmlToJSON from 'xmltojson';
+import { withAITracking } from '@microsoft/applicationinsights-react-js';
+import { reactPlugin, appInsights } from '../../AppInsights';
 
 class Camera extends React.Component {
   constructor(props){
@@ -53,4 +55,4 @@ class Camera extends React.Component {
   }
 }
 
-export default Camera;
+export default withAITracking(reactPlugin, Camera);

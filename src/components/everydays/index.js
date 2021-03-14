@@ -6,6 +6,8 @@ import empty from '../../assets/empty.png';
 import everydays_graph from '../../assets/everydays_graph.svg';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { withAITracking } from '@microsoft/applicationinsights-react-js';
+import { reactPlugin, appInsights } from '../../AppInsights';
 
 class Everydays extends React.Component {
   constructor(props){
@@ -192,4 +194,4 @@ class Everydays extends React.Component {
   }
 }
 
-export default Everydays;
+export default withAITracking(reactPlugin, Everydays);

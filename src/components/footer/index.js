@@ -1,6 +1,8 @@
 
 import React from 'react';
 import styles from './styles.module.css';
+import { withAITracking } from '@microsoft/applicationinsights-react-js';
+import { reactPlugin, appInsights } from '../../AppInsights';
 
 function Footer() {
     return (
@@ -26,4 +28,4 @@ function Footer() {
     );
 }
 
-export default Footer;
+export default withAITracking(reactPlugin, Footer);

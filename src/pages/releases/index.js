@@ -7,6 +7,8 @@ import mondaysbg from '../../assets/mondays.jpg';
 import vibe from '../../assets/Vibe.jpg';
 import actualise from '../../assets/actualise.jpg';
 import Tiles from '../../components/tiles';
+import { withAITracking } from '@microsoft/applicationinsights-react-js';
+import { reactPlugin, appInsights } from '../../AppInsights';
 
 function Releases(props) {
     return (
@@ -17,7 +19,7 @@ function Releases(props) {
             <h1>Releases</h1>
           </div>
           <Tiles>
-            <div large={true} title="Solace" image={actualise} link="https://distrokid.com/hyperfollow/yusufzerdazi/actualise"></div>
+            <div title="Solace" image={actualise} link="https://distrokid.com/hyperfollow/yusufzerdazi/actualise"></div>
             <div title="Vibe" image={vibe} link="https://distrokid.com/hyperfollow/yusufzerdazi/vibe"></div>
             <div title="Tense" image={tense} link="https://distrokid.com/hyperfollow/yusufzerdazi/tense"></div>
             <div title="The Mondays" image={mondaysbg}>
@@ -33,4 +35,4 @@ function Releases(props) {
     );
 }
 
-export default Releases;
+export default withAITracking(reactPlugin, Releases);

@@ -6,7 +6,8 @@ import Home from './pages/home';
 import Vibe from './pages/vibe';
 import Tense from './pages/tense';
 import Solace from './pages/solace';
-import DryJanuary from './pages/dry-january';
+import { withAITracking } from '@microsoft/applicationinsights-react-js';
+import { reactPlugin, appInsights } from './AppInsights';
 
 import {
   BrowserRouter as Router,
@@ -33,9 +34,6 @@ class App extends React.Component {
           <Route path={["/solace", "/actualise"]}>
             <Solace />
           </Route>
-          <Route path="/dry-january">
-            <DryJanuary />
-          </Route>
           <Route path="/">
             <Home />
           </Route>
@@ -45,4 +43,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withAITracking(reactPlugin, App);

@@ -3,6 +3,8 @@ import React from 'react';
 import styles from './styles.module.css';
 import { Element } from 'react-scroll'
 import Tiles from '../../components/tiles';
+import { withAITracking } from '@microsoft/applicationinsights-react-js';
+import { reactPlugin, appInsights } from '../../AppInsights';
 
 class Values extends React.Component {
   constructor(props){
@@ -81,4 +83,4 @@ class Values extends React.Component {
   }
 }
 
-export default Values;
+export default withAITracking(reactPlugin, Values);

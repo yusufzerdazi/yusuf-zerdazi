@@ -2,6 +2,8 @@
 import React from 'react';
 import logo from '../../assets/yusuf.svg';
 import styles from './styles.module.css';
+import { withAITracking } from '@microsoft/applicationinsights-react-js';
+import { reactPlugin, appInsights } from '../../AppInsights';
 
 function Header(props) {
     return (
@@ -13,4 +15,4 @@ function Header(props) {
     );
 }
 
-export default Header;
+export default withAITracking(reactPlugin, Header);

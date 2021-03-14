@@ -1,6 +1,8 @@
 import React from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import ScopedCssBaseline from "@material-ui/core/CssBaseline";
+import { withAITracking } from '@microsoft/applicationinsights-react-js';
+import { reactPlugin, appInsights } from '../../AppInsights';
 import styles from './styles.module.css';
 
 import Releases from '../releases';
@@ -49,4 +51,4 @@ function Home(props){
     </ThemeProvider>);
 }
 
-export default Home;
+export default withAITracking(reactPlugin, Home);
