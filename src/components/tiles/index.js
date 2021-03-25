@@ -35,11 +35,8 @@ class Tiles extends React.Component {
               <div className={styles.imageContainer}>
                 <img className={styles.tileImage + ' ' + (!this.props.children[i].props.large ? styles.notLarge : '')} src={this.props.children[i].props.image}></img>
                 {this.props.children[i].props.tooltip ? <div className={styles.topright}>{this.props.children[i].props.tooltip}</div> : null}
-                {this.props.children[i].props.link ? <div className={styles.topleft}>
-                  <i className="fas fa-external-link fa-2x fa-fw" color="white"/>
-                </div> : null}
               </div>
-              {this.props.children[i].props.title ? <h3>{this.props.children[i].props.title}</h3> : null}
+              {this.props.children[i].props.title ? <h3>{this.props.children[i].props.title} {this.props.children[i].props.link ? <i className="fas fa-xs fa-external-link" color="white"/> : <></>}</h3> : null}
             </div>
           </div>
         </a>

@@ -130,7 +130,7 @@ class Everydays extends React.Component {
             } loading="lazy" data-tip data-for={''+j} width="30px" height="30px" src={"https://everydays.blob.core.windows.net/everydays/imagesSmall/" + this.state.everydays[i].timestamp + ".jpg"}></img>
           </a>
           <ReactTooltip id={''+j} effect='solid' backgroundColor='rgba(255, 255, 255, 0)'>
-            <img src={"https://everydays.blob.core.windows.net/everydays/images/" + this.state.everydays[i].timestamp + ".jpg"} loading="lazy"></img>
+            <img className={styles.popupImage} src={"https://everydays.blob.core.windows.net/everydays/images/" + this.state.everydays[i].timestamp + ".jpg"} loading="lazy"></img>
           </ReactTooltip>
           </span>
         );
@@ -185,9 +185,6 @@ class Everydays extends React.Component {
           <span>
             {everydays}
           </span>
-        </div>
-        <div className={styles.everydaysGraph}>
-          <img width="100%" src={everydays_graph}></img>
         </div>
       </div>
     );
