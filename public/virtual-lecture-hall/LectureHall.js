@@ -252,7 +252,7 @@ function resize(gl) {
 
     // Lookup the size the browser is displaying the canvas.
     var displayWidth = canvas.clientWidth;
-    var displayHeight = canvas.clientHeight;
+    var displayHeight = displayWidth * 0.5625;
 
     // Check if the canvas is not the same size.
     if (canvas.width != displayWidth ||
