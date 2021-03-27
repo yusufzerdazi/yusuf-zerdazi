@@ -45,7 +45,7 @@ class Projects extends React.Component {
             </div>
             <div title="Dreams" image={dream}>
               <p>For 5 years, I've kept a dream journal in Google Keep. I thought it would be interesting to use AI to scan my dreams for
-                sentiment over time, key phrases, recurring themes etc. Using Azure's Text Analysis, I scanned all my dreams, saving the results
+                sentiment over time, key phrases, recurring themes etc. Using Azure's Text Analysis, I analysed all my dreams, saving the results
                 in a Blob Storage account. Power BI allows me to create graphs and infographics based on this data, giving me insight into my
                 dreams and myself.
               </p>
