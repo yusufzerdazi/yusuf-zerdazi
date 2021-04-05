@@ -1,3 +1,7 @@
 .streamImage {
     width:100%;
 }
+
+.carouselContainer {
+    padding-bottom: 40px;
+}

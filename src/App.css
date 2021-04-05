@@ -48,3 +48,7 @@ p {
 a {
   text-decoration: none!important;
 }
+
+.tab-content {
+  padding-top: 10px;
+}

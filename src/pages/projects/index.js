@@ -1,28 +1,30 @@
 
 import React from 'react';
 import styles from './styles.module.css';
-import { Element } from 'react-scroll'
+import { Element } from 'react-scroll';
 import rcRobot from '../../assets/rc-robotbg.png';
 import everydays from '../../assets/everydays.svg';
 import dream from '../../assets/dream.svg';
 import hitbox from '../../assets/hitbox.svg';
 import cigttpy from '../../assets/canigotothepubyet.png';
-import hitboxVideo from '../../assets/hitbox.mp4';
 import piVideo from '../../assets/slam.mp4';
 import robot from '../../assets/robot.png';
-import instagram from '../../assets/everyda.ys_nametag.png';
 import catfeeder from '../../assets/catfeeder.jpg';
 import security from '../../assets/security.jpg';
 import lecturehall from '../../assets/lecture-hall.jpg';
 import nomobile from '../../assets/no-mobile.png';
 import Tiles from '../../components/tiles';
 import { isMobile } from 'react-device-detect';
-import InstagramEmbed from 'react-instagram-embed';
 import Everydays from '../../components/everydays';
 import Dreams from '../../components/dreams';
 import Camera from '../../components/camera';
 import { withAITracking } from '@microsoft/applicationinsights-react-js';
 import { reactPlugin, appInsights } from '../../AppInsights';
+import { Tab, Tabs } from 'react-bootstrap';
+
+import dream_puml from '../../assets/puml/dreams.png';
+import everydays_puml from '../../assets/puml/everydays.png';
+import camera_puml from '../../assets/puml/camera.png';
 
 class Projects extends React.Component {
   constructor(props){
@@ -44,26 +46,55 @@ class Projects extends React.Component {
             <div title="Can I Go To The Pub Yet?" link="https://www.canigotothepubyet.com" image={cigttpy}>
             </div>
             <div title="Dreams" image={dream}>
-              <p>For 5 years, I've kept a dream journal in Google Keep. I thought it would be interesting to use AI to scan my dreams for
-                sentiment over time, key phrases, recurring themes etc. Using Azure's Text Analysis, I analysed all my dreams, saving the results
-                in a Blob Storage account. Power BI allows me to create graphs and infographics based on this data, giving me insight into my
-                dreams and myself.
-              </p>
-              <Dreams></Dreams>
+              <Tabs defaultActiveKey="project" id="dreams">
+                <Tab eventKey="project" title="Project">
+                  <p>For 5 years, I've kept a dream journal in Google Keep. I thought it would be interesting to use AI to scan my dreams for
+                    sentiment over time, key phrases, recurring themes etc. Using Azure's Text Analysis, I analysed all my dreams, saving the results
+                    in a Blob Storage account. Power BI allows me to create graphs and infographics based on this data, giving me insight into my
+                    dreams and myself.
+                  </p>
+                  <Dreams></Dreams>
+                </Tab>
+                <Tab eventKey="architecture" title="Architecture">
+                  <div>
+                    <img className={styles.pumlImage} src={dream_puml}></img>
+                  </div>
+                </Tab>
+              </Tabs>
             </div>
             <div title="Hitbox" image={hitbox}  link="https://hitbox.online">
             </div>
             <div title="Everydays" image={everydays}>
-              <p>Inspired by Beeple's <a href="http://beeple-crap.com/everydays.php">Everydays</a> project, I plan to
-                complete some piece of work — an image, a sound, a video, or some combination of these — every day. The aim of this project is 
-                to get better at certain skills, and to make myself practice regularly. Of course, sometimes life will get in the way and I 
-                will miss days, although I will try to catch up on the days I miss.</p>
-                <div className={styles.instagramPost}>
-                <Everydays></Everydays>
-                </div>
+              <Tabs defaultActiveKey="project" id="everydays">
+                <Tab eventKey="project" title="Project">
+                  <p>Inspired by Beeple's <a href="http://beeple-crap.com/everydays.php">Everydays</a> project, I plan to
+                  complete some piece of work — an image, a sound, a video, or some combination of these — every day. The aim of this project is 
+                  to get better at certain skills, and to make myself practice regularly. Of course, sometimes life will get in the way and I 
+                  will miss days, although I will try to catch up on the days I miss.</p>
+                  <div className={styles.instagramPost}>
+                    <Everydays></Everydays>
+                  </div>
+                </Tab>
+                <Tab eventKey="architecture" title="Architecture">
+                  <div>
+                    <img className={styles.pumlImage} src={everydays_puml}></img>
+                  </div>
+                </Tab>
+              </Tabs>
             </div>
             <div title="Security Camera" image={security}>
-              <Camera></Camera>
+              <Tabs defaultActiveKey="project" id="camera">
+                <Tab eventKey="project" title="Project">
+                  <Camera></Camera>
+                </Tab>
+                <Tab eventKey="architecture" title="Architecture">
+                  <div>
+                    <p>The Raspberry Pi streams its live camera input, and uses a package called <a href="https://motion-project.github.io/">Motion</a> to detect if anything moves. If it does, it calls a webhook which gives me a phone notification through <a href="https://ifttt.com/">IFTTT</a>. 
+                      This notification gives me a link to view the camera live-stream, so I can see what the camera has detected. It also uploads each motion detected video to blob so it can be embedded in my website.</p>
+                    <img className={styles.pumlImage} src={camera_puml}></img>
+                  </div>
+                </Tab>
+              </Tabs>
             </div>
             <div title="Automatic Cat Feeder" image={catfeeder}>
               <p>Using a Raspberry Pi (with a camera), an Arduino and a Pringles can, I created an automatic cat food dispenser.</p>

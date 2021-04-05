@@ -1,0 +1,26 @@
+@startuml everydays
+!include styles.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define AzurePuml https://raw.githubusercontent.com/plantuml-stdlib/Azure-PlantUML/master/dist
+!include AzurePuml/AzureCommon.puml
+!include AzurePuml/Compute/AzureFunction.puml
+!include AzurePuml/Storage/AzureBlobStorage.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include FONTAWESOME/instagram.puml
+!include DEVICONS/react.puml
+
+Container_Ext(keep, "Instagram", "Website", "I post everydays to instagram.", "instagram")
+Container(function, "Azure Function", "C#", "Scrapes Instagram once a day for new posts to my Everydays account.", "AzureFunction")
+ContainerDb(db, "Blob Storage", "Blob", "Images and metadata are saved to blob.", "AzureBlobStorage")
+Container(website, "Website", "React", "My website reads from blob to render the everydays.", "react")
+
+Rel_L(function, keep, "Scrapes", "HTTP, Raspberry Pi Proxy")
+Rel_R(function, db, "Writes to", "HTTP")
+Rel_U(website, db, "Reads from", "HTTP")
+
+HIDE_STEREOTYPE()
+
+@enduml

@@ -25,3 +25,7 @@
     max-width: 640px;
     width: 100%;
 }
+
+.pumlImage {
+    max-width: 100%;
+}
