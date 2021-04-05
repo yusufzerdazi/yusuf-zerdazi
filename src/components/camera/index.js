@@ -60,7 +60,7 @@ class Camera extends React.Component {
         </div>
         <h3>Captures</h3>
         { this.state.blobs ? 
-          <Carousel onSlid={this.onSlide} interval={null}>
+          <Carousel onSlid={this.onSlide} interval={null} indicators={false}>
             <Carousel.Item>
               <div className={styles.carouselContainer}>
                 <Row>
