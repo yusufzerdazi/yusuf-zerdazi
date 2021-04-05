@@ -3,5 +3,17 @@
 }
 
 .carouselContainer {
-    padding-bottom: 40px;
+    padding: 0px 20vw 40px;
+}
+
+@media (max-width:768px) { 
+    .carouselContainer {
+        padding: 0px 80px 40px;
+    }
+} 
+
+@media (min-width:768px) { 
+    .carouselContainer {
+        padding: 0px 120px 40px;
+    }
 }

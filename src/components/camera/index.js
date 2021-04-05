@@ -64,30 +64,24 @@ class Camera extends React.Component {
             <Carousel.Item>
               <div className={styles.carouselContainer}>
                 <Row>
-                  <Col xs={2}></Col>
-                  <Col xs={4}><video className="capture" width="100%" controls src={this.state.blobs[this.state.index].url}></video></Col>
-                  <Col xs={4}><video className="capture" width="100%" controls src={this.state.blobs[this.state.index + 1].url}></video></Col>
-                  <Col xs={2}></Col>
+                  <Col xs={12} lg={6}><video className="capture" width="100%" controls src={this.state.blobs[this.state.index].url}></video></Col>
+                  <Col xs={12} lg={6}><video className="capture" width="100%" controls src={this.state.blobs[this.state.index + 1].url}></video></Col>
                 </Row>
               </div>
             </Carousel.Item>
             <Carousel.Item>
               <div className={styles.carouselContainer}>
                 <Row>
-                  <Col xs={2}></Col>
-                  <Col xs={4}><video className="capture" width="100%" controls src={this.state.blobs[this.state.index + 2].url}></video></Col>
-                  <Col xs={4}><video className="capture" width="100%" controls src={this.state.blobs[this.state.index + 3].url}></video></Col>
-                  <Col xs={2}></Col>
+                  <Col xs={12} lg={6}><video className="capture" width="100%" controls src={this.state.blobs[this.state.index + 2].url}></video></Col>
+                  <Col xs={12} lg={6}><video className="capture" width="100%" controls src={this.state.blobs[this.state.index + 3].url}></video></Col>
                 </Row>
               </div>
             </Carousel.Item>
             <Carousel.Item>
               <div className={styles.carouselContainer}>
                 <Row>
-                  <Col xs={2}></Col>
-                  <Col xs={4}><video className="capture" width="100%" controls src={this.state.blobs[this.state.index + 4].url}></video></Col>
-                  <Col xs={4}><video className="capture" width="100%" controls src={this.state.blobs[this.state.index + 5].url}></video></Col>
-                  <Col xs={2}></Col>
+                  <Col xs={12} lg={6}><video className="capture" width="100%" controls src={this.state.blobs[this.state.index + 4].url}></video></Col>
+                  <Col xs={12} lg={6}><video className="capture" width="100%" controls src={this.state.blobs[this.state.index + 5].url}></video></Col>
                 </Row>
               </div>
             </Carousel.Item>
