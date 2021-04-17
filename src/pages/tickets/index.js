@@ -117,7 +117,7 @@ class Tickets extends React.Component {
                 <td>{x.maxPrice}</td>
                 <td>
                   <Form.Row>
-                    <Col xs="auto"><Form.Control name="subscribeNumber" placeholder="Enter phone number" onChange={(e) => this.handleChange(e, x.id)} /></Col>
+                    <Col xs="auto"><Form.Control name="subscribeNumber" placeholder="Phone Number" onChange={(e) => this.handleChange(e, x.id)} /></Col>
                     <Col xs="auto">
                       <Button type="submit" variant="success" onClick={(e) => this.addSubscription(e, x.id)}>
                         <i className="fas fa-check" color="white"/>
