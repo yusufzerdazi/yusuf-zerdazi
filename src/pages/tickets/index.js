@@ -87,6 +87,17 @@ class Tickets extends React.Component {
     }
   }
 
+  getFriendlyName(provider){
+    switch(provider){
+      case("ra.co"):
+        return "Resident Advisor";
+      case("www.ticketmaster.co.uk"):
+        return "Ticketmaster";
+      default:
+        return null;
+    }
+  }
+
   render(){
     return (
       <Container>
@@ -113,7 +124,7 @@ class Tickets extends React.Component {
                   </Alert>
                 </td>
                 <td><a href={x.linkUrl}>{x.title}</a></td>
-                <td>{x.provider}</td>
+                <td>{this.getFriendlyName(x.provider)}</td>
                 <td>{x.minPrice}</td>
                 <td>{x.maxPrice}</td>
                 <td>
