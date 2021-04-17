@@ -1,31 +1,3 @@
-.title {
-    text-align: center;
-    padding-top: 10px;
-}
-
-.sourceLink:hover {
-    opacity: 0.6;
-}
-
-.tileImage
-{
-    /* border: 1px solid black; */
-    max-height: 250px;
-    max-width: 250px;
-    width: 100%;
-    cursor: pointer;
-}
-
-.instagramPost {
-    display: inline-block;
-    margin: auto;
-}
-
-.hitboxVideo {
-    max-width: 640px;
-    width: 100%;
-}
-
-.pumlImage {
-    max-width: 100%;
+body {
+    background-color: white;
 }

@@ -6,6 +6,7 @@ import Home from './pages/home';
 import Vibe from './pages/vibe';
 import Tense from './pages/tense';
 import Solace from './pages/solace';
+import Tickets from './pages/tickets';
 import { withAITracking } from '@microsoft/applicationinsights-react-js';
 import { reactPlugin, appInsights } from './AppInsights';
 
@@ -33,6 +34,9 @@ class App extends React.Component {
           </Route>
           <Route path={["/solace", "/actualise"]}>
             <Solace />
+          </Route>
+          <Route path="/tickets">
+            <Tickets />
           </Route>
           <Route path="/">
             <Home />

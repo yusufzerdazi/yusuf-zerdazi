@@ -1,4 +1,4 @@
-@startuml camera
+@startuml feeder
 !include styles.puml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
@@ -11,21 +11,14 @@
 !define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
 !define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
 !include FONTAWESOME/google.puml
-!include DEVICONS/react.puml
 !include DEVICONS/raspberry_pi.puml
-!include FONTAWESOME/mobile.puml
 
-Container(pi, "Raspberry Pi", "C", "Uses a package called Motion to stream video and detect movement.", "raspberry_pi")
-Container(website, "Website", "React", "", "react")
-Container(ifttt, "IFTTT", "Webhook", "Webhook driven applet.")
-Container_Ext(mobile, "Mobile", "Notification", "", "mobile")
-ContainerDb(blob, "Blob", "Blob", "Motion detected videos are stored in blob.", "AzureBlobStorage")
+Container(pi, "Raspberry Pi", "Package", "Camera set up to detect motion.", "raspberry_pi")
+Container(ml, "Cognitive Services", "Azure", "The image is analysed using cognitive services.", "AzureCognitiveServices")
+Container(arduino, "Arduino", "C", "Hooked up to a motor which dispenses food.")
 
-Rel_D(website, pi, "Embeds stream from", "HTTP")
-Rel_L(pi, ifttt, "Makes API calls to", "HTTP")
-Rel_U(ifttt, mobile, "Sends notification to", "HTTP")
-Rel_R(pi, blob, "Uploads videos to", "HTTP")
-Rel(website, blob, "Reads from", "HTTP")
+Rel_R(pi, ml, "Makes API calls to", "HTTP")
+Rel_D(pi, arduino, "Triggers", "Bluetooth")
 
 HIDE_STEREOTYPE()
 
