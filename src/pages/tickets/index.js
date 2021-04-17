@@ -99,6 +99,7 @@ class Tickets extends React.Component {
               <th className={styles.price}>Min Price</th>
               <th className={styles.price}>Max Price</th>
               <th>Subscribe</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -118,6 +119,10 @@ class Tickets extends React.Component {
                 <td>
                   <Form.Row>
                     <Col xs="auto"><Form.Control name="subscribeNumber" placeholder="Phone Number" onChange={(e) => this.handleChange(e, x.id)} /></Col>
+                  </Form.Row>
+                </td>
+                <td>
+                  <Form.Row>
                     <Col xs="auto">
                       <Button type="submit" variant="success" onClick={(e) => this.addSubscription(e, x.id)}>
                         <i className="fas fa-check" color="white"/>
@@ -136,6 +141,10 @@ class Tickets extends React.Component {
                 <td>
                   <Form.Row>
                     <Col xs="auto"><Form.Control placeholder="Phone Number" name="addNumber" onChange={this.handleChange} /></Col>
+                  </Form.Row>
+                </td>
+                <td>
+                <Form.Row>
                     <Col xs="auto">
                       <Button type="submit" onClick={this.addEvent}>
                         <i className="fas fa-plus" color="white"/>
