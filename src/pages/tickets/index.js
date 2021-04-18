@@ -143,11 +143,20 @@ class Tickets extends React.Component {
             {this.state.stock ? this.state.stock.map((x, i) => 
               <tr key={i}>
                 <td>
-                  <Alert variant={x.InStock ? 'primary' : 'danger'}>
-                    <div className={styles.stockStatus}>
-                      <i className={"fas " + (x.InStock ? "fa-check" : "fa-times")}/>
-                    </div>
-                  </Alert>
+                  <InputGroup>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text className={x.InStock ? "bg-success text-white" : "bg-danger text-white"} id="basic-addon1">
+                        <i className={"fas " + (x.InStock ? "fa-check" : "fa-times")}/>
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                  <InputGroup.Append>
+                    <OverlayTrigger placement="bottom" overlay={<Tooltip id="registerTip">Last checked: {new Date(x.LastChecked).toLocaleString()}</Tooltip>}>
+                      <InputGroup.Text id="basic-addon1">
+                        <i className={"fas fa-clock"}/>
+                      </InputGroup.Text>
+                    </OverlayTrigger>
+                  </InputGroup.Append>
+                  </InputGroup>
                 </td>
                 <td><a href={x.LinkUrl}>{x.Title}</a></td>
                 <td>{this.getFriendlyName(x.Provider)}</td>
