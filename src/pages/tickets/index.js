@@ -114,28 +114,28 @@ class Tickets extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.stock ? this.state.stock.map(x => 
-              <tr>
+            {this.state.stock ? this.state.stock.map((x, i) => 
+              <tr key={i}>
                 <td>
-                  <Alert variant={x.inStock ? 'primary' : 'danger'}>
+                  <Alert variant={x.InStock ? 'primary' : 'danger'}>
                     <div className={styles.stockStatus}>
-                      <i className={"fas " + (x.inStock ? "fa-check" : "fa-times")}/>
+                      <i className={"fas " + (x.InStock ? "fa-check" : "fa-times")}/>
                     </div>
                   </Alert>
                 </td>
-                <td><a href={x.linkUrl}>{x.title}</a></td>
-                <td>{this.getFriendlyName(x.provider)}</td>
-                <td>{x.minPrice}</td>
-                <td>{x.maxPrice}</td>
+                <td><a href={x.LinkUrl}>{x.Title}</a></td>
+                <td>{this.getFriendlyName(x.Provider)}</td>
+                <td>{x.MinPrice}</td>
+                <td>{x.MaxPrice}</td>
                 <td>
                   <Form.Row>
-                    <Col xs="auto"><Form.Control name="subscribeNumber" placeholder="Phone Number" onChange={(e) => this.handleChange(e, x.id)} /></Col>
+                    <Col xs="auto"><Form.Control name="subscribeNumber" placeholder="Phone Number" onChange={(e) => this.handleChange(e, x.Id)} /></Col>
                   </Form.Row>
                 </td>
                 <td>
                   <Form.Row>
                     <Col xs="auto">
-                      <Button type="submit" variant="success" onClick={(e) => this.addSubscription(e, x.id)}>
+                      <Button type="submit" variant="success" onClick={(e) => this.addSubscription(e, x.Id)}>
                         <i className="fas fa-check" color="white"/>
                       </Button>
                     </Col>
