@@ -10,3 +10,7 @@
 .price {
     width: 10%;
 }
+
+.number {
+    min-width: 140px;
+}

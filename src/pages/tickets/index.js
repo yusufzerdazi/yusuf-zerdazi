@@ -136,7 +136,7 @@ class Tickets extends React.Component {
               <th>Provider</th>
               <th className={styles.price}>Min Price</th>
               <th className={styles.price}>Max Price</th>
-              <th>Subscribe</th>
+              <th className={styles.number}>Subscribe</th>
             </tr>
           </thead>
           <tbody>
