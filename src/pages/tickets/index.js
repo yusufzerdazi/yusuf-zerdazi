@@ -10,7 +10,8 @@ class Tickets extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      formData: {}
+      formData: {},
+      subscribed: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.addEvent = this.addEvent.bind(this);
@@ -75,7 +76,11 @@ class Tickets extends React.Component {
       })
       .then((response) => {
         if(response.status == 200){
-          window.location.reload();
+          this.setState({
+            subscribed: {
+              [id]: true
+            }
+          });
         }
         else if(response.status == 400){
           response.json().then(e => this.setState({error: e}));
@@ -128,18 +133,23 @@ class Tickets extends React.Component {
                 <td>{x.MinPrice}</td>
                 <td>{x.MaxPrice}</td>
                 <td>
+                  {this.state.subscribed[x.Id] ? 
+                  <Alert variant="success">Subscribed</Alert> :
                   <Form.Row>
                     <Col xs="auto"><Form.Control name="subscribeNumber" placeholder="Phone Number" onChange={(e) => this.handleChange(e, x.Id)} /></Col>
                   </Form.Row>
+                  }
                 </td>
                 <td>
+                  {!this.state.subscribed[x.Id] ?
                   <Form.Row>
                     <Col xs="auto">
                       <Button type="submit" variant="success" onClick={(e) => this.addSubscription(e, x.Id)}>
                         <i className="fas fa-check" color="white"/>
                       </Button>
                     </Col>
-                  </Form.Row>
+                  </Form.Row> : <></>
+                  }
                 </td>
               </tr>) 
             : <></>}
