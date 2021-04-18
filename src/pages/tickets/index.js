@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './styles.module.css';
 import { withAITracking } from '@microsoft/applicationinsights-react-js';
 import { reactPlugin, appInsights } from '../../AppInsights';
-import { Alert, Button, Col, Container, Form, Row, Table } from 'react-bootstrap';
+import { Alert, Button, Col, Container, Form, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
 
 
 class Tickets extends React.Component {
@@ -11,7 +11,9 @@ class Tickets extends React.Component {
     super(props);
     this.state = {
       formData: {},
-      subscribed: {}
+      subscribed: {
+        "new": true
+      }
     };
     this.handleChange = this.handleChange.bind(this);
     this.addEvent = this.addEvent.bind(this);
@@ -19,7 +21,7 @@ class Tickets extends React.Component {
   }
 
   componentDidMount(){
-    fetch(process.env.REACT_APP_GET_STOCK_URL)
+    fetch(process.env.REACT_APP_GET_STOCK_URL + "&etag=" + this.uuidv4())
       .then(response => response.json())
       .then((json) => this.setState({stock: json}));
   }
@@ -41,7 +43,9 @@ class Tickets extends React.Component {
         body: JSON.stringify({
           url: this.state.formData.url,
           title: this.state.formData.title,
-          phoneNumber: this.state.formData.addNumber
+          phoneNumber: this.state.formData.addNumber,
+          minPrice: this.state.formData.minPrice,
+          maxPrice: this.state.formData.maxPrice
         }),
         headers: {
           'Content-Type': 'application/json'
@@ -49,7 +53,18 @@ class Tickets extends React.Component {
       })
       .then((response) => {
         if(response.status == 200){
-          window.location.reload();
+          var stock = this.state.stock;
+          stock.push({
+            Title: this.state.formData.title,
+            Provider: this.state.formData.url.split("//")[1].split("/")[0],
+            LinkUrl: this.state.formData.url,
+            MinPrice: this.state.formData.minPrice,
+            MaxPrice: this.state.formData.maxPrice,
+            Id: "new"
+          })
+          this.setState({
+            stock: stock
+          });
         }
         else if(response.status == 400){
           response.json().then(e => this.setState({error: e}));
@@ -103,6 +118,13 @@ class Tickets extends React.Component {
     }
   }
 
+  uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
   render(){
     return (
       <Container>
@@ -142,13 +164,16 @@ class Tickets extends React.Component {
                 </td>
                 <td>
                   {!this.state.subscribed[x.Id] ?
-                  <Form.Row>
-                    <Col xs="auto">
-                      <Button type="submit" variant="success" onClick={(e) => this.addSubscription(e, x.Id)}>
-                        <i className="fas fa-check" color="white"/>
-                      </Button>
-                    </Col>
-                  </Form.Row> : <></>
+                  
+                  <OverlayTrigger placement="top" overlay={<Tooltip id="registerTip">Subscribe</Tooltip>}>
+                    <Form.Row>
+                      <Col xs="auto">
+                        <Button type="submit" variant="success" onClick={(e) => this.addSubscription(e, x.Id)}>
+                          <i className="fas fa-check" color="white"/>
+                        </Button>
+                      </Col>
+                    </Form.Row>
+                  </OverlayTrigger> : <></>
                   }
                 </td>
               </tr>) 
@@ -167,9 +192,11 @@ class Tickets extends React.Component {
                 <td>
                 <Form.Row>
                     <Col xs="auto">
-                      <Button type="submit" onClick={this.addEvent}>
-                        <i className="fas fa-plus" color="white"/>
-                      </Button>
+                      <OverlayTrigger placement="top" overlay={<Tooltip id="registerTip">Add</Tooltip>}>
+                        <Button type="submit" onClick={this.addEvent}>
+                            <i className="fas fa-plus" color="white"/>
+                        </Button>
+                      </OverlayTrigger>
                     </Col>
                   </Form.Row>
                 </td>
