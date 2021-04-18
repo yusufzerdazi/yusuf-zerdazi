@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './styles.module.css';
 import { withAITracking } from '@microsoft/applicationinsights-react-js';
 import { reactPlugin, appInsights } from '../../AppInsights';
-import { Alert, Button, Col, Container, Form, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
+import { Alert, Button, Col, Container, Form, InputGroup, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
 
 
 class Tickets extends React.Component {
@@ -127,7 +127,7 @@ class Tickets extends React.Component {
 
   render(){
     return (
-      <Container>
+      <div className={styles.tableContainer}>
         <Table>
           <thead>
             <tr>
@@ -137,7 +137,6 @@ class Tickets extends React.Component {
               <th className={styles.price}>Min Price</th>
               <th className={styles.price}>Max Price</th>
               <th>Subscribe</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -157,23 +156,14 @@ class Tickets extends React.Component {
                 <td>
                   {this.state.subscribed[x.Id] ? 
                   <Alert variant="success">Subscribed</Alert> :
-                  <Form.Row>
-                    <Col xs="auto"><Form.Control name="subscribeNumber" placeholder="Phone Number" onChange={(e) => this.handleChange(e, x.Id)} /></Col>
-                  </Form.Row>
-                  }
-                </td>
-                <td>
-                  {!this.state.subscribed[x.Id] ?
-                  
-                  <OverlayTrigger placement="top" overlay={<Tooltip id="registerTip">Subscribe</Tooltip>}>
-                    <Form.Row>
-                      <Col xs="auto">
-                        <Button type="submit" variant="success" onClick={(e) => this.addSubscription(e, x.Id)}>
-                          <i className="fas fa-check" color="white"/>
-                        </Button>
-                      </Col>
-                    </Form.Row>
-                  </OverlayTrigger> : <></>
+                  <InputGroup>
+                    <Form.Control name="subscribeNumber" placeholder="Phone Number" onChange={(e) => this.handleChange(e, x.Id)} />
+                    <InputGroup.Append>
+                      <Button type="submit" variant="success" onClick={(e) => this.addSubscription(e, x.Id)}>
+                        <i className="fas fa-check" color="white"/>
+                      </Button>
+                    </InputGroup.Append>
+                  </InputGroup>
                   }
                 </td>
               </tr>) 
@@ -182,23 +172,21 @@ class Tickets extends React.Component {
                 <td></td>
                 <td><Form.Control placeholder="Title" name="title" onChange={this.handleChange} /></td>
                 <td><Form.Control placeholder="URL" name="url" onChange={this.handleChange} /></td>
-                <td><Form.Control type="number" placeholder="Min" name="minPrice" onChange={this.handleChange} /></td>
-                <td><Form.Control type="number" placeholder="Max" name="maxPrice" onChange={this.handleChange} /></td>
                 <td>
-                  <Form.Row>
-                    <Col xs="auto"><Form.Control placeholder="Phone Number" name="addNumber" onChange={this.handleChange} /></Col>
-                  </Form.Row>
+                  <Form.Control type="number" placeholder="Min" name="minPrice" onChange={this.handleChange} />
                 </td>
                 <td>
-                <Form.Row>
-                    <Col xs="auto">
-                      <OverlayTrigger placement="top" overlay={<Tooltip id="registerTip">Add</Tooltip>}>
-                        <Button type="submit" onClick={this.addEvent}>
-                            <i className="fas fa-plus" color="white"/>
-                        </Button>
-                      </OverlayTrigger>
-                    </Col>
-                  </Form.Row>
+                  <Form.Control type="number" placeholder="Max" name="maxPrice" onChange={this.handleChange} />
+                </td>
+                <td>
+                  <InputGroup>
+                    <Form.Control placeholder="Phone Number" name="addNumber" onChange={this.handleChange} />
+                    <InputGroup.Append>
+                      <Button type="submit" onClick={this.addEvent}>
+                        <i className="fas fa-plus" color="white"/>
+                      </Button>
+                    </InputGroup.Append>
+                  </InputGroup>
                 </td>
               </tr>
           </tbody>
@@ -206,7 +194,7 @@ class Tickets extends React.Component {
         <div className={styles.error}>
           {this.state.error?.message}
         </div>
-      </Container>
+      </div>
     );
   }
 }
