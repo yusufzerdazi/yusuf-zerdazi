@@ -113,8 +113,10 @@ class Tickets extends React.Component {
         return "Resident Advisor";
       case("www.ticketmaster.co.uk"):
         return "Ticketmaster";
+      case("shop.nvidia.com"):
+        return "Nvidia";
       default:
-        return null;
+        return provider;
     }
   }
 
