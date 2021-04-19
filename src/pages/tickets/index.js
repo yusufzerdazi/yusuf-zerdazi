@@ -142,12 +142,17 @@ class Tickets extends React.Component {
           <tbody>
             {this.state.stock ? this.state.stock.map((x, i) => 
               <tr key={i}>
-                <td>
+                <td className={styles.status}>
                   <InputGroup>
                     <InputGroup.Prepend>
-                      <InputGroup.Text className={x.InStock ? "bg-success text-white" : "bg-danger text-white"} id="basic-addon1">
+                      <InputGroup.Text className={x.InStock ? "bg-success text-white" : "bg-danger text-white"}>
                         <i className={"fas " + (x.InStock ? "fa-check" : "fa-times")}/>
                       </InputGroup.Text>
+                      <OverlayTrigger placement="bottom" overlay={<Tooltip id="registerTip">Subscribers: {x.SubscriberCount}</Tooltip>}>
+                        <InputGroup.Text>
+                          <i className={"fas fa-users"}/>
+                        </InputGroup.Text>
+                      </OverlayTrigger>
                     </InputGroup.Prepend>
                   <InputGroup.Append>
                     <OverlayTrigger placement="bottom" overlay={<Tooltip id="registerTip">Last checked: {new Date(x.LastChecked).toLocaleString()}</Tooltip>}>
@@ -168,9 +173,11 @@ class Tickets extends React.Component {
                   <InputGroup>
                     <Form.Control name="subscribeNumber" placeholder="Phone Number" onChange={(e) => this.handleChange(e, x.Id)} />
                     <InputGroup.Append>
-                      <Button type="submit" variant="success" onClick={(e) => this.addSubscription(e, x.Id)}>
-                        <i className="fas fa-check" color="white"/>
-                      </Button>
+                      <OverlayTrigger placement="bottom" overlay={<Tooltip id="registerTip">Subscribe</Tooltip>}>
+                        <Button type="submit" variant="success" onClick={(e) => this.addSubscription(e, x.Id)}>
+                          <i className="fas fa-check" color="white"/>
+                        </Button>
+                      </OverlayTrigger>
                     </InputGroup.Append>
                   </InputGroup>
                   }
@@ -191,9 +198,11 @@ class Tickets extends React.Component {
                   <InputGroup>
                     <Form.Control placeholder="Phone Number" name="addNumber" onChange={this.handleChange} />
                     <InputGroup.Append>
-                      <Button type="submit" onClick={this.addEvent}>
-                        <i className="fas fa-plus" color="white"/>
-                      </Button>
+                      <OverlayTrigger placement="bottom" overlay={<Tooltip id="registerTip">Add</Tooltip>}>
+                        <Button type="submit" onClick={this.addEvent}>
+                          <i className="fas fa-plus" color="white"/>
+                        </Button>
+                      </OverlayTrigger>
                     </InputGroup.Append>
                   </InputGroup>
                 </td>
