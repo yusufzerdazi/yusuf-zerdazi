@@ -155,6 +155,11 @@ class Tickets extends React.Component {
                           <i className={"fas fa-users"}/>
                         </InputGroup.Text>
                       </OverlayTrigger>
+                      {x.LastInStock != "0001-01-01T00:00:00" ? <OverlayTrigger placement="bottom" overlay={<Tooltip id="registerTip">Last in stock: {new Date(x.LastInStock).toLocaleString()}</Tooltip>}>
+                        <InputGroup.Text>
+                          <i className={"fas fa-history"}/>
+                        </InputGroup.Text>
+                      </OverlayTrigger> : <></> }
                     </InputGroup.Prepend>
                   <InputGroup.Append>
                     <OverlayTrigger placement="bottom" overlay={<Tooltip id="registerTip">Last checked: {new Date(x.LastChecked).toLocaleString()}</Tooltip>}>
