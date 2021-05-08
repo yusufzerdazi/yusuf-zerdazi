@@ -5,6 +5,12 @@
     max-width: 750px;
     width: 100%;
     cursor: pointer;
+    
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .tileImage.notLarge {
@@ -29,8 +35,15 @@
 
 .imageContainer {
     position: relative;
+    text-align: center;
 }
 
+.imageContainer::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+  
 .topright {
     position: absolute;
     bottom: 0px;
