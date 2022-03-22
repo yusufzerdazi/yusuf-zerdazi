@@ -50,14 +50,8 @@ class Camera extends React.Component {
     return <div>
         <p>
           There's numerous home security systems available, most of which are at least a hundred pounds. However, with a simple Raspberry Pi and a camera, it's possible to achieve a similar result for less than fifty.
-          Using a Raspberry Pi and its camera module, you can set up a live stream with motion detection capabilities, and by hooking this up to other services you can also make it give you a notification when it sees something.
+          Using a Raspberry Pi and its camera module, I set up a live stream with motion detection capabilities, and by hooking this up to other services it can give you a notification when it sees something.
         </p>
-        <p>Here's a <a href="https://pi.zerdazi.com:8081">live stream</a> of my bird feeder:</p>
-        <div className="stream-container-container">
-          <div className="stream-container">
-            <img className={styles.streamImage} src="https://pi.zerdazi.com:8081"></img>
-          </div>
-        </div>
         <h3>Captures</h3>
         { this.state.blobs ? 
           <Carousel onSlid={this.onSlide} interval={null} indicators={false}>

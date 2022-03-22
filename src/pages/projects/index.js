@@ -12,6 +12,7 @@ import robot from '../../assets/robot.png';
 import catfeeder from '../../assets/catfeeder.jpg';
 import security from '../../assets/security.jpg';
 import lecturehall from '../../assets/lecture-hall.jpg';
+import headphones from '../../assets/headphones.png'
 import nomobile from '../../assets/no-mobile.png';
 import Tiles from '../../components/tiles';
 import { isMobile } from 'react-device-detect';
@@ -20,11 +21,22 @@ import Dreams from '../../components/dreams';
 import Camera from '../../components/camera';
 import { withAITracking } from '@microsoft/applicationinsights-react-js';
 import { reactPlugin, appInsights } from '../../AppInsights';
-import { Tab, Tabs } from 'react-bootstrap';
+import { Carousel, CarouselItem, Col, Row, Tab, Tabs } from 'react-bootstrap';
 
 import dream_puml from '../../assets/puml/dreams.png';
 import everydays_puml from '../../assets/puml/everydays.png';
 import camera_puml from '../../assets/puml/camera.png';
+
+const headphone_images = [
+  "IMG_20141225_130752.jpg",
+  "IMG_20141225_130857.jpg",
+  "IMG_20141225_131723.jpg",
+  "IMG_20141225_191151.jpg",
+  "IMG_20141225_191205.jpg",
+  "IMG_20141225_205544.jpg",
+  "IMG_20141225_223403.jpg",
+  "IMG_20220322_220630.jpg"
+]
 
 class Projects extends React.Component {
   constructor(props){
@@ -142,6 +154,24 @@ class Projects extends React.Component {
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/0WHfGhkzuQc" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div title="Bluetooth Headphones" image={headphones} >
+              <p>
+                With a Dremel, a soldering iron and some tools, I modded my wired ATH-M50 headphones from wired to wireless. Prior to modification, there is a wire attached to the headphones themselves. This was replaced with a 3.5mm jack slot, so for example a Bluetooth receiver can be attached.
+              </p>
+              <div>
+                <Carousel interval={null}>
+                  { headphone_images.map(h => 
+                  <Carousel.Item>
+                    <Row>
+                      <Col xs={3}></Col>
+                      <Col xs={6}><img className="d-block w-100" src={`./headphones/${h}`}></img></Col>
+                      <Col xs={3}></Col>
+                    </Row>
+                  </Carousel.Item>
+                  )}
+                </Carousel>
               </div>
             </div>
           </Tiles>    
