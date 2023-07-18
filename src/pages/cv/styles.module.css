@@ -1,0 +1,30 @@
+
+h1, h2, h3, h4, h5 {
+    color: rgb(33, 54, 71);
+}
+
+p {
+    color: rgb(33, 54, 71);
+}
+
+.header {
+    text-align: center;
+}
+
+.dotted {
+    border: none;
+    border-top: 4px dotted rgb(173 179 194);
+    color: #fff;
+    background-color: #fff;
+    height: 1px;
+    width: 100%;
+    padding-bottom: 5px;
+}
+
+.sidebar {
+    border-left: dotted 4px rgb(173 179 194);
+}
+
+.content {
+    padding-top: 10px;
+}
