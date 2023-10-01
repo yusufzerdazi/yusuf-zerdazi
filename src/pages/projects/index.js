@@ -6,7 +6,7 @@ import rcRobot from '../../assets/rc-robotbg.png';
 import everydays from '../../assets/everydays.svg';
 import dream from '../../assets/dream.svg';
 import hitbox from '../../assets/hitbox.svg';
-import cigttpy from '../../assets/canigotothepubyet.png';
+import texttrek from '../../assets/texttrek.png';
 import piVideo from '../../assets/slam.mp4';
 import robot from '../../assets/robot.png';
 import catfeeder from '../../assets/catfeeder.jpg';
@@ -55,7 +55,7 @@ class Projects extends React.Component {
             <h1>Projects</h1>
           </div>
           <Tiles>
-            <div title="Can I Go To The Pub Yet?" link="https://www.canigotothepubyet.com" image={cigttpy}>
+            <div title="Text Trek" link="https://texttrek.z16.web.core.windows.net/" image={texttrek}>
             </div>
             <div title="Dreams" image={dream}>
               <Tabs defaultActiveKey="project" id="dreams">
@@ -135,7 +135,7 @@ class Projects extends React.Component {
             <div title="Virtual Lecture Hall" image={lecturehall}>
               <p>In this university assignment I created a 3D virtual lecture hall using JavaScript and WEB-GL. Check it out below - try kicking all the shapes outside the door onto the roof for an easter egg!</p>
               { !isMobile ? <div className="video-container">
-                <iframe width="560" height="315" id="serviceFrameSend" src="./virtual-lecture-hall/index.html" width="100%" height="100%" frameBorder="0" />
+                <iframe id="serviceFrameSend" src="./virtual-lecture-hall/index.html" width="100%" height="100%" frameBorder="0" />
               </div> : <><img height="50px" src={nomobile}></img><p style={{fontWeight:"900"}}>Not mobile compatible</p></> }
             </div>
             <div title="Arduino Robot" image={rcRobot} >
