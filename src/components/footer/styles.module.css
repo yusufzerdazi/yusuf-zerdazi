@@ -16,6 +16,10 @@ footer {
     z-index: 1001;
 }
 
+.footerLink {
+    padding: 0 3px
+}
+
 .footerLink:hover {
     opacity: 0.9;
 }

@@ -1,9 +1,10 @@
 
-h1, h2, h3, h4, h5 {
+.cv h1, .cv h2, .cv h3, .cv h4, .cv h5 {
     color: rgb(33, 54, 71);
+    font-family: 'Trebuchet MS', sans-serif;
 }
 
-p {
+.cv p {
     color: rgb(33, 54, 71);
 }
 
@@ -18,7 +19,7 @@ p {
     background-color: #fff;
     height: 1px;
     width: 100%;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
 }
 
 .sidebar {
@@ -27,4 +28,12 @@ p {
 
 .content {
     padding-top: 10px;
+}
+
+.para {
+    padding-left: 10px;
+}
+
+.cv h5 > b {
+    color: #797f8e
 }

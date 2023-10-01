@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
+    "html2pdf.js": "^0.10.1",
     "react": "^16.12.0",
     "react-bootstrap": "^1.5.2",
     "react-collapsible": "^2.6.2",
@@ -25,7 +26,7 @@
   },
   "scripts": {
     "puml": "java -jar plantuml/plantuml.jar plantuml/* -o ../src/assets/puml",
-    "start": "npm run puml && react-scripts start",
+    "start": "npm run puml && react-scripts --openssl-legacy-provider start",
     "build": "npm run puml && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

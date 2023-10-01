@@ -6,7 +6,7 @@ import rcRobot from '../../assets/rc-robotbg.png';
 import everydays from '../../assets/everydays.svg';
 import dream from '../../assets/dream.svg';
 import hitbox from '../../assets/hitbox.svg';
-import cigttpy from '../../assets/canigotothepubyet.png';
+import texttrek from '../../assets/texttrek.png';
 import piVideo from '../../assets/slam.mp4';
 import robot from '../../assets/robot.png';
 import catfeeder from '../../assets/catfeeder.jpg';
@@ -55,7 +55,7 @@ class Projects extends React.Component {
             <h1>Projects</h1>
           </div>
           <Tiles>
-            <div title="Can I Go To The Pub Yet?" link="https://www.canigotothepubyet.com" image={cigttpy}>
+            <div title="Text Trek" link="https://texttrek.z16.web.core.windows.net/" image={texttrek}>
             </div>
             <div title="Dreams" image={dream}>
               <Tabs defaultActiveKey="project" id="dreams">
