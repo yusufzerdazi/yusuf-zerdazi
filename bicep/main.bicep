@@ -91,13 +91,11 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
     'hidden-link:/subscriptions/4b89f88e-13f2-4990-bf5f-3ab2e4d5301f/resourceGroups/yusufzerdazi/providers/Microsoft.Web/sites/yusufzerdazi': 'Resource'
   }
   kind: 'web'
-  etag: '"8200ef06-0000-0200-0000-651b160c0000"'
   properties: {
     Application_Type: 'web'
     Request_Source: 'IbizaWebAppExtensionCreate'
     RetentionInDays: 90
     publicNetworkAccessForIngestion: 'Enabled'
     publicNetworkAccessForQuery: 'Enabled'
-    Ver: 'v2'
   }
 }
