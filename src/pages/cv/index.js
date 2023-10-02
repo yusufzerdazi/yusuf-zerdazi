@@ -30,7 +30,7 @@ class CV extends React.Component {
             <div className={styles.dotted} />
             <h4><b>Summary</b></h4>
             <p>
-            Senior Software Engineer with over 6 years of experience in a variety of technical domains including <b>Azure</b>, <b>.NET Core</b>, <b>SQL</b>, <b>Python</b>, and <b>Agile</b> methodologies. Proven ability as a team leader, mentor, and key contributor, driving high-impact projects to success within fast-paced and ever-evolving business environments. Passionate about personal growth, quality work, and engaging in diverse interests such as music production, digital art, electronics, and web development.
+            Senior Software Engineer with over 6 years of experience in a variety of technical domains including <b>Azure</b>, <b>.NET Core</b>, <b>SQL</b>, <b>Python</b>, and <b>Agile</b> methodologies. Proven ability as a team leader, mentor, and key contributor, driving high-impact projects to success within fast-paced and ever-evolving business environments. Passionate about personal growth, quality work, and engaging in diverse interests such as music production, digital art, electronics, AI, and web development.
             </p>
             <div className={styles.dotted} />
             <h4><b>Skills</b></h4>
@@ -57,7 +57,7 @@ class CV extends React.Component {
             
             <div className={styles.para}>
             <p>
-            I lead new feature initiatives and utilizing technologies such as <b>Durable Functions</b>, <b>Stream Analytics</b>, and <b>Databricks</b>, developing high-throughput services for various projects. Primarily using <b>.NET Core</b> along with technologies mentioned in the previous role, I continued to deliver quality code and became a respected point of call for both experienced and junior team members.
+            I lead new feature initiatives and utilizing technologies such as <b>Durable Functions</b>, <b>Stream Analytics</b>, and <b>Databricks</b>, developing high-throughput services for various projects, including integration with the AI recommendations engine. Primarily using <b>.NET Core</b> along with technologies mentioned in the previous role, I continued to deliver quality code and became a respected point of call for both experienced and junior team members.
             </p>
             <p>
             I then moved to a dedicated team spearheading a new "Direct to Customer" initiative for ASOS, refining skills in <b>Logic Apps</b>, <b>Cosmos DB</b>, <b>Service Bus</b>, <b>Terraform</b>, <b>Application Insights</b>, <b>Grafana</b>, team coordination, and mentoring. Maintainability, monitoring and alerting were highly prioritised from the beginning so that we could effectively support the solution, which was delivered within a tight deadline, and gave ASOS access to unique partnership opportunities with well known fashion brands.
@@ -68,14 +68,11 @@ class CV extends React.Component {
             </h5>
             <div className={styles.para}>
               <p>
-              I delivered high quality, well tested code which furthers the company’s priorities, driving technological improvement and helping to deliver key projects to their deadline, taking an active role in defining and delivering work, both at a business and implementation level. My ability to quickly pick up knowledge of infrastructure and its purpose allowed me to make a big impact early on, aiding the team as an engineer and problem-solver. I facilitated collaboration and communication through clearly articulated ideas and constructive engagement with others.
-              </p>
-            <p>
               Using <b>.NET Core</b>, <b>ARM Templates</b> and <b>Azure</b>, I contributed to a number of projects, ensuring the code was maintainable by applying <b>TDD</b> and <b>SOLID</b> principles. Tools such as NCrunch and ReSharper were used to improve productivity, and other tools such as SQL Management Studio, Azure Storage Explorer
-              and Service Bus Explorer aided the development and testing of new code.
+              and Service Bus Explorer aided the development and testing of new code. In other projects I used Sitecore, <b>Logic Apps</b>, <b>Redis Cache</b>, <b>Cloud Services</b>, <b>Blob Storage</b>, <b>.NET Framework</b> and Kibana, and became a member of the support team, debugging and fixing issues outsite of office hours when incidents occurred.
               </p>
-            <p>
-              In other projects I used Sitecore, <b>Logic Apps</b>, <b>Redis Cache</b>, <b>Cloud Services</b>, <b>Blob Storage</b>, <b>.NET Framework</b> and Kibana, and became a member of the support team, debugging and fixing issues outsite of office hours when incidents occurred.
+              <p>
+                I delivered high quality, well tested code, driving technological improvement and helping to deliver key projects to their deadline, and took an active role in defining and delivering work, both at a business and implementation level. My ability to quickly pick up domain knowledge allowed me to make a big impact early on, aiding the team as an engineer and problem-solver. I facilitated collaboration and communication through clearly articulated ideas and constructive engagement with others.
               </p>
             </div>
             <h5>
@@ -91,10 +88,7 @@ class CV extends React.Component {
             </h5>
             <div className={styles.para}>
               <p>
-              Apple’s fast-paced, engaging environment provided me with vital insight into how tech giants structure their development. I experienced an <b>Agile</b> workflow which changed my perspective on efficient software development, and challenged me to produce software in an unfamiliar way.
-</p>
-<p>
-I was tasked with developing a tool that would improve the efficiency of working with Apple’s ticket system for <b>Agile</b> development. I used <b>Python</b>, Flask and <b>JavaScript</b>, interfacing with an internal API, to produce a web application that fulfilled the requirements.
+              I was tasked with developing a tool that would improve the efficiency of working with Apple’s ticket system for <b>Agile</b> development. I used <b>Python</b>, Flask and <b>JavaScript</b>, interfacing with an internal API, to produce a web application that fulfilled the requirements. Apple’s fast-paced, engaging environment provided me with vital insight into how tech giants structure their <b>Agile</b> development.
               </p>
             </div>
             <h5>
@@ -123,6 +117,9 @@ I was tasked with developing a tool that would improve the efficiency of working
             <h4><b>Awards</b></h4>
             <h5><i className="fas fa-chevron-circle-right"/> <b>Natural Sciences MSci Award for Outstanding Achievement:</b> Natural Sciences Department</h5>
             <h5><i className="fas fa-chevron-circle-right"/> <b>Natural Sciences Finalist for Outstanding Academic Achievement in Computer Science:</b> Computer Science Department</h5>
+            <div className={styles.dotted} />
+            <h4><b>Certifications</b></h4>
+            <h5><i className="fab fa-microsoft"/> <b>Microsoft Certified:</b> Azure Developer Associate</h5>
           </Col>
         </Row>
       </Container>
