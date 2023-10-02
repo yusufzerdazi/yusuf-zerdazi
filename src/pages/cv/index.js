@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 import { withAITracking } from '@microsoft/applicationinsights-react-js';
 import { reactPlugin, appInsights } from '../../AppInsights';
 import { Alert, Button, Col, Container, Form, InputGroup, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
-import html2pdf from 'html2pdf.js';
+import { Link } from "react-router-dom";
 
 class CV extends React.Component {
   constructor(props){
@@ -21,7 +21,7 @@ class CV extends React.Component {
     return (
       <Container className={styles.cv}>
         <div className={styles.header}>
-          <a href="/"><Header dark={true}/></a>
+          <Link to="/"><Header dark={true}/></Link>
           <h3>Senior Software Engineer</h3>
           <h5><i className="fas fa-map-marker-alt"/> London&nbsp;&nbsp;&nbsp;&nbsp;<i className="fas fa-link"/> <a href="https://yusuf.zerdazi.com">https://yusuf.zerdazi.com</a></h5>
         </div>

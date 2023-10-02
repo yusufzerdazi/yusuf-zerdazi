@@ -3,14 +3,15 @@ import React from 'react';
 import styles from './styles.module.css';
 import { withAITracking } from '@microsoft/applicationinsights-react-js';
 import { reactPlugin, appInsights } from '../../AppInsights';
+import { Link } from 'react-router-dom';
 
 function Footer() {
     return (
       <footer className={styles.footer}>
         <div className={styles.footerContainer}>
-          <a className={styles.footerLink} href="/cv" title="CV">
+          <Link className={styles.footerLink} to="/cv" title="CV">
             <i className="fa fa-file-alt fa-2x" color="white"/>
-          </a>
+          </Link>
           <a className={styles.footerLink} href="https://linkedin.com/in/yusufzerdazi" title="LinkedIn">
             <i className="fab fa-linkedin fa-2x" color="white"/>
           </a>

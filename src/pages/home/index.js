@@ -36,10 +36,10 @@ function Home(props){
           </video>
         </div>
         <Header/>
-        <Releases/>
         <ScopedCssBaseline>
           <Projects/>
         </ScopedCssBaseline>
+        <Releases/>
         <Values/>
         <Footer/>
         </div>

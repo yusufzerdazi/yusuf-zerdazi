@@ -12,7 +12,7 @@ import { withAITracking } from '@microsoft/applicationinsights-react-js';
 import { reactPlugin, appInsights } from './AppInsights';
 
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Link
