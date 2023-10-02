@@ -40,6 +40,6 @@ jobs:
         inlineScript: |
           az storage blob delete-batch --account-name yusufzerdazi --source '$web'
           az storage blob upload-batch --destination '$web' --account-name yusufzerdazi --source ./build --overwrite
-          az cdn endpoint purge -g yusufzerdazi -n yusufzerdazi --profile-name yusufzerdazi --content-paths '/**/*'
+          az cdn endpoint purge -g yusufzerdazi -n yusufzerdazi --profile-name yusufzerdazi --content-paths "/*"
 
   
