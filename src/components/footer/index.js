@@ -9,9 +9,6 @@ function Footer() {
     return (
       <footer className={styles.footer}>
         <div className={styles.footerContainer}>
-          <Link className={styles.footerLink} to="/cv" title="CV">
-            <i className="fa fa-file-alt fa-2x" color="white"/>
-          </Link>
           <a className={styles.footerLink} href="https://linkedin.com/in/yusufzerdazi" title="LinkedIn">
             <i className="fab fa-linkedin fa-2x" color="white"/>
           </a>
