@@ -26,8 +26,8 @@
   },
   "scripts": {
     "puml": "java -jar plantuml/plantuml.jar plantuml/* -o ../src/assets/puml",
-    "start": "npm run puml && react-scripts --openssl-legacy-provider start",
-    "build": "npm run puml && react-scripts --openssl-legacy-provider build",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
