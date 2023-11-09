@@ -30,7 +30,7 @@ class CV extends React.Component {
             <div className={styles.dotted} />
             <h4><b>Summary</b></h4>
             <p>
-            Senior Software Engineer with over 6 years of experience in a variety of technical domains including <b>Azure</b>, <b>.NET Core</b>, <b>SQL</b>, <b>Python</b>, and <b>Agile</b> methodologies. Proven ability as a team leader, mentor, and key contributor, driving high-impact projects to success within fast-paced and ever-evolving business environments. Passionate about personal growth, quality work, and engaging in diverse interests such as music production, digital art, electronics, AI, and web development.
+            Senior Software Engineer with over 6 years of experience in a variety of technical domains including <b>Azure</b>, <b>.NET Core</b>, <b>SQL</b>, <b>Python</b>, <b>NodeJS</b>, and <b>Agile</b> methodologies. Proven ability as a team leader, mentor, and key contributor, driving high-impact projects to success within fast-paced and ever-evolving business environments. Passionate about personal growth, quality work, and engaging in diverse interests such as music production, digital art, electronics, AI, and web development.
             </p>
             <div className={styles.dotted} />
             <h4><b>Skills</b></h4>
@@ -45,7 +45,7 @@ class CV extends React.Component {
             </h5>
             <div className={styles.para}>
             <p>
-            I became a senior software engineer after successful delivery of the "Direct to Customer" project and drove its successful expansion using <b>.NET Core</b>, <b>Logic Apps</b>, <b>Durable Functions</b>, <b>Databricks</b> and other <b>Azure</b> services. It was necessary to further build and expand the team, and I took a central role in interviewing and assessing potential candidates, as well as mentoring and on-boarding new team members as they were brought in.
+            I became a senior software engineer after successful delivery of the "Direct to Customer" project and drove its successful expansion using <b>.NET Core</b>, <b>Logic Apps</b>, <b>Durable Functions</b>, <b>Databricks</b>, <b>NodeJS</b> and other <b>Azure</b> services. It was necessary to further build and expand the team, and I took a central role in interviewing and assessing potential candidates, as well as mentoring and on-boarding new team members as they were brought in.
             </p>
             <p>
             Many vital new features and initiatives were delivered which further progressed one of ASOS' central priorities, and this was accomplished by successfully organising the work, delegating and coaching other team members, and coordinating and communicating requirements across a number of other teams.
