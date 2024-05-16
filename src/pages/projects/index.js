@@ -74,7 +74,7 @@ class Projects extends React.Component {
                 </Tab>
               </Tabs>
             </div>
-            <div title="Hitbox" image={hitbox}  link="https://hitbox.online">
+            <div title="Hitbox" image={hitbox}  link="https://www.hitbox.online">
             </div>
             <div title="Everydays" image={everydays}>
               <Tabs defaultActiveKey="project" id="everydays">
