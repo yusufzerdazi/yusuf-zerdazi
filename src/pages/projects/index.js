@@ -76,23 +76,7 @@ class Projects extends React.Component {
             </div>
             <div title="Hitbox" image={hitbox}  link="https://www.hitbox.online">
             </div>
-            <div title="Everydays" image={everydays}>
-              <Tabs defaultActiveKey="project" id="everydays">
-                <Tab eventKey="project" title="Project">
-                  <p>Inspired by Beeple's <a href="http://beeple-crap.com/everydays.php">Everydays</a> project, I plan to
-                  complete some piece of work — an image, a sound, a video, or some combination of these — every day. The aim of this project is 
-                  to get better at certain skills, and to make myself practice regularly. Of course, sometimes life will get in the way and I 
-                  will miss days, although I will try to catch up on the days I miss.</p>
-                  <div className={styles.instagramPost}>
-                    <Everydays></Everydays>
-                  </div>
-                </Tab>
-                <Tab eventKey="architecture" title="Architecture">
-                  <div>
-                    <img className={styles.pumlImage} src={everydays_puml}></img>
-                  </div>
-                </Tab>
-              </Tabs>
+            <div title="Everydays" image={everydays} link="https://instagram.com/everyda.ys">
             </div>
             <div title="Security Camera" image={security}>
               <Tabs defaultActiveKey="project" id="camera">
