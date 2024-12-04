@@ -37,6 +37,9 @@ function Home() {
             Tooltip content
             <div className="tooltip-arrow" data-popper-arrow></div>
         </div>
+        <svg viewBox='0 0 500 500'>
+            <use href='./assets/home.svg#Layer_9'></use>
+        </svg>
         <Modal size="7xl" dismissible={true} show={openModal} onClose={() => setOpenModal(false)}>
             <Modal.Header>test</Modal.Header>
             <Modal.Body>body</Modal.Body>
