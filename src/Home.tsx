@@ -33,7 +33,6 @@ const portfolioSections = {
     projects: [
       {
         title: "Zerdazi",
-        description: "TODO",
         yearRange: { start: 2017, end: null },
         links: [
           { name: "Instagram", url: "https://instagram.com/zerdazi_music", icon: "fab fa-instagram" },
@@ -68,17 +67,16 @@ const portfolioSections = {
         title: "Dreams",
         description: "I've kept a dream journal in Google Keep for a few years. I thought it would be interesting to use AI to scan my dreams for sentiment over time, key phrases, recurring themes etc. Using Azure's Text Analysis, I analysed all my dreams, saving the results in a Blob Storage account. Power BI allows me to create graphs and infographics based on this data, giving me insight into my dreams and myself.",
         yearRange: { start: 2020, end: 2020 },
-        mermaidDiagram: `s`,
+        diagram: "dreams",
         links: [
           { name: "GitHub", url: "https://github.com/yourusername/dreams-analyzer", icon: "fab fa-github" }
         ]
       },
       {
         title: "Security Camera",
-        description: "There's numerous home security systems available, most of which are at least a hundred pounds. However, with a simple Raspberry Pi and a camera, it's possible to achieve a similar result for less than fifty. Using a Raspberry Pi and its camera module, I set up a live stream with motion detection capabilities, and by hooking this up to other services it can give you a notification when it sees something.",
+        description: "It's possible to build a cheap security system using a Raspberry Pi and its camera module - I set up a live stream with motion detection capabilities, and by hooking this up to other services it can give you a notification when it sees something.",
         yearRange: { start: 2019, end: 2020 },
         diagram: "camera",
-        diagramType: "architecture",
         links: [
           { name: "GitHub", url: "https://github.com/yourusername/raspberry-pi-security", icon: "fab fa-github" }
         ],
@@ -89,7 +87,14 @@ const portfolioSections = {
   "LED": {
     title: "LED Screen",
     icon: <i className="fas fa-lightbulb"></i>,
-    links: []
+    links: [],
+    projects: [
+        {
+            title: "LED Screen",
+            description: "Coming soon.",
+            yearRange: { start: 2023, end: 2025 }
+        }
+    ]
   },
   "Music": {
     title: "Music",
@@ -98,7 +103,6 @@ const portfolioSections = {
     projects: [
       {
         title: "Yusuf Zerdazi",
-        description: "TODO",
         yearRange: { start: 2006, end: null },
         links: [
           { name: "SoundCloud", url: "https://soundcloud.com/yusufzerdazi", icon: "fab fa-soundcloud" },
@@ -214,9 +218,8 @@ const portfolioSections = {
       {
         title: "Automatic Cat Feeder",
         description: "Using a Raspberry Pi (with a camera), an Arduino and a Pringles can, I created an automatic cat food dispenser.\n\nThe Raspberry Pi camera intermittently takes pictures and sends them to Azure Cognitive Services. If it detects a cat, the Pi sends a signal to the Arduino which turns a servo motor, releasing food stored in the Pringles can.\n\nTo avoid overfeeding, it's programmed to only release food twice a day. However, this is made more complicated since we have multiple cats; the second cat might eat food intended for the first. This is already an issue in our household, made evident by their discrepency in size.\n\nFurther research required.",
-        yearRange: { start: 2021, end: 2022 },
+        yearRange: { start: 2020, end: 2020 },
         diagram: "feeder",
-        diagramType: "architecture",
         videoEmbed: "https://www.youtube.com/watch?v=ElRrdRDLgLk",
         links: [
           { name: "GitHub", url: "https://github.com/yourusername/cat-feeder", icon: "fab fa-github" }
@@ -579,16 +582,6 @@ function Home() {
             <div className={`w-full ${isMobile ? 'flex flex-col' : 'max-h-full flex flex-col'}`}>
                 <div className={`${isMobile ? '' : 'flex-1'} flex items-center justify-center ${isMobile ? 'mb-6' : 'overflow-hidden'} relative`}>
                     <RoomImage className={`max-w-full max-h-[85vh] w-auto h-auto object-contain ${imagesLoading ? 'images-loading' : ''}`} ref={roomRef} />
-                    
-                    {/* Image loading spinner */}
-                    {imagesLoading && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-white/60 dark:bg-gray-900/60">
-                            <div className="text-center">
-                                <i className="fas fa-palette fa-spin text-5xl text-indigo-600 dark:text-indigo-400 mb-3"></i>
-                                <p className="text-gray-700 dark:text-gray-300 font-medium">Loading art...</p>
-                            </div>
-                        </div>
-                    )}
                 </div>
                 
                 {/* Mobile navigation icons (visible on smaller screens) */}
@@ -824,12 +817,10 @@ function Home() {
                                                 <SecurityCameraViewer />
                                               )}
                                               
-                                              {/* All architecture diagrams - moved to bottom */}
-                                              {(project.plantuml || project.mermaidDiagram || project.diagram) && (
+                                              {/* Add architecture diagrams */}
+                                              {project.diagram && (
                                                 <div className="mt-6">
-                                                  {project.plantuml && <DiagramViewer diagram={project.plantuml} type="plantuml" />}
-                                                  {project.mermaidDiagram && <DiagramViewer diagram={project.mermaidDiagram} type="mermaid" />}
-                                                  {project.diagram && <DiagramViewer diagram={project.diagram} type="architecture" />}
+                                                  <DiagramViewer diagram={project.diagram} />
                                                 </div>
                                               )}
                                             </div>

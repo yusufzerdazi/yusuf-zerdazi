@@ -18,7 +18,7 @@ import { DatabaseNode, ServiceNode, ExternalSystemNode } from './nodes';
 
 interface DiagramViewerProps {
   diagram: string;
-  type: 'mermaid' | 'plantuml' | 'architecture';
+  type?: 'architecture';
 }
 
 // Register custom node types
@@ -28,7 +28,7 @@ const nodeTypes: NodeTypes = {
   external: ExternalSystemNode
 };
 
-const DiagramViewer: React.FC<DiagramViewerProps> = ({ diagram, type }) => {
+const DiagramViewer: React.FC<DiagramViewerProps> = ({ diagram, type = 'architecture' }) => {
   const isDarkMode = useColorMode()[0] === 'dark';
   
   // Get the appropriate diagram configuration based on the diagram name
