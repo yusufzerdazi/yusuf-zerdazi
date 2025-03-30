@@ -639,18 +639,20 @@ function Home() {
                         )}
                     </Modal.Header>
                     <Modal.Body className="p-6">
-                        {/* Top section: SVG icon on left, parent description on right */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {/* Left column: SVG icon - make it smaller and more contained */}
-                            <div className="md:col-span-1 flex justify-center items-center bg-gray-200 dark:bg-gray-800 rounded-lg p-4">
-                                {/* Reduced height and added max-width to prevent overflow */}
-                                <svg className="w-full max-w-xs h-40" viewBox={elementViewBox} preserveAspectRatio="xMidYMid meet">
-                                    {clickedElement && <g className="no-hover" dangerouslySetInnerHTML={{ __html: clickedElement.outerHTML }} />}
-                                </svg>
+                        <div className="flex flex-col items-center gap-8">
+                            {/* Top section: SVG icon centered with accent lines */}
+                            <div className="flex items-center w-full max-w-3xl">
+                                <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent flex-grow"></div>
+                                <div className="flex-shrink-0 mx-8 bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4 shadow-sm border border-blue-100 dark:border-blue-800/30">
+                                    <svg className="w-40 h-40" viewBox={elementViewBox} preserveAspectRatio="xMidYMid meet">
+                                        {clickedElement && <g className="no-hover" dangerouslySetInnerHTML={{ __html: clickedElement.outerHTML }} />}
+                                    </svg>
+                                </div>
+                                <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent flex-grow"></div>
                             </div>
                             
-                            {/* Right column: Section description and links */}
-                            <div className="md:col-span-2">
+                            {/* Section description and links */}
+                            <div className="w-full max-w-3xl">
                                 {currentSection && (
                                     <div className="space-y-4">
                                         <div className="flex items-center justify-between">
