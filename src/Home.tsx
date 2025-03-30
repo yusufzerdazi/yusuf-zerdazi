@@ -3,14 +3,14 @@ import RoomImage from './assets/home.svg?react';
 import { generateCarpet } from './Utils';
 import { useRef, useEffect, useState, useMemo } from 'react';
 import homeIconHref from './assets/home.svg';
+import DiagramViewer from './components/DiagramViewer';
+import SecurityCameraViewer from './components/SecurityCameraViewer';
 
 // Define portfolio sections with corresponding SVG layers and social links
 const portfolioSections = {
   "Games": {
     title: "Games",
-    description: "Games I've developed in my spare time, showcasing interactive experiences and creative coding.",
     icon: <i className="fas fa-gamepad"></i>,
-    yearRange: { start: 2016, end: 2020 },
     projects: [
       {
         title: "Hitbox",
@@ -28,10 +28,8 @@ const portfolioSections = {
   },
   "DJ": {
     title: "DJ",
-    description: "TODO",
     icon: <i className="fas fa-headphones"></i>,
     links: [],
-    yearRange: { start: 2017, end: null },
     projects: [
       {
         title: "Zerdazi",
@@ -56,6 +54,7 @@ const portfolioSections = {
         description: "Leading the charge with garage and breaks, we explore the grooviest degenerate sounds around. Be prepared to witness some obscene shapes on the dancefloor as we sail further into the night. When the clock strikes twelve, drum'n'bass reigns supreme so have your finger guns at the ready.\n\nHead upstairs and come hang out with us at the rooftop. Chatting is the name of the game and we are there to play. Our crew are well versed in silly behaviour and other general nonsense so keep an eye out for a few wizards in the mischief universe. Amongst all that hubbub we have the finest selection of brain rot activities to get lost in.",
         yearRange: { start: 2025, end: null }, 
         links: [
+        { name: "Instagram", url: "https://instagram.com/mischief.london", icon: "fab fa-instagram" },
           { name: "Resident Advisor", url: "https://ra.co/promoters/157564", icon: "fas fa-globe" }
         ]
       }
@@ -63,27 +62,39 @@ const portfolioSections = {
   },
   "Computer": {
     title: "Technical",
-    description: "Engineering solutions and technical implementations including web applications, backend systems, and more.",
-    icon: <i className="fas fa-desktop"></i>,
-    links: [
-      { name: "GitHub", url: "https://github.com/yusufzerdazi", icon: "fab fa-github" },
-      { name: "LinkedIn", url: "https://linkedin.com/in/yusufzerdazi", icon: "fab fa-linkedin" }
-    ],
-    yearRange: { start: 2013, end: null }
+    icon: <i className="fas fa-code"></i>,
+    projects: [
+      {
+        title: "Dreams",
+        description: "I've kept a dream journal in Google Keep for a few years. I thought it would be interesting to use AI to scan my dreams for sentiment over time, key phrases, recurring themes etc. Using Azure's Text Analysis, I analysed all my dreams, saving the results in a Blob Storage account. Power BI allows me to create graphs and infographics based on this data, giving me insight into my dreams and myself.",
+        yearRange: { start: 2020, end: 2020 },
+        mermaidDiagram: `s`,
+        links: [
+          { name: "GitHub", url: "https://github.com/yourusername/dreams-analyzer", icon: "fab fa-github" }
+        ]
+      },
+      {
+        title: "Security Camera",
+        description: "There's numerous home security systems available, most of which are at least a hundred pounds. However, with a simple Raspberry Pi and a camera, it's possible to achieve a similar result for less than fifty. Using a Raspberry Pi and its camera module, I set up a live stream with motion detection capabilities, and by hooking this up to other services it can give you a notification when it sees something.",
+        yearRange: { start: 2019, end: 2020 },
+        diagram: "camera",
+        diagramType: "architecture",
+        links: [
+          { name: "GitHub", url: "https://github.com/yourusername/raspberry-pi-security", icon: "fab fa-github" }
+        ],
+        component: "SecurityCameraViewer"
+      }
+    ]
   },
   "LED": {
     title: "LED Screen",
-    description: "Interactive LED display projects and visual programming.",
     icon: <i className="fas fa-lightbulb"></i>,
-    links: [],
-    yearRange: { start: 2018, end: 2020 }
+    links: []
   },
   "Music": {
     title: "Music",
-    description: "TODO",
     icon: <i className="fas fa-music"></i>,
     links: [],
-    yearRange: { start: 2010, end: null },
     projects: [
       {
         title: "Yusuf Zerdazi",
@@ -91,7 +102,7 @@ const portfolioSections = {
         yearRange: { start: 2006, end: null },
         links: [
           { name: "SoundCloud", url: "https://soundcloud.com/yusufzerdazi", icon: "fab fa-soundcloud" },
-          { name: "Spotify", url: "https://open.spotify.com/artist/yourspotifyid", icon: "fab fa-spotify" },
+          { name: "Spotify", url: "https://open.spotify.com/artist/2RjwqsqhkyyxJ9nupB9UXK?si=fYafrCJdQIuwfZTgdhH-hw", icon: "fab fa-spotify" },
           { name: "The Truth (Music Video)", url: "https://youtu.be/YR4Qm7I1HHM", icon: "fab fa-youtube" }
         ]
       },
@@ -107,7 +118,6 @@ const portfolioSections = {
   },
   "Car": {
     title: "Robotics",
-    description: "TODO",
     icon: <i className="fas fa-car"></i>,
     links: [],
     projects: [
@@ -127,12 +137,92 @@ const portfolioSections = {
   },
   "TV": {
     title: "YouTube",
-    description: "Video content showcasing my projects, music, and technical demonstrations.",
     icon: <i className="fas fa-tv"></i>,
     links: [
       { name: "YouTube", url: "https://www.youtube.com/channel/UCTZsbno68JdiCQbL_6sjdzg", icon: "fab fa-youtube" }
-    ],
-    yearRange: { start: 2014, end: null }
+    ]
+  },
+  "Values": {
+    title: "Values",
+    icon: <i className="fas fa-heart"></i>,
+    projects: [
+      {
+        title: "Balance",
+        description: "Whether it be diet, beliefs, how much we sleep or the amount we drink, we should strive to not devolve into excess. Excess in any aspect of life, whether it's the amount of time we spend scrolling through Facebook or the number of runs we've been on in a day, will inevitably lead to either dissatisfaction or burnout. We've evolved as humans to maintain homeostasis. We should embrace this natural balance and extend its influence into all aspects of our lives.",
+        iconSrc: "values/balance.svg"
+      },
+      {
+        title: "Persistence",
+        description: "Improvement can only be achieved through practice, and to change ourselves, we have to challenge ourselves. If we live in comfort, we stagnate, neither evolving nor developing. I think we should always push to the precipice of our abilities in whatever we do, and in this, push it further into the ocean of possibility.",
+        iconSrc: "values/persistence.svg"
+      },
+      {
+        title: "Presence",
+        description: "Many of us spend too much time either dwelling on the past, or fretting about the future. In reality, the only thing that exists is the present moment. By wasting time like this, we not only miss opportunities, but reduce our capacity to enjoy life.",
+        iconSrc: "values/presence.svg"
+      },
+      {
+        title: "Humanity",
+        description: "It's easy to dismiss people we disagree with as \"stupid\" or \"bigoted\". I think we should all try to understand where people come from before making judgements about who they are. All people are the result of their genes and upbringing, the people they've interacted with and their life experiences. Because of this, it's impossible to say whether a person is \"right\" or \"wrong\" in how they think.",
+        iconSrc: "values/humanity.svg"
+      },
+      {
+        title: "Skepticism",
+        description: "It can be hard to realise, given our trust in modern science, that nothing claimed to be known is truly known. Our understanding of the universe has many limitations, not least our own mental capacity. This should be applied not only to philosophical ideas, but to day-to-day interactions, and when encountering anything that's proclaimed as \"true\".",
+        iconSrc: "values/skepticism.svg"
+      },
+      {
+        title: "Realism",
+        description: "The best we can hope for, and what the scientific method aims to do, is to iteratively improve our model of the universe. This holds not only for traditionally \"scientific\" concepts, but also spiritual ones; if \"supernatural\" phenomena occur, they must be within the fabric of what our universe is capable of, and therefore can be observed and studied like any other.",
+        iconSrc: "values/realism.svg"
+      },
+      {
+        title: "Explore",
+        description: "We should always be searching for new places, ideas, philosophies and ways of thinking. It is naïve to believe that you have all the answers; every situation you're in, person you meet and concept you encounter can teach you something new.",
+        iconSrc: "values/explore.svg"
+      },
+      {
+        title: "Create",
+        description: "It's liberating to express yourself. Putting our true experience down on (metaphorical) paper allows us to understand ourselves better, and to fight our individual demons. Not every piece has to be an exploration into your psyche, but they should all contain a small reflection of your soul.",
+        iconSrc: "values/create.svg"
+      },
+      {
+        title: "Bond",
+        description: "It's hard to concieve of something more complicated and beautiful than the mind. When multiple minds interact, however, they can become more than simply the sum of their parts. Whether it's friendship, professional relationships or romance, the desire to bond and create meaningful connections with likeminded people is a fundamental part of the fabric of society and the individuals within it.",
+        iconSrc: "values/bond.svg"
+      }
+    ]
+  },
+  "Art": {
+    title: "Art",
+    icon: <i className="fas fa-paint-brush"></i>,
+    projects: [
+      {
+        title: "Everydays",
+        description: "A challenge to create something new every single day, focusing on consistent practice and improvement. Each piece is started and completed within a 24-hour period, pushing me to work efficiently and try new techniques.",
+        yearRange: { start: 2017, end: null },
+        links: [
+          { name: "Instagram", url: "https://instagram.com/everyda.ys", icon: "fab fa-instagram" }
+        ]
+      }
+    ]
+  },
+  "Cat": {
+    title: "Automatic Cat Feeder",
+    icon: <i className="fas fa-cat"></i>,
+    projects: [
+      {
+        title: "Automatic Cat Feeder",
+        description: "Using a Raspberry Pi (with a camera), an Arduino and a Pringles can, I created an automatic cat food dispenser.\n\nThe Raspberry Pi camera intermittently takes pictures and sends them to Azure Cognitive Services. If it detects a cat, the Pi sends a signal to the Arduino which turns a servo motor, releasing food stored in the Pringles can.\n\nTo avoid overfeeding, it's programmed to only release food twice a day. However, this is made more complicated since we have multiple cats; the second cat might eat food intended for the first. This is already an issue in our household, made evident by their discrepency in size.\n\nFurther research required.",
+        yearRange: { start: 2021, end: 2022 },
+        diagram: "feeder",
+        diagramType: "architecture",
+        videoEmbed: "https://www.youtube.com/watch?v=ElRrdRDLgLk",
+        links: [
+          { name: "GitHub", url: "https://github.com/yourusername/cat-feeder", icon: "fab fa-github" }
+        ]
+      }
+    ]
   }
 };
 
@@ -141,8 +231,19 @@ const formatYearRange = (yearRange: { start: number, end: number | null }): stri
   if (!yearRange) return "";
   return yearRange.end === null 
     ? `${yearRange.start}-Present` 
-    : `${yearRange.start}-${yearRange.end}`;
+    : yearRange.start === yearRange.end ? `${yearRange.start}` : `${yearRange.start}-${yearRange.end}`;
 };
+
+// Add an array of painting images
+const paintingImages = [
+  '/paintings/Tech2.png',
+  '/paintings/Dad\'s Present.png',
+  '/paintings/Solace.png',
+  '/paintings/2018-01-18  Starry Sky.jpg',
+  '/paintings/2018-01-21  Temptation.jpg',
+  '/paintings/2018-01-22  Plain.jpg',
+  '/paintings/2018-01-29  Bob Ross 2.jpg',
+];
 
 function Home() {
     const roomRef = useRef<SVGSVGElement>(null);
@@ -168,6 +269,12 @@ function Home() {
     
     // Add this to your existing state variables
     const [interactiveElements, setInteractiveElements] = useState<Array<{id: string, element: SVGElement}>>([]);
+    
+    // Add state to store the selected painting
+    const [selectedPainting, setSelectedPainting] = useState('');
+    
+    // Add a loading state specifically for images
+    const [imagesLoading, setImagesLoading] = useState(true);
     
     // Check for mobile screen size
     useEffect(() => {
@@ -202,7 +309,32 @@ function Home() {
         };
     }, []);
 
-    // Modify the effect that creates the indicators to check for mobile view
+    // Choose a random painting on first render
+    useEffect(() => {
+        const randomIndex = Math.floor(Math.random() * paintingImages.length);
+        console.log(randomIndex)
+        setSelectedPainting(paintingImages[randomIndex]);
+    }, []);
+
+    // Separate the painting update logic from the indicators setup
+    useEffect(() => {
+        const svgNode = roomRef.current;
+        if (!svgNode) return;
+        
+        // Update wall pattern and paintings that need to change with time
+        const wallPattern = generateCarpet(40, 30, time, true);
+        const carpetSrc = `data:image/png;base64,${floorPatternRef.current}`;
+        const wallSrc = `data:image/png;base64,${wallPattern}`;
+        
+        const imageElements = svgNode.querySelectorAll('image');
+        if (imageElements) {
+            imageElements[0].setAttribute('xlink:href', carpetSrc);
+            imageElements[1].setAttribute('xlink:href', wallSrc);
+            imageElements[2].setAttribute('xlink:href', selectedPainting);
+        }
+    }, [time, selectedPainting]);
+
+    // Keep the interactive elements setup in a separate effect that doesn't depend on time
     useEffect(() => {
         const svgNode = roomRef.current;
         if (!svgNode) return;
@@ -212,17 +344,6 @@ function Home() {
         existingIndicators.forEach(indicator => {
             indicator.remove();
         });
-        
-        // First, set patterns
-        const wallPattern = generateCarpet(40, 30, time, true);
-        const carpetSrc = `data:image/png;base64,${floorPatternRef.current}`;
-        const wallSrc = `data:image/png;base64,${wallPattern}`;
-        
-        const imageElements = svgNode.querySelectorAll('image');
-        if (imageElements && imageElements.length >= 2) {
-            imageElements[0].setAttribute('xlink:href', carpetSrc);
-            imageElements[1].setAttribute('xlink:href', wallSrc);
-        }
         
         // Create mobile icons from SVG elements
         const mobileSvgIcons: {[key: string]: React.ReactNode} = {};
@@ -362,7 +483,7 @@ function Home() {
         // Update the interactive elements
         setInteractiveElements(elements);
         
-    }, [roomRef.current, isMobile]); // Add isMobile as a dependency to re-create indicators when mobile status changes
+    }, [roomRef.current, isMobile]); // Remove time as a dependency
 
     // Add effect to hide/show indicators when mobile status changes
     useEffect(() => {
@@ -398,6 +519,33 @@ function Home() {
         }
     }, [time]);
 
+    // Add an effect to handle image loading and hide images
+    useEffect(() => {
+        const svgNode = roomRef.current;
+        if (!svgNode) return;
+        
+        // Get all image elements in the SVG
+        const imageElements = svgNode.querySelectorAll('image');
+        
+        // Set visibility based on loading state
+        imageElements.forEach(img => {
+            img.style.opacity = imagesLoading ? '0' : '1'; 
+        });
+        
+        // Check if painting is selected but not yet loaded
+        if (selectedPainting && imagesLoading) {
+            const img = new Image();
+            img.src = selectedPainting;
+            img.onload = () => {
+                setImagesLoading(false);
+            };
+            img.onerror = (err) => {
+                console.error("Error loading painting:", err);
+                setImagesLoading(false); // Still set to false to prevent infinite loading
+            };
+        }
+    }, [selectedPainting, imagesLoading]);
+
     // Simplified mobile icon click handler
     const handleMobileIconClick = (sectionId: string) => {
         setActiveSection(sectionId);
@@ -429,8 +577,18 @@ function Home() {
     return (
         <div className={`${isMobile ? 'h-auto overflow-auto py-4' : 'h-full flex items-center justify-center overflow-hidden'}`}>
             <div className={`w-full ${isMobile ? 'flex flex-col' : 'max-h-full flex flex-col'}`}>
-                <div className={`${isMobile ? '' : 'flex-1'} flex items-center justify-center ${isMobile ? 'mb-6' : 'overflow-hidden'}`}>
-                    <RoomImage className='max-w-full max-h-[85vh] w-auto h-auto object-contain' ref={roomRef} />
+                <div className={`${isMobile ? '' : 'flex-1'} flex items-center justify-center ${isMobile ? 'mb-6' : 'overflow-hidden'} relative`}>
+                    <RoomImage className={`max-w-full max-h-[85vh] w-auto h-auto object-contain ${imagesLoading ? 'images-loading' : ''}`} ref={roomRef} />
+                    
+                    {/* Image loading spinner */}
+                    {imagesLoading && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-white/60 dark:bg-gray-900/60">
+                            <div className="text-center">
+                                <i className="fas fa-palette fa-spin text-5xl text-indigo-600 dark:text-indigo-400 mb-3"></i>
+                                <p className="text-gray-700 dark:text-gray-300 font-medium">Loading art...</p>
+                            </div>
+                        </div>
+                    )}
                 </div>
                 
                 {/* Mobile navigation icons (visible on smaller screens) */}
@@ -495,11 +653,11 @@ function Home() {
                     </Modal.Header>
                     <Modal.Body className="p-6">
                         {/* Top section: SVG icon on left, parent description on right */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
                             {/* Left column: SVG icon */}
-                            <div className="flex justify-center items-center bg-gray-50 dark:bg-gray-800 rounded-lg p-4 transition-all duration-300 hover:shadow-md">
+                            <div className="flex justify-center items-center bg-gray-200 dark:bg-gray-800 rounded-lg p-4 ">
                                 {/* Always show the SVG regardless of section */}
-                                <svg className="w-full h-full max-h-80 min-h-60" viewBox={elementViewBox} preserveAspectRatio="xMidYMid meet">
+                                <svg className="w-full h-full max-h-60 min-h-60" viewBox={elementViewBox} preserveAspectRatio="xMidYMid meet">
                                     {clickedElement && <g className="no-hover" dangerouslySetInnerHTML={{ __html: clickedElement.outerHTML }} />}
                                 </svg>
                             </div>
@@ -557,6 +715,7 @@ function Home() {
                                           .sort((a, b) => {
                                             // Compare end years (current year for "Present")
                                             const currentYear = new Date().getFullYear();
+                                            if (!a.yearRange || !b.yearRange) return 0;
                                             const aEndYear = a.yearRange.end === null ? currentYear + 1 : a.yearRange.end;
                                             const bEndYear = b.yearRange.end === null ? currentYear + 1 : b.yearRange.end;
                                             
@@ -568,60 +727,111 @@ function Home() {
                                           })
                                           .map((project, projectIndex) => (
                                             <div key={projectIndex} className="space-y-4 bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                                                <div className="flex items-center justify-between">
+                                              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                                {/* Left column for icon */}
+                                                {project.iconSrc ? <div className="flex justify-center items-center">
+                                                   
+                                                    <img 
+                                                      src={project.iconSrc} 
+                                                      alt={`${project.title} icon`}
+                                                      className="w-40 h-40"
+                                                    />
+                                                  
+                                                </div>: (
+                                                    <></>
+                                                  )}
+                                                
+                                                {/* Right column for content */}
+                                                <div className={`${project.iconSrc ? "md:col-span-3" : "md:col-span-4"}`}>
+                                                  <div className="flex items-center justify-between mb-2">
                                                     <h5 className="text-lg font-semibold text-gray-900 dark:text-white">
-                                                        {project.title}
+                                                      {project.title}
                                                     </h5>
                                                     {project.yearRange && (
-                                                        <span className="text-sm bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-gray-600 dark:text-gray-300">
-                                                            {formatYearRange(project.yearRange)}
-                                                        </span>
+                                                      <span className="text-sm bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-gray-600 dark:text-gray-300">
+                                                        {formatYearRange(project.yearRange)}
+                                                      </span>
                                                     )}
-                                                </div>
-                                                <div className="text-base text-gray-700 dark:text-gray-300">
+                                                  </div>
+                                                  <div className="text-base text-gray-700 dark:text-gray-300">
                                                     {project.description}
-                                                </div>
-                                                
-                                                {/* Display videos if available */}
-                                                {project.videos && project.videos.length > 0 && (
+                                                  </div>
+                                                  
+                                                  {/* Display videos if available */}
+                                                  {project.videos && project.videos.length > 0 && (
                                                     <div className="space-y-4 mt-3">
-                                                        <h6 className="text-md font-medium text-gray-800 dark:text-gray-200">
-                                                            Project Videos
-                                                        </h6>
-                                                        {project.videos.map((videoUrl, index) => (
-                                                            <div key={index} className="relative pb-[56.25%] h-0 w-full">
-                                                                <iframe 
-                                                                    className="absolute top-0 left-0 w-full h-full rounded"
-                                                                    src={videoUrl}
-                                                                    title={`${project.title} Video ${index + 1}`}
-                                                                    frameBorder="0"
-                                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                                    allowFullScreen
-                                                                ></iframe>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                )}
-                                                
-                                                {/* Display project-specific links */}
-                                                {project.links && project.links.length > 0 && (
-                                                    <div className="mt-4">
-                                                        <div className="flex flex-wrap gap-2">
-                                                            {project.links.map((link, index) => (
-                                                                <a 
-                                                                    key={index}
-                                                                    href={link.url} 
-                                                                    target="_blank" 
-                                                                    rel="noopener noreferrer"
-                                                                    className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-900/30 transition-colors"
-                                                                >
-                                                                    <i className={`${link.icon} mr-2`}></i>
-                                                                    {link.name}
-                                                                </a>
-                                                            ))}
+                                                      <h6 className="text-md font-medium text-gray-800 dark:text-gray-200">
+                                                        Project Videos
+                                                      </h6>
+                                                      {project.videos.map((videoUrl, index) => (
+                                                        <div key={index} className="relative pb-[56.25%] h-0 w-full">
+                                                          <iframe 
+                                                            className="absolute top-0 left-0 w-full h-full rounded"
+                                                            src={videoUrl}
+                                                            title={`${project.title} Video ${index + 1}`}
+                                                            frameBorder="0"
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                            allowFullScreen
+                                                          ></iframe>
                                                         </div>
+                                                      ))}
                                                     </div>
-                                                )}
+                                                  )}
+                                                  
+                                                  {/* Display YouTube video embed if available */}
+                                                  {project.videoEmbed && (
+                                                    <div className="mt-6">
+                                                      <h4 className="text-md font-medium mb-2 text-gray-900 dark:text-white">
+                                                        Demo Video
+                                                      </h4>
+                                                      <div className="relative pb-[56.25%] h-0 w-full">
+                                                        <iframe
+                                                          className="absolute top-0 left-0 w-full h-full rounded"
+                                                          src={`https://www.youtube.com/embed/${project.videoEmbed.split('v=')[1]}`}
+                                                          title={`${project.title} Demo`}
+                                                          frameBorder="0"
+                                                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                          allowFullScreen
+                                                        ></iframe>
+                                                      </div>
+                                                    </div>
+                                                  )}
+                                                  
+                                                  {/* Display project-specific links */}
+                                                  {project.links && project.links.length > 0 && (
+                                                    <div className="mt-4">
+                                                      <div className="flex flex-wrap gap-2">
+                                                        {project.links.map((link, index) => (
+                                                          <a 
+                                                            key={index}
+                                                            href={link.url} 
+                                                            target="_blank" 
+                                                            rel="noopener noreferrer"
+                                                            className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-900/30 transition-colors"
+                                                          >
+                                                            <i className={`${link.icon} mr-2`}></i>
+                                                            {link.name}
+                                                          </a>
+                                                        ))}
+                                                      </div>
+                                                    </div>
+                                                  )}
+                                                </div>
+                                              </div>
+                                              
+                                              {/* Security Camera component */}
+                                              {project.component === "SecurityCameraViewer" && (
+                                                <SecurityCameraViewer />
+                                              )}
+                                              
+                                              {/* All architecture diagrams - moved to bottom */}
+                                              {(project.plantuml || project.mermaidDiagram || project.diagram) && (
+                                                <div className="mt-6">
+                                                  {project.plantuml && <DiagramViewer diagram={project.plantuml} type="plantuml" />}
+                                                  {project.mermaidDiagram && <DiagramViewer diagram={project.mermaidDiagram} type="mermaid" />}
+                                                  {project.diagram && <DiagramViewer diagram={project.diagram} type="architecture" />}
+                                                </div>
+                                              )}
                                             </div>
                                           ))}
                                     </div>
@@ -655,9 +865,6 @@ function Home() {
                         <div className="flex justify-between w-full">
                             <Button color="gray" onClick={() => setOpenModal(false)}>
                                 Close
-                            </Button>
-                            <Button>
-                                See All Projects <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
                             </Button>
                         </div>
                     </Modal.Footer>
