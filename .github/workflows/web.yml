@@ -3,14 +3,14 @@ name: web
 on:
   push:
     paths:
-    - src/**
-    - public/**
-    - *.json
-    - *.ts
-    - *.html
-    - .env.production
-    - *.cjs
-    - .github/workflows/web.yml
+    - 'src/**'
+    - 'public/**'
+    - '*.json'
+    - '*.ts'
+    - '*.html'
+    - '.env.production'
+    - '*.cjs'
+    - '.github/workflows/web.yml'
   workflow_dispatch:
 
 jobs:

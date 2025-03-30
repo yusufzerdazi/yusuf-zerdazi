@@ -90,8 +90,9 @@ const portfolioSections: any = {
     projects: [
         {
             title: "LED Screen",
-            description: "Coming soon.",
-            yearRange: { start: 2023, end: 2025 }
+            description: "Build video coming soon.",
+            yearRange: { start: 2023, end: 2025 },
+            instagramEmbed: "https://www.instagram.com/reel/Cxx8ymiIP4P"
         }
     ]
   },
@@ -233,6 +234,17 @@ const portfolioSections: any = {
   }
 };
 
+// Add type declaration for Window with instgrm property
+declare global {
+    interface Window {
+        instgrm?: {
+            Embeds: {
+                process: () => void;
+            };
+        };
+    }
+}
+
 // Helper function to format year range for display
 const formatYearRange = (yearRange: { start: number, end: number | null }): string => {
   if (!yearRange) return "";
@@ -289,6 +301,30 @@ function Home() {
             window.removeEventListener('resize', checkMobile);
         };
     }, []);
+
+    // Load Instagram embed script when modal opens
+    useEffect(() => {
+        // Get current section from state (moved this before using it)
+        const currentSection = activeSection ? portfolioSections[activeSection as keyof typeof portfolioSections] : null;
+        
+        if (openModal && currentSection?.projects?.some((project: any) => project.instagramEmbed)) {
+            // Remove existing script if present
+            const existingScript = document.getElementById('instagram-embed-script');
+            if (existingScript) existingScript.remove();
+            
+            // Create and load new script
+            const script = document.createElement('script');
+            script.id = 'instagram-embed-script';
+            script.src = '//www.instagram.com/embed.js';
+            script.async = true;
+            document.body.appendChild(script);
+            
+            // Execute Instagram embed
+            if (window.instgrm) {
+                window.instgrm.Embeds.process();
+            }
+        }
+    }, [openModal, activeSection]);
 
     // Generate floor pattern once
     useEffect(() => {
@@ -783,6 +819,30 @@ function Home() {
                                                           allowFullScreen
                                                         ></iframe>
                                                       </div>
+                                                    </div>
+                                                  )}
+                                                  
+                                                  {/* Display Instagram embed if available */}
+                                                  {project.instagramEmbed && (
+                                                    <div className="mt-6">
+                                                      <h4 className="text-md font-medium mb-2 text-gray-900 dark:text-white">
+                                                        Instagram
+                                                      </h4>
+                                                      <div 
+                                                        className="instagram-media-renderer mx-auto"
+                                                        style={{ maxWidth: '540px' }}
+                                                        dangerouslySetInnerHTML={{
+                                                          __html: `
+                                                            <blockquote 
+                                                              class="instagram-media" 
+                                                              data-instgrm-captioned 
+                                                              data-instgrm-permalink="${project.instagramEmbed}/?utm_source=ig_embed&amp;utm_campaign=loading" 
+                                                              data-instgrm-version="14"
+                                                              style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"
+                                                            ></blockquote>
+                                                          `
+                                                        }}
+                                                      ></div>
                                                     </div>
                                                   )}
                                                   
