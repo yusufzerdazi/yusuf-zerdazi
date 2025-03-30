@@ -96,6 +96,18 @@ const portfolioSections = {
         }
     ]
   },
+  "MagicMirror": {
+    title: "Magic Mirror",
+    icon: <i className="fas fa-magic"></i>,
+    links: [],
+    projects: [
+        {
+            title: "Magic Mirror",
+            description: "Coming soon.",
+            yearRange: { start: 2025, end: 2025 }
+        }
+    ]
+  },
   "Music": {
     title: "Music",
     icon: <i className="fas fa-music"></i>,
@@ -137,13 +149,6 @@ const portfolioSections = {
         videos: ["./slam.mp4"],
         yearRange: { start: 2016, end: 2017 }
       }
-    ]
-  },
-  "TV": {
-    title: "YouTube",
-    icon: <i className="fas fa-tv"></i>,
-    links: [
-      { name: "YouTube", url: "https://www.youtube.com/channel/UCTZsbno68JdiCQbL_6sjdzg", icon: "fab fa-youtube" }
     ]
   },
   "Values": {
