@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Button, Spinner } from 'flowbite-react';
-import XMLParser from 'react-xml-parser';
 
 const SecurityCameraViewer: React.FC = () => {
   const [captures, setCaptures] = useState<{ url: string; date: number }[]>([]);
@@ -33,21 +32,27 @@ const SecurityCameraViewer: React.FC = () => {
       }
       
       const xml = await response.text();
-      const parser = new XMLParser();
-      const result = parser.parseFromString(xml);
       
-      // More efficient mapping with early array sizing
-      const blobElements = result.getElementsByTagName('Blob');
-      const captureData = new Array(blobElements.length);
+      // Using built-in DOMParser instead of react-xml-parser
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(xml, "text/xml");
       
+      // Get all Blob elements
+      const blobElements = xmlDoc.getElementsByTagName('Blob');
+      const captureData: { url: string; date: number }[] = [];
+      
+      // Process each Blob element
       for (let i = 0; i < blobElements.length; i++) {
         const blob = blobElements[i];
-        const url = blob.getElementsByTagName('Url')[0].value;
-        const lastModified = blob.getElementsByTagName('Last-Modified')[0].value;
-        captureData[i] = {
-          url,
-          date: new Date(lastModified).getTime()
-        };
+        const urlElement = blob.getElementsByTagName('Url')[0];
+        const lastModifiedElement = blob.getElementsByTagName('Last-Modified')[0];
+        
+        if (urlElement && lastModifiedElement) {
+          captureData.push({
+            url: urlElement.textContent || '',
+            date: new Date(lastModifiedElement.textContent || '').getTime()
+          });
+        }
       }
       
       // Sort and cache the result
@@ -83,7 +88,6 @@ const SecurityCameraViewer: React.FC = () => {
         setThumbnails(prev => ({...prev, [capture.url]: true}));
       };
       // Attempt to generate a thumbnail URL - this could be a separate function
-      // that creates thumbnails on the server, or you could use a frame extraction service
       img.src = capture.url.replace('.mp4', '-thumb.jpg');
       
       // Also start preloading the video data

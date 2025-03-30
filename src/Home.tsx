@@ -1,13 +1,12 @@
-import { Modal, Tooltip, Button, Card, Spinner } from 'flowbite-react';
+import { Modal, Button, Card, Spinner } from 'flowbite-react';
 import RoomImage from './assets/home.svg?react';
 import { generateCarpet } from './Utils';
-import { useRef, useEffect, useState, useMemo } from 'react';
-import homeIconHref from './assets/home.svg';
+import { useRef, useEffect, useState } from 'react';
 import DiagramViewer from './components/DiagramViewer';
 import SecurityCameraViewer from './components/SecurityCameraViewer';
 
 // Define portfolio sections with corresponding SVG layers and social links
-const portfolioSections = {
+const portfolioSections: any = {
   "Games": {
     title: "Games",
     icon: <i className="fas fa-gamepad"></i>,
@@ -593,7 +592,7 @@ function Home() {
                 {isMobile && (
                     <div className="md:hidden px-2 overflow-y-auto flex-shrink-0">
                         <div className="grid grid-cols-2 sm:grid-cols-3 auto-rows-auto gap-3">
-                            {Object.entries(portfolioSections).map(([sectionId, section]) => (
+                            {Object.entries(portfolioSections).map(([sectionId, section]: any) => (
                                 <div 
                                     key={sectionId}
                                     onClick={() => handleMobileIconClick(sectionId)}
@@ -679,7 +678,7 @@ function Home() {
                                         {currentSection.links && currentSection.links.length > 0 && (
                                             <div className="mt-4">
                                                 <div className="flex space-x-3">
-                                                    {currentSection.links.map((link, index) => (
+                                                    {currentSection.links.map((link: any, index: number) => (
                                                         <a 
                                                             key={index}
                                                             href={link.url} 
@@ -761,7 +760,7 @@ function Home() {
                                                       <h6 className="text-md font-medium text-gray-800 dark:text-gray-200">
                                                         Project Videos
                                                       </h6>
-                                                      {project.videos.map((videoUrl, index) => (
+                                                      {project.videos.map((videoUrl: string, index: number) => (
                                                         <div key={index} className="relative pb-[56.25%] h-0 w-full">
                                                           <iframe 
                                                             className="absolute top-0 left-0 w-full h-full rounded"
@@ -799,7 +798,7 @@ function Home() {
                                                   {project.links && project.links.length > 0 && (
                                                     <div className="mt-4">
                                                       <div className="flex flex-wrap gap-2">
-                                                        {project.links.map((link, index) => (
+                                                        {project.links.map((link: any, index: number) => (
                                                           <a 
                                                             key={index}
                                                             href={link.url} 
