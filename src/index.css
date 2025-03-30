@@ -1,3 +1,99 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+  }
+}
+
+.hover\:drop-shadow-glow:hover {
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+}
+
+.portfolio-modal .modal-content {
+  border-radius: 0.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.portfolio-modal .modal-header,
+.portfolio-modal .modal-footer {
+  padding: 1rem 1.5rem;
+}
+
+.portfolio-modal .modal-body {
+  padding: 1.5rem;
+}
+
+/* Smooth transitions */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Fix for tooltip positioning */
+.transform {
+  transform: translateX(-50%);
+}
+
+/* Update to the existing CSS */
+.portfolio-modal svg g {
+  filter: none !important; /* Ensure no filters are applied in the modal */
+}
+
+/* Mobile specific styles */
+@media (max-width: 767px) {
+  .portfolio-section-icon {
+    transition: all 0.3s ease;
+  }
+  
+  .portfolio-section-icon:hover {
+    transform: translateY(-5px);
+  }
+}
+
+/* Add these new styles to your existing CSS */
+
+.min-h-60 {
+  min-height: 15rem;
+}
+
+/* Specifically target the SVG elements in the modal to prevent any hover effects */
+.portfolio-modal svg g.no-hover path,
+.portfolio-modal svg g.no-hover rect,
+.portfolio-modal svg g.no-hover circle,
+.portfolio-modal svg g.no-hover ellipse,
+.portfolio-modal svg g.no-hover polygon,
+.portfolio-modal svg g.no-hover polyline,
+.portfolio-modal svg g.no-hover line,
+.portfolio-modal svg g.no-hover text {
+  transition: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Mobile icon container styling */
+.portfolio-section-icon svg {
+  height: 100%;
+  width: 100%;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.portfolio-modal {
+  will-change: transform;
+}
