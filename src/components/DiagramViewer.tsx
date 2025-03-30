@@ -28,7 +28,7 @@ const nodeTypes: NodeTypes = {
   external: ExternalSystemNode
 };
 
-const DiagramViewer: React.FC<DiagramViewerProps> = ({ diagram, type = 'architecture' }) => {
+const DiagramViewer: React.FC<DiagramViewerProps> = ({ diagram }) => {
   const isDarkMode = useColorMode()[0] === 'dark';
   
   // Get the appropriate diagram configuration based on the diagram name
