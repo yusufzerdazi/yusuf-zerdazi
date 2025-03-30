@@ -265,18 +265,11 @@ function Home() {
     const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
     const [showTooltip, setShowTooltip] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    
-    // Store SVG elements and viewBoxes for instant access
-    const svgElements = useRef<{[key: string]: SVGElement}>({});
-    const viewBoxCache = useRef<{[key: string]: string}>({});
-    
+    const [isLoading] = useState(false);
+        
     // Pre-render mobile icons
     const [mobileIcons, setMobileIcons] = useState<{[key: string]: React.ReactNode}>({});
-    
-    // Add this to your existing state variables
-    const [interactiveElements, setInteractiveElements] = useState<Array<{id: string, element: SVGElement}>>([]);
-    
+        
     // Add state to store the selected painting
     const [selectedPainting, setSelectedPainting] = useState('');
     
@@ -430,7 +423,7 @@ function Home() {
                 }
                 
                 // Add click handler
-                element.addEventListener("click", function(e) {
+                element.addEventListener("click", function() {
                     // Simple direct click handler
                     setActiveSection(layerId);
                     
@@ -486,10 +479,7 @@ function Home() {
         
         // Update the state with the created mobile icons
         setMobileIcons(mobileSvgIcons);
-        
-        // Update the interactive elements
-        setInteractiveElements(elements);
-        
+                
     }, [roomRef.current, isMobile]); // Remove time as a dependency
 
     // Add effect to hide/show indicators when mobile status changes
