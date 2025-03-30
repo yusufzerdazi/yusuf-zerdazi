@@ -3,9 +3,11 @@ import Home from './Home';
 
 function App() {
   return (
-    <div className='flex flex-col h-screen justify-between'>
+    <div className='flex flex-col min-h-screen'>
       <Header/>
-      <Home/>
+      <main className='flex-1 overflow-hidden'>
+        <Home/>
+      </main>
     </div>
   );
 }

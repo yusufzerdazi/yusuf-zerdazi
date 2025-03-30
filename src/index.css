@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom xs breakpoint - for screens smaller than sm */
+@media (min-width: 480px) {
+  .xs\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @keyframes pulse-subtle {
   0%, 100% {
     filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
@@ -40,6 +47,31 @@
 .transform {
   transform: translateX(-50%);
 }
+
+/* Professional card styling */
+.portfolio-section-icon {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Remove the blue bar animation on hover
+.portfolio-section-icon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4338ca, #6366f1, #818cf8);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-out;
+}
+
+.portfolio-section-icon:hover::after {
+  transform: scaleX(1);
+}
+*/
 
 /* Update to the existing CSS */
 .portfolio-modal svg g {

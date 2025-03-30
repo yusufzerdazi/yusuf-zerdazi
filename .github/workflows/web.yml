@@ -4,8 +4,12 @@ on:
   push:
     paths:
     - src/**
-    - plantuml/**
     - public/**
+    - *.json
+    - *.ts
+    - *.html
+    - .env.production
+    - *.cjs
     - .github/workflows/web.yml
   workflow_dispatch:
 

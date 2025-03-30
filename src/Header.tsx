@@ -2,8 +2,8 @@ import logo from './assets/yusuf.svg?url';
 
 function Header() {
     return (
-      <header>
-        <img className='max-h-28 p-2 mx-auto' src={logo} alt="Header"></img>
+      <header className="w-full bg-white dark:bg-gray-900">
+        <img className='max-h-24 p-4 mx-auto' src={logo} alt="Header"></img>
       </header>
     );
 }

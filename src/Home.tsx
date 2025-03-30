@@ -330,7 +330,7 @@ function Home() {
         if (imageElements) {
             imageElements[0].setAttribute('xlink:href', carpetSrc);
             imageElements[1].setAttribute('xlink:href', wallSrc);
-            imageElements[2].setAttribute('xlink:href', selectedPainting);
+            imageElements[3].setAttribute('xlink:href', selectedPainting);
         }
     }, [time, selectedPainting]);
 
@@ -572,21 +572,21 @@ function Home() {
     const currentSection = activeSection ? portfolioSections[activeSection as keyof typeof portfolioSections] : null;
 
     return (
-        <div className={`${isMobile ? 'h-auto overflow-auto py-4' : 'h-full flex items-center justify-center overflow-hidden'}`}>
-            <div className={`w-full ${isMobile ? 'flex flex-col' : 'max-h-full flex flex-col'}`}>
-                <div className={`${isMobile ? '' : 'flex-1'} flex items-center justify-center ${isMobile ? 'mb-6' : 'overflow-hidden'} relative`}>
-                    <RoomImage className={`max-w-full max-h-[85vh] w-auto h-auto object-contain ${imagesLoading ? 'images-loading' : ''}`} ref={roomRef} />
+        <div className={`w-full h-full ${isMobile ? 'overflow-auto pb-4' : ''}`}>
+            <div className={`w-full h-full ${isMobile ? 'flex flex-col' : ''}`}>
+                <div className="flex items-center justify-center h-full relative px-4 pb-4">
+                    <RoomImage className={`max-w-full ${isMobile ? 'max-h-[85vh]' : 'h-[calc(100vh-110px)]'} w-auto object-contain ${imagesLoading ? 'images-loading' : ''}`} ref={roomRef} />
                 </div>
                 
                 {/* Mobile navigation icons (visible on smaller screens) */}
                 {isMobile && (
                     <div className="md:hidden px-2 overflow-y-auto flex-shrink-0">
-                        <div className="grid grid-cols-2 sm:grid-cols-3 auto-rows-auto gap-3">
+                        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 auto-rows-auto gap-3">
                             {Object.entries(portfolioSections).map(([sectionId, section]: any) => (
                                 <div 
                                     key={sectionId}
                                     onClick={() => handleMobileIconClick(sectionId)}
-                                    className="bg-white dark:bg-gray-800 rounded-lg p-3 shadow-md text-center cursor-pointer hover:shadow-lg transition-all portfolio-section-icon"
+                                    className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-lg p-4 shadow-sm hover:shadow-md border border-gray-100 dark:border-gray-700 text-center cursor-pointer transition-all duration-300 portfolio-section-icon"
                                 >
                                     <div className="h-16 flex items-center justify-center mb-2">
                                         {mobileIcons[sectionId] || (
@@ -640,17 +640,17 @@ function Home() {
                     </Modal.Header>
                     <Modal.Body className="p-6">
                         {/* Top section: SVG icon on left, parent description on right */}
-                        <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-                            {/* Left column: SVG icon */}
-                            <div className="flex justify-center items-center bg-gray-200 dark:bg-gray-800 rounded-lg p-4 ">
-                                {/* Always show the SVG regardless of section */}
-                                <svg className="w-full h-full max-h-60 min-h-60" viewBox={elementViewBox} preserveAspectRatio="xMidYMid meet">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {/* Left column: SVG icon - make it smaller and more contained */}
+                            <div className="md:col-span-1 flex justify-center items-center bg-gray-200 dark:bg-gray-800 rounded-lg p-4">
+                                {/* Reduced height and added max-width to prevent overflow */}
+                                <svg className="w-full max-w-xs h-40" viewBox={elementViewBox} preserveAspectRatio="xMidYMid meet">
                                     {clickedElement && <g className="no-hover" dangerouslySetInnerHTML={{ __html: clickedElement.outerHTML }} />}
                                 </svg>
                             </div>
                             
                             {/* Right column: Section description and links */}
-                            <div>
+                            <div className="md:col-span-2">
                                 {currentSection && (
                                     <div className="space-y-4">
                                         <div className="flex items-center justify-between">
@@ -713,7 +713,7 @@ function Home() {
                                             return b.yearRange.start - a.yearRange.start;
                                           })
                                           .map((project, projectIndex) => (
-                                            <div key={projectIndex} className="space-y-4 bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                                            <div key={projectIndex} className="space-y-4 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all duration-300">
                                               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                                                 {/* Left column for icon */}
                                                 {project.iconSrc ? <div className="flex justify-center items-center">
