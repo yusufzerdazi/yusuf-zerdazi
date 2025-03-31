@@ -915,13 +915,6 @@ function Home() {
                             </div>
                         )}
                     </Modal.Body>
-                    <Modal.Footer className="border-t border-gray-200 dark:border-gray-700">
-                        <div className="flex justify-between w-full">
-                            <Button color="gray" onClick={() => setOpenModal(false)}>
-                                Close
-                            </Button>
-                        </div>
-                    </Modal.Footer>
                 </Modal>
             </div>
         </div>

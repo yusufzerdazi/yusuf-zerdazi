@@ -7,7 +7,9 @@ import {
   YAxis, 
   CartesianGrid, 
   Tooltip, 
-  Legend 
+  Legend,
+  BarChart,
+  Bar
 } from 'recharts';
 import { Spinner } from 'flowbite-react';
 
@@ -219,99 +221,163 @@ const DreamSentimentChart: React.FC = () => {
   }
 
   return (
-    <div className="w-full bg-white dark:bg-gray-800 rounded-lg shadow p-4">
-      <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-        Dream Sentiment Analysis by Month
-      </h3>
-      <div className="h-96">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
-            data={data}
-            margin={{ top: 10, right: 30, left: 0, bottom: 30 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" stroke="#555" opacity={0.3} />
-            <XAxis 
-              dataKey="date" 
-              angle={-45} 
-              textAnchor="end" 
-              height={70} 
-              tick={{ fontSize: 12 }} 
-            />
-            <YAxis 
-              tickFormatter={(value) => `${Math.round(value * 100)}%`} 
-              domain={[0, 1]}
-            />
-            <Tooltip 
-              formatter={(value, name, props) => {
-                // Don't show tooltips for gap months
-                if (props.payload.isGap) return ['-', name];
-                return [`${Math.round(Number(value) * 100)}%`, name];
-              }}
-              labelFormatter={(label) => `Month: ${label}`}
-              content={({ active, payload, label }) => {
-                if (active && payload && payload.length) {
-                  const data = payload[0].payload;
-                  
-                  // Don't show detailed tooltip for gap months
-                  if (data.isGap) {
+    <div className="space-y-8">
+      {/* Sentiment Analysis Chart */}
+      <div className="w-full bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+          Dream Sentiment Analysis by Month
+        </h3>
+        <div className="h-80">
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart
+              data={data}
+              margin={{ top: 10, right: 30, left: 0, bottom: 30 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke="#555" opacity={0.3} />
+              <XAxis 
+                dataKey="date" 
+                angle={-45} 
+                textAnchor="end" 
+                height={70} 
+                tick={{ fontSize: 12 }} 
+              />
+              <YAxis 
+                tickFormatter={(value) => `${Math.round(value * 100)}%`} 
+                domain={[0, 1]}
+              />
+              <Tooltip 
+                formatter={(value, name, props) => {
+                  // Don't show tooltips for gap months
+                  if (props.payload.isGap) return ['-', name];
+                  return [`${Math.round(Number(value) * 100)}%`, name];
+                }}
+                labelFormatter={(label) => `Month: ${label}`}
+                content={({ active, payload, label }) => {
+                  if (active && payload && payload.length) {
+                    const data = payload[0].payload;
+                    
+                    // Don't show detailed tooltip for gap months
+                    if (data.isGap) {
+                      return (
+                        <div className="bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-700 rounded shadow-sm">
+                          <p className="font-medium text-gray-900 dark:text-white">{label}</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">No dreams recorded this month</p>
+                        </div>
+                      );
+                    }
+                    
                     return (
                       <div className="bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-700 rounded shadow-sm">
                         <p className="font-medium text-gray-900 dark:text-white">{label}</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">No dreams recorded this month</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Dreams recorded: {data.dream_count}</p>
+                        <div className="mt-2">
+                          {payload.map((entry, index) => (
+                            <p key={index} style={{ color: entry.color }}>
+                              {entry.name}: {Math.round(Number(entry.value) * 100)}%
+                            </p>
+                          ))}
+                        </div>
                       </div>
                     );
                   }
-                  
-                  return (
-                    <div className="bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-700 rounded shadow-sm">
-                      <p className="font-medium text-gray-900 dark:text-white">{label}</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Dreams recorded: {data.dream_count}</p>
-                      <div className="mt-2">
-                        {payload.map((entry, index) => (
-                          <p key={index} style={{ color: entry.color }}>
-                            {entry.name}: {Math.round(Number(entry.value) * 100)}%
-                          </p>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                }
-                return null;
-              }}
-            />
-            <Legend />
-            <Area 
-              type="monotone" 
-              dataKey="positive" 
-              stackId="1" 
-              stroke="#4ade80" 
-              fill="#4ade80" 
-              name="Positive" 
-              connectNulls={false}
-            />
-            <Area 
-              type="monotone" 
-              dataKey="neutral" 
-              stackId="1" 
-              stroke="#93c5fd" 
-              fill="#93c5fd" 
-              name="Neutral" 
-              connectNulls={false}
-            />
-            <Area 
-              type="monotone" 
-              dataKey="negative" 
-              stackId="1" 
-              stroke="#f87171" 
-              fill="#f87171" 
-              name="Negative" 
-              connectNulls={false}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+                  return null;
+                }}
+              />
+              <Legend />
+              <Area 
+                type="monotone" 
+                dataKey="positive" 
+                stackId="1" 
+                stroke="#4ade80" 
+                fill="#4ade80" 
+                name="Positive" 
+                connectNulls={false}
+              />
+              <Area 
+                type="monotone" 
+                dataKey="neutral" 
+                stackId="1" 
+                stroke="#93c5fd" 
+                fill="#93c5fd" 
+                name="Neutral" 
+                connectNulls={false}
+              />
+              <Area 
+                type="monotone" 
+                dataKey="negative" 
+                stackId="1" 
+                stroke="#f87171" 
+                fill="#f87171" 
+                name="Negative" 
+                connectNulls={false}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+        <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+          <p>This chart shows the monthly average sentiment analysis of dreams, with gaps representing months where no dreams were recorded. The values represent weighted averages based on the number of dreams recorded each day.</p>
+        </div>
       </div>
-      <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-        <p>This chart shows the monthly average sentiment analysis of dreams, with gaps representing months where no dreams were recorded. The values represent weighted averages based on the number of dreams recorded each day.</p>
+      
+      {/* Dream Count Chart */}
+      <div className="w-full bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+          Dreams Recorded per Month
+        </h3>
+        <div className="h-64">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={data} // Include all months, including gaps
+              margin={{ top: 10, right: 30, left: 10, bottom: 30 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke="#555" opacity={0.3} />
+              <XAxis 
+                dataKey="date" 
+                angle={-45} 
+                textAnchor="end" 
+                height={70} 
+                tick={{ fontSize: 12 }} 
+              />
+              <YAxis 
+                allowDecimals={false}
+                label={{ value: 'Dream Count', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' } }}
+              />
+              <Tooltip
+                formatter={(value) => [`${value} dreams`, 'Count']}
+                labelFormatter={(label) => `Month: ${label}`}
+                content={({ active, payload, label }) => {
+                  if (active && payload && payload.length) {
+                    const data = payload[0].payload;
+                    return (
+                      <div className="bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-700 rounded shadow-sm">
+                        <p className="font-medium text-gray-900 dark:text-white">{label}</p>
+                        {data.isGap || data.dream_count === 0 ? (
+                          <p className="text-gray-600 dark:text-gray-400">
+                            No dreams recorded
+                          </p>
+                        ) : (
+                          <p className="text-indigo-600 dark:text-indigo-400 font-medium">
+                            {data.dream_count} dreams recorded
+                          </p>
+                        )}
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
+              <Bar 
+                dataKey="dream_count" 
+                fill="#8884d8" 
+                name="Dreams Recorded" 
+                radius={[4, 4, 0, 0]}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+        <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+          <p>This bar chart displays the total number of dreams recorded each month, including months with no recorded dreams.</p>
+        </div>
       </div>
     </div>
   );
