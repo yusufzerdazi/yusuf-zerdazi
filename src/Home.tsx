@@ -1,4 +1,4 @@
-import { Modal, Button, Card, Spinner } from 'flowbite-react';
+import { Modal, Spinner } from 'flowbite-react';
 import RoomImage from './assets/home.svg?react';
 import { generateCarpet } from './Utils';
 import { useRef, useEffect, useState } from 'react';
