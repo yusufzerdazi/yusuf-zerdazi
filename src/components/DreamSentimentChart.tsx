@@ -62,6 +62,7 @@ const DreamSentimentChart: React.FC = () => {
         
         // First transform data with date information
         const rawData: ChartDataPoint[] = Object.entries(responseData)
+          .filter(([date]) => date !== '_metadata')
           .map(([date, dreamData]) => {
             const dreamDate = new Date(date);
             return {
