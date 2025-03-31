@@ -5,7 +5,6 @@ const SecurityCameraViewer: React.FC = () => {
   const [captures, setCaptures] = useState<{ url: string; date: number }[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
-  const [thumbnails, setThumbnails] = useState<{[url: string]: boolean}>({});
   const itemsPerPage = 2;
   const videoRefs = useRef<{[url: string]: HTMLVideoElement | null}>({});
   
@@ -82,15 +81,6 @@ const SecurityCameraViewer: React.FC = () => {
     
     // Preload current page videos
     currentCaptures.forEach(capture => {
-      // Create an image element to preload the video thumbnail
-      const img = new Image();
-      img.onload = () => {
-        setThumbnails(prev => ({...prev, [capture.url]: true}));
-      };
-      // Attempt to generate a thumbnail URL - this could be a separate function
-      img.src = capture.url.replace('.mp4', '-thumb.jpg');
-      
-      // Also start preloading the video data
       if (videoRefs.current[capture.url]) {
         videoRefs.current[capture.url]?.load();
       }
@@ -150,26 +140,13 @@ const SecurityCameraViewer: React.FC = () => {
               <div key={index} className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
                 {/* Video with lazy loading */}
                 <div className="relative">
-                  <div className={`absolute inset-0 bg-gray-200 dark:bg-gray-700 ${thumbnails[capture.url] ? 'opacity-0' : 'opacity-100'} transition-opacity`}>
-                    {/* Spinner removed, just keeping the background for fade effect */}
-                  </div>
                   <video 
                     ref={(el) => setVideoRef(el, capture.url)}
                     className="w-full h-auto"
                     controls 
                     preload="metadata"
-                    poster={capture.url.replace('.mp4', '-thumb.jpg')}
-                    onLoadedData={() => {
-                      setThumbnails(prev => ({...prev, [capture.url]: true}));
-                    }}
-                    onError={() => {
-                      console.error(`Failed to load video: ${capture.url}`);
-                      setThumbnails(prev => ({...prev, [capture.url]: true})); // Hide fade overlay even on error
-                    }}
                   >
-                    {/* Add source element with type for better browser handling */}
-                    <source src={capture.url} type="video/mp4" />
-                    Your browser does not support the video tag.
+                    <source src={capture.url + '#t=0.1'} type="video/mp4" />
                   </video>
                 </div>
                 <div className="p-2 text-xs text-gray-500 dark:text-gray-400">

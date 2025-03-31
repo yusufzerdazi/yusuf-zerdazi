@@ -8,6 +8,70 @@ import DreamSentimentChart from './components/DreamSentimentChart';
 
 // Define portfolio sections with corresponding SVG layers and social links
 const portfolioSections: any = {
+  "Computer": {
+    title: "Code",
+    icon: <i className="fas fa-code"></i>,
+    projects: [
+      {
+        title: "Dreams",
+        description: "I've kept a dream journal in Google Keep for a few years. I thought it would be interesting to use AI to scan my dreams for sentiment over time, key phrases, recurring themes etc. Using Azure's Text Analysis, I analysed all my dreams, saving the results in a Blob Storage account. Power BI allows me to create graphs and infographics based on this data, giving me insight into my dreams and myself.",
+        yearRange: { start: 2020, end: 2020 },
+        diagram: "dreams",
+        component: "DreamSentimentChart",
+        links: [
+          { name: "GitHub", url: "https://github.com/yourusername/dreams-analyzer", icon: "fab fa-github" }
+        ]
+      },
+      {
+        title: "Security Camera",
+        description: "It's possible to build a cheap security system using a Raspberry Pi and its camera module - I set up a live stream with motion detection capabilities, and by hooking this up to other services it can give you a notification when it sees something.",
+        yearRange: { start: 2019, end: 2020 },
+        diagram: "camera",
+        links: [
+          { name: "GitHub", url: "https://github.com/yourusername/raspberry-pi-security", icon: "fab fa-github" }
+        ],
+        component: "SecurityCameraViewer"
+      }
+    ]
+  },
+  "Music": {
+    title: "Music",
+    icon: <i className="fas fa-music"></i>,
+    links: [],
+    projects: [
+      {
+        title: "Yusuf Zerdazi",
+        yearRange: { start: 2006, end: null },
+        links: [
+          { name: "SoundCloud", url: "https://soundcloud.com/yusufzerdazi", icon: "fab fa-soundcloud" },
+          { name: "Spotify", url: "https://open.spotify.com/artist/2RjwqsqhkyyxJ9nupB9UXK?si=fYafrCJdQIuwfZTgdhH-hw", icon: "fab fa-spotify" },
+          { name: "The Truth (Music Video)", url: "https://youtu.be/YR4Qm7I1HHM", icon: "fab fa-youtube" }
+        ]
+      },
+      {
+        title: "The Mondays",
+        description: "The Mondays were a rock and roll group from Bingham, Nottinghamshire. They performed covers of songs by artists such as Oasis, The Libertines, The Rolling Stones, The Eagles, Led Zeppelin, Lynyrd Skynrd and many more, as well as writing their own material. They were composed of Andrew Hemmings, Devon Adams, Yusuf Zerdazi, Alex Rickells and Scott Rice.",
+        yearRange: { start: 2010, end: 2013 },
+        links: [
+          { name: "SoundCloud", url: "https://soundcloud.com/the_mondays", icon: "fab fa-soundcloud" }
+        ]
+      }
+    ]
+  },
+  "Art": {
+    title: "Art",
+    icon: <i className="fas fa-paint-brush"></i>,
+    projects: [
+      {
+        title: "Everydays",
+        description: "A challenge to create something new every single day, focusing on consistent practice and improvement. Each piece is started and completed within a 24-hour period, pushing me to work efficiently and try new techniques.",
+        yearRange: { start: 2017, end: null },
+        links: [
+          { name: "Instagram", url: "https://instagram.com/everyda.ys", icon: "fab fa-instagram" }
+        ]
+      }
+    ]
+  },
   "Games": {
     title: "Games",
     icon: <i className="fas fa-gamepad"></i>,
@@ -59,34 +123,8 @@ const portfolioSections: any = {
       }
     ]
   },
-  "Computer": {
-    title: "Technical",
-    icon: <i className="fas fa-code"></i>,
-    projects: [
-      {
-        title: "Dreams",
-        description: "I've kept a dream journal in Google Keep for a few years. I thought it would be interesting to use AI to scan my dreams for sentiment over time, key phrases, recurring themes etc. Using Azure's Text Analysis, I analysed all my dreams, saving the results in a Blob Storage account. Power BI allows me to create graphs and infographics based on this data, giving me insight into my dreams and myself.",
-        yearRange: { start: 2020, end: 2020 },
-        diagram: "dreams",
-        component: "DreamSentimentChart",
-        links: [
-          { name: "GitHub", url: "https://github.com/yourusername/dreams-analyzer", icon: "fab fa-github" }
-        ]
-      },
-      {
-        title: "Security Camera",
-        description: "It's possible to build a cheap security system using a Raspberry Pi and its camera module - I set up a live stream with motion detection capabilities, and by hooking this up to other services it can give you a notification when it sees something.",
-        yearRange: { start: 2019, end: 2020 },
-        diagram: "camera",
-        links: [
-          { name: "GitHub", url: "https://github.com/yourusername/raspberry-pi-security", icon: "fab fa-github" }
-        ],
-        component: "SecurityCameraViewer"
-      }
-    ]
-  },
   "LED": {
-    title: "LED Screen",
+    title: "Project: LED Screen",
     icon: <i className="fas fa-lightbulb"></i>,
     links: [],
     projects: [
@@ -99,7 +137,7 @@ const portfolioSections: any = {
     ]
   },
   "MagicMirror": {
-    title: "Magic Mirror",
+    title: "Project: Magic Mirror",
     icon: <i className="fas fa-magic"></i>,
     links: [],
     projects: [
@@ -108,30 +146,6 @@ const portfolioSections: any = {
             description: "Coming soon.",
             yearRange: { start: 2025, end: 2025 }
         }
-    ]
-  },
-  "Music": {
-    title: "Music",
-    icon: <i className="fas fa-music"></i>,
-    links: [],
-    projects: [
-      {
-        title: "Yusuf Zerdazi",
-        yearRange: { start: 2006, end: null },
-        links: [
-          { name: "SoundCloud", url: "https://soundcloud.com/yusufzerdazi", icon: "fab fa-soundcloud" },
-          { name: "Spotify", url: "https://open.spotify.com/artist/2RjwqsqhkyyxJ9nupB9UXK?si=fYafrCJdQIuwfZTgdhH-hw", icon: "fab fa-spotify" },
-          { name: "The Truth (Music Video)", url: "https://youtu.be/YR4Qm7I1HHM", icon: "fab fa-youtube" }
-        ]
-      },
-      {
-        title: "The Mondays",
-        description: "The Mondays were a rock and roll group from Bingham, Nottinghamshire. They performed covers of songs by artists such as Oasis, The Libertines, The Rolling Stones, The Eagles, Led Zeppelin, Lynyrd Skynrd and many more, as well as writing their own material. They were composed of Andrew Hemmings, Devon Adams, Yusuf Zerdazi, Alex Rickells and Scott Rice.",
-        yearRange: { start: 2010, end: 2013 },
-        links: [
-          { name: "SoundCloud", url: "https://soundcloud.com/the_mondays", icon: "fab fa-soundcloud" }
-        ]
-      }
     ]
   },
   "Car": {
@@ -150,6 +164,22 @@ const portfolioSections: any = {
         description: <p>My final year project was to construct a robot which used <a href="https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping" className="text-blue-600 hover:underline">Simultaneous Localisation and Mapping (SLAM)</a> techniques, to map out rooms in real time. The robot was based on a <a href="https://en.wikipedia.org/wiki/Raspberry_Pi" className="text-blue-600 hover:underline">Raspberry Pi</a>, using <a href="https://en.wikipedia.org/wiki/Lego_Mindstorms" className="text-blue-600 hover:underline">LEGO Mindstorms</a> components for sensor data and wheel movement, and streamed data to and from a remote laptop for control inputs. The project was successful, having major benefits when compared to using raw sensor data to map out rooms, and there is scope for further work to be done by implementing more robust sensors. I attained 80% in this project, which made up half of the final year of my degree.</p>,
         videos: ["./slam.mp4"],
         yearRange: { start: 2016, end: 2017 }
+      }
+    ]
+  },
+  "Cat": {
+    title: "Project: Automatic Cat Feeder",
+    icon: <i className="fas fa-cat"></i>,
+    projects: [
+      {
+        title: "Automatic Cat Feeder",
+        description: "Using a Raspberry Pi (with a camera), an Arduino and a Pringles can, I created an automatic cat food dispenser.\n\nThe Raspberry Pi camera intermittently takes pictures and sends them to Azure Cognitive Services. If it detects a cat, the Pi sends a signal to the Arduino which turns a servo motor, releasing food stored in the Pringles can.\n\nTo avoid overfeeding, it's programmed to only release food twice a day. However, this is made more complicated since we have multiple cats; the second cat might eat food intended for the first. This is already an issue in our household, made evident by their discrepency in size.\n\nFurther research required.",
+        yearRange: { start: 2020, end: 2020 },
+        diagram: "feeder",
+        videoEmbed: "https://www.youtube.com/watch?v=ElRrdRDLgLk",
+        links: [
+          { name: "GitHub", url: "https://github.com/yourusername/cat-feeder", icon: "fab fa-github" }
+        ]
       }
     ]
   },
@@ -201,36 +231,6 @@ const portfolioSections: any = {
         title: "Bond",
         description: "It's hard to concieve of something more complicated and beautiful than the mind. When multiple minds interact, however, they can become more than simply the sum of their parts. Whether it's friendship, professional relationships or romance, the desire to bond and create meaningful connections with likeminded people is a fundamental part of the fabric of society and the individuals within it.",
         iconSrc: "values/bond.svg"
-      }
-    ]
-  },
-  "Art": {
-    title: "Art",
-    icon: <i className="fas fa-paint-brush"></i>,
-    projects: [
-      {
-        title: "Everydays",
-        description: "A challenge to create something new every single day, focusing on consistent practice and improvement. Each piece is started and completed within a 24-hour period, pushing me to work efficiently and try new techniques.",
-        yearRange: { start: 2017, end: null },
-        links: [
-          { name: "Instagram", url: "https://instagram.com/everyda.ys", icon: "fab fa-instagram" }
-        ]
-      }
-    ]
-  },
-  "Cat": {
-    title: "Automatic Cat Feeder",
-    icon: <i className="fas fa-cat"></i>,
-    projects: [
-      {
-        title: "Automatic Cat Feeder",
-        description: "Using a Raspberry Pi (with a camera), an Arduino and a Pringles can, I created an automatic cat food dispenser.\n\nThe Raspberry Pi camera intermittently takes pictures and sends them to Azure Cognitive Services. If it detects a cat, the Pi sends a signal to the Arduino which turns a servo motor, releasing food stored in the Pringles can.\n\nTo avoid overfeeding, it's programmed to only release food twice a day. However, this is made more complicated since we have multiple cats; the second cat might eat food intended for the first. This is already an issue in our household, made evident by their discrepency in size.\n\nFurther research required.",
-        yearRange: { start: 2020, end: 2020 },
-        diagram: "feeder",
-        videoEmbed: "https://www.youtube.com/watch?v=ElRrdRDLgLk",
-        links: [
-          { name: "GitHub", url: "https://github.com/yourusername/cat-feeder", icon: "fab fa-github" }
-        ]
       }
     ]
   }
