@@ -9,7 +9,8 @@ import {
   Tooltip, 
   Legend,
   LineChart,
-  Line
+  Line,
+  ReferenceLine
 } from 'recharts';
 import { Spinner } from 'flowbite-react';
 
@@ -63,6 +64,14 @@ const DreamSentimentChart: React.FC = () => {
   const [tagData, setTagData] = useState<TagDataPoint[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Update the lockdown dates array to only include the first lockdown
+  const lockdownDates = [
+    {
+      date: "Mar 2020",
+      label: "UK Lockdown"
+    }
+  ];
 
   useEffect(() => {
     const fetchDreamData = async () => {
@@ -195,7 +204,7 @@ const DreamSentimentChart: React.FC = () => {
     monthlyData.forEach(item => monthDataMap.set(item.month, item));
     
     // Iterate through all months in the range
-    let currentDate = new Date(startYear, startMonth - 1, 1); // Month is 0-indexed in JS Date
+    const currentDate = new Date(startYear, startMonth - 1, 1); // Month is 0-indexed in JS Date
     const endDate = new Date(endYear, endMonth - 1, 1);
     
     while (currentDate <= endDate) {
@@ -588,7 +597,7 @@ const DreamSentimentChart: React.FC = () => {
         </div>
       </div>
       
-      {/* Dream Count Chart - Convert to Line Chart */}
+      {/* Dream Count Chart */}
       <div className="w-full bg-white dark:bg-gray-800 rounded-lg shadow p-4">
         <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
           Dream Count
@@ -596,8 +605,8 @@ const DreamSentimentChart: React.FC = () => {
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
-              data={data} // Include all months, including gaps
-              margin={{ top: 10, right: 30, left: 10, bottom: 30 }}
+              data={data}
+              margin={{ top: 30, right: 30, left: 10, bottom: 30 }}
             >
               <CartesianGrid strokeDasharray="3 3" stroke="#555" opacity={0.3} />
               <XAxis 
@@ -617,9 +626,15 @@ const DreamSentimentChart: React.FC = () => {
                 content={({ active, payload, label }) => {
                   if (active && payload && payload.length) {
                     const data = payload[0].payload;
+                    const lockdown = lockdownDates.find(ld => ld.date === label);
                     return (
                       <div className="bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-700 rounded shadow-sm">
                         <p className="font-medium text-gray-900 dark:text-white">{label}</p>
+                        {lockdown && (
+                          <p className="text-sm text-red-500 font-medium">
+                            {lockdown.label}
+                          </p>
+                        )}
                         {data.isGap || data.dream_count === 0 ? (
                           <p className="text-gray-600 dark:text-gray-400">
                             No dreams recorded
@@ -635,6 +650,23 @@ const DreamSentimentChart: React.FC = () => {
                   return null;
                 }}
               />
+              {/* Updated ReferenceLine */}
+              {lockdownDates.map((lockdown, index) => (
+                <ReferenceLine
+                  key={index}
+                  x={lockdown.date}
+                  stroke="#ef4444"
+                  strokeDasharray="3 3"
+                  label={{
+                    value: lockdown.label,
+                    position: 'insideTopRight',
+                    fill: '#ef4444',
+                    fontSize: 12,
+                    dy: -20,
+                    dx: 10,
+                  }}
+                />
+              ))}
               <Line 
                 type="monotone"
                 dataKey="dream_count" 

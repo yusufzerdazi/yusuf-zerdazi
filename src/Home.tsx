@@ -144,23 +144,20 @@ const portfolioSections: any = {
   "MagicMirror": {
     title: "Project: Magic Mirror",
     icon: <i className="fas fa-magic"></i>,
-    links: [
-      { name: "GitHub", url: "https://github.com/yusufzerdazi/magicmirror", icon: "fab fa-github" }
-    ],
     projects: [
         {
             title: "Magic Mirror",
             description: "Coming soon.",
-            yearRange: { start: 2025, end: 2025 }
+            yearRange: { start: 2025, end: 2025 },
+            links: [
+              { name: "GitHub", url: "https://github.com/yusufzerdazi/magicmirror", icon: "fab fa-github" }
+            ]
         }
     ]
   },
   "Car": {
-    title: "Robotics",
-    icon: <i className="fas fa-car"></i>,
-    links: [
-      { name: "GitHub", url: "https://github.com/yusufzerdazi/raspberry-pi-robot", icon: "fab fa-github" }
-    ],
+    title: "Electronics",
+    icon: <i className="fas fa-microchip"></i>,
     projects: [
       {
         title: "Remote Control Car",
@@ -172,7 +169,10 @@ const portfolioSections: any = {
         title: "SLAM Mapping Robot",
         description: <p>My final year project was to construct a robot which used <a href="https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping" className="text-blue-600 hover:underline">Simultaneous Localisation and Mapping (SLAM)</a> techniques, to map out rooms in real time. The robot was based on a <a href="https://en.wikipedia.org/wiki/Raspberry_Pi" className="text-blue-600 hover:underline">Raspberry Pi</a>, using <a href="https://en.wikipedia.org/wiki/Lego_Mindstorms" className="text-blue-600 hover:underline">LEGO Mindstorms</a> components for sensor data and wheel movement, and streamed data to and from a remote laptop for control inputs. The project was successful, having major benefits when compared to using raw sensor data to map out rooms, and there is scope for further work to be done by implementing more robust sensors. I attained 80% in this project, which made up half of the final year of my degree.</p>,
         videos: ["./slam.mp4"],
-        yearRange: { start: 2016, end: 2017 }
+        yearRange: { start: 2016, end: 2017 },
+        links: [
+          { name: "GitHub", url: "https://github.com/yusufzerdazi/raspberry-pi-robot", icon: "fab fa-github" }
+        ]
       }
     ]
   },
@@ -185,16 +185,13 @@ const portfolioSections: any = {
         description: "Using a Raspberry Pi (with a camera), an Arduino and a Pringles can, I created an automatic cat food dispenser.\n\nThe Raspberry Pi camera intermittently takes pictures and sends them to Azure Cognitive Services. If it detects a cat, the Pi sends a signal to the Arduino which turns a servo motor, releasing food stored in the Pringles can.\n\nTo avoid overfeeding, it's programmed to only release food twice a day. However, this is made more complicated since we have multiple cats; the second cat might eat food intended for the first. This is already an issue in our household, made evident by their discrepency in size.\n\nFurther research required.",
         yearRange: { start: 2020, end: 2020 },
         diagram: "feeder",
-        videoEmbed: "https://www.youtube.com/watch?v=ElRrdRDLgLk",
-        links: [
-          { name: "GitHub", url: "https://github.com/yourusername/cat-feeder", icon: "fab fa-github" }
-        ]
+        videoEmbed: "https://www.youtube.com/watch?v=ElRrdRDLgLk"
       }
     ]
   },
   "Values": {
     title: "Values",
-    icon: <i className="fas fa-heart"></i>,
+    icon: <i className="fas fa-yin-yang"></i>,
     projects: [
       {
         title: "Balance",
@@ -628,7 +625,7 @@ function Home() {
                 {/* Mobile navigation icons (visible on smaller screens) */}
                 {isMobile && (
                     <div className="md:hidden px-2 overflow-y-auto flex-shrink-0">
-                        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 auto-rows-auto gap-3">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 auto-rows-auto gap-3">
                             {Object.entries(portfolioSections).map(([sectionId, section]: any) => (
                                 <div 
                                     key={sectionId}
@@ -793,9 +790,6 @@ function Home() {
                                                   {/* Display videos if available */}
                                                   {project.videos && project.videos.length > 0 && (
                                                     <div className="space-y-4 mt-3">
-                                                      <h6 className="text-md font-medium text-gray-800 dark:text-gray-200">
-                                                        Project Videos
-                                                      </h6>
                                                       {project.videos.map((videoUrl: string, index: number) => (
                                                         <div key={index} className="relative pb-[56.25%] h-0 w-full">
                                                           <iframe 
@@ -814,9 +808,6 @@ function Home() {
                                                   {/* Display YouTube video embed if available */}
                                                   {project.videoEmbed && (
                                                     <div className="mt-6">
-                                                      <h4 className="text-md font-medium mb-2 text-gray-900 dark:text-white">
-                                                        Demo Video
-                                                      </h4>
                                                       <div className="relative pb-[56.25%] h-0 w-full">
                                                         <iframe
                                                           className="absolute top-0 left-0 w-full h-full rounded"
@@ -894,28 +885,6 @@ function Home() {
                                               )}
                                             </div>
                                           ))}
-                                    </div>
-                                )}
-                                
-                                {/* Featured Projects for sections without project arrays */}
-                                {!currentSection.projects && (
-                                    <div>
-                                        <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-3">
-                                            Featured Projects
-                                        </h4>
-                                        <div className="grid grid-cols-1 gap-4">
-                                            <Card>
-                                                <h5 className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
-                                                    Project 1
-                                                </h5>
-                                                <p className="font-normal text-gray-700 dark:text-gray-400">
-                                                    Brief description of this amazing project that showcases my skills.
-                                                </p>
-                                                <Button size="sm">
-                                                    View Project <svg className="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
-                                                </Button>
-                                            </Card>
-                                        </div>
                                     </div>
                                 )}
                             </div>

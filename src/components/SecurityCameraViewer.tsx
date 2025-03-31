@@ -166,7 +166,7 @@ const SecurityCameraViewer: React.FC = () => {
           </div>
           
           {/* Pagination controls */}
-          <div className="flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex justify-between items-center">
             <Button
               color="gray"
               size="sm"

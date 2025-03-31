@@ -71,7 +71,7 @@ const DiagramViewer: React.FC<DiagramViewerProps> = ({ diagram }) => {
   return (
     <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
       <h3 className="text-lg font-medium mb-3 text-gray-900 dark:text-white">
-        {diagramConfig.title}
+        Architecture
       </h3>
       <div 
         className="w-full border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden" 
