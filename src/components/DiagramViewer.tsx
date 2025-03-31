@@ -423,13 +423,8 @@ const DiagramViewer: React.FC<DiagramViewerProps> = ({ diagram }) => {
           onEdgesChange={onEdgesChange}
           nodeTypes={nodeTypes}
           fitView
-          minZoom={1}
-          maxZoom={1}
-          zoomOnScroll={false}
-          panOnScroll={false}
-          panOnDrag={false}
-          nodesDraggable={false}
-          elementsSelectable={false}
+          minZoom={0.5}
+          maxZoom={2}
           connectionLineType={ConnectionLineType.SmoothStep}
           proOptions={{ hideAttribution: true }}
         >

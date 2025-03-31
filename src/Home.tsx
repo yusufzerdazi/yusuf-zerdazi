@@ -4,6 +4,7 @@ import { generateCarpet } from './Utils';
 import { useRef, useEffect, useState } from 'react';
 import DiagramViewer from './components/DiagramViewer';
 import SecurityCameraViewer from './components/SecurityCameraViewer';
+import DreamSentimentChart from './components/DreamSentimentChart';
 
 // Define portfolio sections with corresponding SVG layers and social links
 const portfolioSections: any = {
@@ -67,6 +68,7 @@ const portfolioSections: any = {
         description: "I've kept a dream journal in Google Keep for a few years. I thought it would be interesting to use AI to scan my dreams for sentiment over time, key phrases, recurring themes etc. Using Azure's Text Analysis, I analysed all my dreams, saving the results in a Blob Storage account. Power BI allows me to create graphs and infographics based on this data, giving me insight into my dreams and myself.",
         yearRange: { start: 2020, end: 2020 },
         diagram: "dreams",
+        component: "DreamSentimentChart",
         links: [
           { name: "GitHub", url: "https://github.com/yourusername/dreams-analyzer", icon: "fab fa-github" }
         ]
@@ -871,6 +873,11 @@ function Home() {
                                               {/* Security Camera component */}
                                               {project.component === "SecurityCameraViewer" && (
                                                 <SecurityCameraViewer />
+                                              )}
+                                              
+                                              {/* Dream Sentiment Chart component */}
+                                              {project.component === "DreamSentimentChart" && (
+                                                <DreamSentimentChart />
                                               )}
                                               
                                               {/* Add architecture diagrams */}
