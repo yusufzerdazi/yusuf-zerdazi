@@ -8,8 +8,8 @@ import {
   CartesianGrid, 
   Tooltip, 
   Legend,
-  BarChart,
-  Bar
+  LineChart,
+  Line
 } from 'recharts';
 import { Spinner } from 'flowbite-react';
 
@@ -29,6 +29,10 @@ interface DreamData {
     count: number;
     sample: string[];
   };
+  tags: {
+    count: number;
+    top_tags: Record<string, number>;
+  }
 }
 
 interface DreamSummaryResponse {
@@ -42,11 +46,21 @@ interface ChartDataPoint {
   negative: number;
   dream_count: number;
   month: string;
-  isGap?: boolean; // Flag to identify gap months
+  quarter: string; // Add quarter property
+  isGap?: boolean; // Flag to identify gap months/quarters
+}
+
+interface TagDataPoint {
+  date: string;
+  month: string;
+  tag: string;
+  count: number;
 }
 
 const DreamSentimentChart: React.FC = () => {
   const [data, setData] = useState<ChartDataPoint[]>([]);
+  const [quarterlyData, setQuarterlyData] = useState<ChartDataPoint[]>([]);
+  const [tagData, setTagData] = useState<TagDataPoint[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -67,6 +81,8 @@ const DreamSentimentChart: React.FC = () => {
           .filter(([date]) => date !== '_metadata')
           .map(([date, dreamData]) => {
             const dreamDate = new Date(date);
+            const quarterNum = Math.floor(dreamDate.getMonth() / 3) + 1;
+            
             return {
               date: formatDate(date),
               positive: dreamData.sentiment.avg_positive,
@@ -74,17 +90,28 @@ const DreamSentimentChart: React.FC = () => {
               negative: dreamData.sentiment.avg_negative,
               dream_count: dreamData.dream_count,
               // Create month identifier for grouping (YYYY-MM)
-              month: `${dreamDate.getFullYear()}-${String(dreamDate.getMonth() + 1).padStart(2, '0')}`
+              month: `${dreamDate.getFullYear()}-${String(dreamDate.getMonth() + 1).padStart(2, '0')}`,
+              // Create quarter identifier (YYYY-Q1, YYYY-Q2, etc.)
+              quarter: `${dreamDate.getFullYear()}-Q${quarterNum}`
             };
           });
+        
+        // Process tag data
+        const tagsData = extractTagData(responseData);
         
         // Group data by month
         const monthlyData = groupByMonth(rawData);
         
-        // Fill in missing months in the timeline
-        const completeTimelineData = fillMissingMonths(monthlyData);
+        // Group data by quarter
+        const quarterData = groupByQuarter(rawData);
         
-        setData(completeTimelineData);
+        // Fill in missing months/quarters in the timeline
+        const completeMonthlyData = fillMissingMonths(monthlyData);
+        const completeQuarterlyData = fillMissingQuarters(quarterData);
+        
+        setData(completeMonthlyData);
+        setQuarterlyData(completeQuarterlyData);
+        setTagData(tagsData);
       } catch (err) {
         console.error('Error fetching dream data:', err);
         setError(err instanceof Error ? err.message : 'An unknown error occurred');
@@ -95,6 +122,58 @@ const DreamSentimentChart: React.FC = () => {
 
     fetchDreamData();
   }, []);
+
+  // Extract tag data from the API response
+  const extractTagData = (responseData: DreamSummaryResponse): TagDataPoint[] => {
+    const tagCounts: Record<string, Record<string, number>> = {}; // month -> tag -> count
+    
+    Object.entries(responseData)
+      .filter(([date]) => date !== '_metadata')
+      .forEach(([date, dreamData]) => {
+        const dreamDate = new Date(date);
+        // Add quarter information
+        const quarterNum = Math.floor(dreamDate.getMonth() / 3) + 1;
+        const quarter = `${dreamDate.getFullYear()}-Q${quarterNum}`;
+        
+        // Initialize quarter data structure if not exists
+        if (!tagCounts[quarter]) {
+          tagCounts[quarter] = {};
+        }
+        
+        // Check if we have explicit tags
+        if (dreamData.tags && Object.keys(dreamData.tags.top_tags).length > 0) {
+          Object.entries(dreamData.tags.top_tags).forEach(([tag, count]) => {
+            tagCounts[quarter][tag] = (tagCounts[quarter][tag] || 0) + count;
+          });
+        } 
+        // Otherwise extract from entities (if available)
+        else if (dreamData.entities && Object.keys(dreamData.entities.top_entities).length > 0) {
+          Object.entries(dreamData.entities.top_entities).forEach(([entity, count]) => {
+            tagCounts[quarter][entity] = (tagCounts[quarter][entity] || 0) + count;
+          });
+        } 
+        // If no tags or entities, count as "Dream"
+        else {
+          tagCounts[quarter]["Dream"] = (tagCounts[quarter]["Dream"] || 0) + dreamData.dream_count;
+        }
+      });
+    
+    // Convert to array format for the chart
+    const result: TagDataPoint[] = [];
+    
+    Object.entries(tagCounts).forEach(([quarter, tags]) => {
+      Object.entries(tags).forEach(([tag, count]) => {
+        result.push({
+          month: '', // Not used for quarterly data
+          date: quarter, // Use quarter as the date
+          tag,
+          count
+        });
+      });
+    });
+    
+    return result;
+  };
 
   // Fill in missing months in the timeline with null data points
   const fillMissingMonths = (monthlyData: ChartDataPoint[]): ChartDataPoint[] => {
@@ -122,6 +201,7 @@ const DreamSentimentChart: React.FC = () => {
     while (currentDate <= endDate) {
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth() + 1; // Convert back to 1-indexed
+      const quarterNum = Math.floor((month - 1) / 3) + 1;
       const monthKey = `${year}-${String(month).padStart(2, '0')}`;
       
       const monthName = currentDate.toLocaleString('en-US', { month: 'short' });
@@ -134,6 +214,7 @@ const DreamSentimentChart: React.FC = () => {
         // Create a gap data point
         result.push({
           month: monthKey,
+          quarter: `${year}-Q${quarterNum}`,
           date: displayMonth,
           positive: 0,
           neutral: 0,
@@ -145,6 +226,72 @@ const DreamSentimentChart: React.FC = () => {
       
       // Move to next month
       currentDate.setMonth(currentDate.getMonth() + 1);
+    }
+    
+    return result;
+  };
+
+  // Fill in missing quarters in the timeline
+  const fillMissingQuarters = (quarterlyData: ChartDataPoint[]): ChartDataPoint[] => {
+    if (quarterlyData.length === 0) return [];
+    
+    // Sort data chronologically first
+    quarterlyData.sort((a, b) => {
+      const [aYear, aQuarter] = a.quarter.split('-Q');
+      const [bYear, bQuarter] = b.quarter.split('-Q');
+      
+      if (aYear !== bYear) return Number(aYear) - Number(bYear);
+      return Number(aQuarter) - Number(bQuarter);
+    });
+    
+    const result: ChartDataPoint[] = [];
+    const firstQuarter = quarterlyData[0].quarter;
+    const lastQuarter = quarterlyData[quarterlyData.length - 1].quarter;
+    
+    // Extract the start and end dates
+    const [startYear, startQuarterFull] = firstQuarter.split('-');
+    const startQuarter = Number(startQuarterFull.substring(1));
+    
+    const [endYear, endQuarterFull] = lastQuarter.split('-');
+    const endQuarter = Number(endQuarterFull.substring(1));
+    
+    // Create a map of existing data points for quick lookup
+    const quarterDataMap = new Map<string, ChartDataPoint>();
+    quarterlyData.forEach(item => quarterDataMap.set(item.quarter, item));
+    
+    // Iterate through all quarters in the range
+    let currentYear = Number(startYear);
+    let currentQuarter = startQuarter;
+    
+    while (
+      currentYear < Number(endYear) || 
+      (currentYear === Number(endYear) && currentQuarter <= endQuarter)
+    ) {
+      const quarterKey = `${currentYear}-Q${currentQuarter}`;
+      
+      if (quarterDataMap.has(quarterKey)) {
+        // Add the existing data point
+        result.push(quarterDataMap.get(quarterKey)!);
+      } else {
+        // Create a gap data point
+        result.push({
+          month: '', // Not applicable for quarterly data
+          quarter: quarterKey,
+          date: quarterKey, // Display the quarter directly
+          positive: 0,
+          neutral: 0,
+          negative: 0,
+          dream_count: 0,
+          isGap: true
+        });
+      }
+      
+      // Move to next quarter
+      currentQuarter++;
+      if (currentQuarter > 4) {
+        currentQuarter = 1;
+        currentYear++;
+      }
     }
     
     return result;
@@ -182,9 +329,52 @@ const DreamSentimentChart: React.FC = () => {
       const monthName = new Date(`${year}-${monthNum}-01`).toLocaleString('en-US', { month: 'short' });
       const displayMonth = `${monthName} ${year}`;
       
+      // Get the quarter from any one of the dreams
+      const quarter = dreams[0].quarter;
+      
       return {
         month,
+        quarter,
         date: displayMonth,
+        positive: totalDreams > 0 ? totalPositive / totalDreams : 0,
+        neutral: totalDreams > 0 ? totalNeutral / totalDreams : 0,
+        negative: totalDreams > 0 ? totalNegative / totalDreams : 0,
+        dream_count: totalDreams
+      };
+    });
+  };
+
+  // Group data by quarter and calculate averages
+  const groupByQuarter = (data: ChartDataPoint[]): ChartDataPoint[] => {
+    const quarterGroups: Record<string, ChartDataPoint[]> = {};
+    
+    // Group dreams by quarter
+    data.forEach(dream => {
+      if (!quarterGroups[dream.quarter]) {
+        quarterGroups[dream.quarter] = [];
+      }
+      quarterGroups[dream.quarter].push(dream);
+    });
+    
+    // Calculate quarterly averages
+    return Object.entries(quarterGroups).map(([quarter, dreams]) => {
+      // Calculate the weighted average based on dream_count for more accurate results
+      let totalDreams = 0;
+      let totalPositive = 0;
+      let totalNeutral = 0;
+      let totalNegative = 0;
+      
+      dreams.forEach(dream => {
+        totalDreams += dream.dream_count;
+        totalPositive += dream.positive * dream.dream_count;
+        totalNeutral += dream.neutral * dream.dream_count;
+        totalNegative += dream.negative * dream.dream_count;
+      });
+      
+      return {
+        month: '', // Not applicable for quarterly data
+        quarter,
+        date: quarter, // Use the quarter directly as the display date
         positive: totalDreams > 0 ? totalPositive / totalDreams : 0,
         neutral: totalDreams > 0 ? totalNeutral / totalDreams : 0,
         negative: totalDreams > 0 ? totalNegative / totalDreams : 0,
@@ -220,17 +410,99 @@ const DreamSentimentChart: React.FC = () => {
     );
   }
 
+  // Get top tags for the tag chart
+  const getTopTags = () => {
+    const tagCounts: Record<string, number> = {};
+    
+    tagData.forEach(item => {
+      if (!tagCounts[item.tag]) {
+        tagCounts[item.tag] = 0;
+      }
+      tagCounts[item.tag] += item.count;
+    });
+    
+    return Object.entries(tagCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10)
+      .map(([tag]) => tag);
+  };
+  
+  const topTags = getTopTags();
+  
+  // Prepare data for the tag chart - modified for quarterly data with percentages
+  const prepareTagChartData = () => {
+    const tagsByQuarter: Record<string, Record<string, number>> = {};
+    const quarters = new Set<string>();
+    
+    // Collect all quarters from the data
+    tagData.forEach(item => {
+      quarters.add(item.date);
+    });
+    
+    // Sort quarters chronologically
+    const sortedQuarters = Array.from(quarters).sort((a, b) => {
+      const [aYear, aQ] = a.split('-Q');
+      const [bYear, bQ] = b.split('-Q');
+      if (aYear !== bYear) return Number(aYear) - Number(bYear);
+      return Number(aQ) - Number(bQ);
+    });
+    
+    // Initialize all quarters with zero counts for all top tags
+    sortedQuarters.forEach(quarter => {
+      tagsByQuarter[quarter] = {};
+      topTags.forEach(tag => {
+        tagsByQuarter[quarter][tag] = 0;
+      });
+    });
+    
+    // Fill in actual tag counts
+    tagData.forEach(item => {
+      if (topTags.includes(item.tag) && tagsByQuarter[item.date]) {
+        tagsByQuarter[item.date][item.tag] = item.count;
+      }
+    });
+    
+    // Convert to array format for the chart and calculate percentages
+    return sortedQuarters.map(quarter => {
+      const quarterData = tagsByQuarter[quarter];
+      const totalTagsInQuarter = Object.values(quarterData).reduce((sum, count) => sum + count, 0);
+      
+      // Convert raw counts to percentages
+      const percentageData: Record<string, number> = {};
+      
+      // If there are no tags in this quarter, distribute evenly
+      if (totalTagsInQuarter === 0) {
+        topTags.forEach(tag => {
+          percentageData[tag] = 100 / topTags.length; // Equal distribution
+        });
+      } else {
+        // Calculate percentage for each tag
+        topTags.forEach(tag => {
+          percentageData[tag] = (quarterData[tag] / totalTagsInQuarter) * 100;
+        });
+      }
+      
+      return {
+        date: quarter,
+        ...percentageData,
+        _totalCount: totalTagsInQuarter // Keep the total count for tooltips
+      };
+    });
+  };
+  
+  const tagChartData = prepareTagChartData();
+
   return (
     <div className="space-y-8">
-      {/* Sentiment Analysis Chart */}
+      {/* Sentiment Analysis Chart by Quarter */}
       <div className="w-full bg-white dark:bg-gray-800 rounded-lg shadow p-4">
         <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-          Dream Sentiment Analysis by Month
+          Dream Sentiment
         </h3>
         <div className="h-80">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart
-              data={data}
+              data={quarterlyData}
               margin={{ top: 10, right: 30, left: 0, bottom: 30 }}
             >
               <CartesianGrid strokeDasharray="3 3" stroke="#555" opacity={0.3} />
@@ -247,21 +519,21 @@ const DreamSentimentChart: React.FC = () => {
               />
               <Tooltip 
                 formatter={(value, name, props) => {
-                  // Don't show tooltips for gap months
+                  // Don't show tooltips for gap quarters
                   if (props.payload.isGap) return ['-', name];
                   return [`${Math.round(Number(value) * 100)}%`, name];
                 }}
-                labelFormatter={(label) => `Month: ${label}`}
+                labelFormatter={(label) => `Quarter: ${label}`}
                 content={({ active, payload, label }) => {
                   if (active && payload && payload.length) {
                     const data = payload[0].payload;
                     
-                    // Don't show detailed tooltip for gap months
+                    // Don't show detailed tooltip for gap quarters
                     if (data.isGap) {
                       return (
                         <div className="bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-700 rounded shadow-sm">
                           <p className="font-medium text-gray-900 dark:text-white">{label}</p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">No dreams recorded this month</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">No dreams recorded this quarter</p>
                         </div>
                       );
                     }
@@ -314,19 +586,16 @@ const DreamSentimentChart: React.FC = () => {
             </AreaChart>
           </ResponsiveContainer>
         </div>
-        <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-          <p>This chart shows the monthly average sentiment analysis of dreams, with gaps representing months where no dreams were recorded. The values represent weighted averages based on the number of dreams recorded each day.</p>
-        </div>
       </div>
       
-      {/* Dream Count Chart */}
+      {/* Dream Count Chart - Convert to Line Chart */}
       <div className="w-full bg-white dark:bg-gray-800 rounded-lg shadow p-4">
         <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-          Dreams Recorded per Month
+          Dream Count
         </h3>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart
+            <LineChart
               data={data} // Include all months, including gaps
               margin={{ top: 10, right: 30, left: 10, bottom: 30 }}
             >
@@ -366,17 +635,77 @@ const DreamSentimentChart: React.FC = () => {
                   return null;
                 }}
               />
-              <Bar 
+              <Line 
+                type="monotone"
                 dataKey="dream_count" 
-                fill="#8884d8" 
+                stroke="#8884d8" 
                 name="Dreams Recorded" 
-                radius={[4, 4, 0, 0]}
+                strokeWidth={2}
+                dot={{ r: 4 }}
+                activeDot={{ r: 6 }}
               />
-            </BarChart>
+            </LineChart>
           </ResponsiveContainer>
         </div>
-        <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-          <p>This bar chart displays the total number of dreams recorded each month, including months with no recorded dreams.</p>
+      </div>
+      
+      {/* Tag Counts Chart - Remove Interactivity */}
+      <div className="w-full bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+          Tags
+        </h3>
+        <div className="h-80">
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart
+              data={tagChartData}
+              margin={{ top: 10, right: 30, left: 10, bottom: 30 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke="#555" opacity={0.3} />
+              <XAxis 
+                dataKey="date" 
+                angle={-45} 
+                textAnchor="end" 
+                height={70} 
+                tick={{ fontSize: 12 }} 
+              />
+              <YAxis 
+                tickFormatter={(value) => `${Math.round(value)}%`}
+                domain={[0, 100]} 
+              />
+              <Tooltip
+                formatter={(value, name, props) => {
+                  // Show both percentage and absolute count
+                  const totalCount = props.payload._totalCount || 0;
+                  const absoluteCount = Math.round((Number(value) * totalCount) / 100);
+                  return [
+                    `${Math.round(Number(value))}% (${absoluteCount} occurrences)`, 
+                    name
+                  ];
+                }}
+                labelFormatter={(label) => `Quarter: ${label}`}
+              />
+              <Legend />
+              {topTags.map((tag, index) => {
+                // Generate a color based on the index
+                const hue = (index * 137) % 360; // Use golden angle approximation for better distribution
+                const color = `hsl(${hue}, 70%, 60%)`;
+                
+                return (
+                  <Area 
+                    key={tag}
+                    type="monotone"
+                    dataKey={tag} 
+                    name={tag} 
+                    fill={color}
+                    stroke={color}
+                    stackId="1"
+                    fillOpacity={0.8}
+                    strokeWidth={1}
+                  />
+                );
+              })}
+            </AreaChart>
+          </ResponsiveContainer>
         </div>
       </div>
     </div>

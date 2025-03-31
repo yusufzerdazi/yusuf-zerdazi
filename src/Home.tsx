@@ -16,13 +16,19 @@ const portfolioSections: any = {
         title: "Hitbox",
         description: "Hitbox is a symmetric, multiplayer, browser-based brawler game. Every player has the same abilities and move set, meaning it's purely skillbased.",
         yearRange: { start: 2020, end: null },
-        links: [{ name: "Play Online", url: "https://www.hitbox.online/", icon: "fas fa-gamepad" }]
+        links: [
+          { name: "Play Online", url: "https://www.hitbox.online/", icon: "fas fa-gamepad" },
+          { name: "GitHub", url: "https://github.com/yusufzerdazi/hitbox", icon: "fab fa-github" }
+        ]
       },
       {
         title: "Text Trek",
         description: "Text Trek is a community-based, AI-driven text based adventure game. Imagine huge persistent worlds spanning centuries, characters finding artifacts from past generations, and thrilling open-ended plotlines with atmospheric artwork.",
         yearRange: { start: 2023, end: null },
-        links: [{ name: "Play Online", url: "https://texttrek.z16.web.core.windows.net/", icon: "fas fa-book" }]
+        links: [
+          { name: "Play Online", url: "https://texttrek.z16.web.core.windows.net/", icon: "fas fa-book" },
+          { name: "GitHub", url: "https://github.com/yusufzerdazi/texttrek", icon: "fab fa-github" }
+        ]
       }
     ]
   },
@@ -70,7 +76,7 @@ const portfolioSections: any = {
         diagram: "dreams",
         component: "DreamSentimentChart",
         links: [
-          { name: "GitHub", url: "https://github.com/yourusername/dreams-analyzer", icon: "fab fa-github" }
+          { name: "GitHub", url: "https://github.com/yusufzerdazi/dream-tracker", icon: "fab fa-github" }
         ]
       },
       {
@@ -78,9 +84,6 @@ const portfolioSections: any = {
         description: "It's possible to build a cheap security system using a Raspberry Pi and its camera module - I set up a live stream with motion detection capabilities, and by hooking this up to other services it can give you a notification when it sees something.",
         yearRange: { start: 2019, end: 2020 },
         diagram: "camera",
-        links: [
-          { name: "GitHub", url: "https://github.com/yourusername/raspberry-pi-security", icon: "fab fa-github" }
-        ],
         component: "SecurityCameraViewer"
       }
     ]
@@ -88,7 +91,6 @@ const portfolioSections: any = {
   "LED": {
     title: "LED Screen",
     icon: <i className="fas fa-lightbulb"></i>,
-    links: [],
     projects: [
         {
             title: "LED Screen",
@@ -96,12 +98,17 @@ const portfolioSections: any = {
             yearRange: { start: 2023, end: 2025 },
             instagramEmbed: "https://www.instagram.com/reel/Cxx8ymiIP4P"
         }
+    ],
+    links: [
+      { name: "GitHub", url: "https://github.com/yusufzerdazi/led-screen", icon: "fab fa-github" }
     ]
   },
   "MagicMirror": {
     title: "Magic Mirror",
     icon: <i className="fas fa-magic"></i>,
-    links: [],
+    links: [
+      { name: "GitHub", url: "https://github.com/yusufzerdazi/magicmirror", icon: "fab fa-github" }
+    ],
     projects: [
         {
             title: "Magic Mirror",
@@ -137,7 +144,9 @@ const portfolioSections: any = {
   "Car": {
     title: "Robotics",
     icon: <i className="fas fa-car"></i>,
-    links: [],
+    links: [
+      { name: "GitHub", url: "https://github.com/yusufzerdazi/raspberry-pi-robot", icon: "fab fa-github" }
+    ],
     projects: [
       {
         title: "Remote Control Car",
@@ -227,10 +236,7 @@ const portfolioSections: any = {
         description: "Using a Raspberry Pi (with a camera), an Arduino and a Pringles can, I created an automatic cat food dispenser.\n\nThe Raspberry Pi camera intermittently takes pictures and sends them to Azure Cognitive Services. If it detects a cat, the Pi sends a signal to the Arduino which turns a servo motor, releasing food stored in the Pringles can.\n\nTo avoid overfeeding, it's programmed to only release food twice a day. However, this is made more complicated since we have multiple cats; the second cat might eat food intended for the first. This is already an issue in our household, made evident by their discrepency in size.\n\nFurther research required.",
         yearRange: { start: 2020, end: 2020 },
         diagram: "feeder",
-        videoEmbed: "https://www.youtube.com/watch?v=ElRrdRDLgLk",
-        links: [
-          { name: "GitHub", url: "https://github.com/yourusername/cat-feeder", icon: "fab fa-github" }
-        ]
+        videoEmbed: "https://www.youtube.com/watch?v=ElRrdRDLgLk"
       }
     ]
   }
