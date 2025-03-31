@@ -734,9 +734,6 @@ function Home() {
                                 {/* Projects for sections with project arrays */}
                                 {currentSection.projects && (
                                     <div className="space-y-8">
-                                        <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-3">
-                                           Projects
-                                        </h4>
                                         {/* Sort projects by end year, descending (most recent first) */}
                                         {[...currentSection.projects]
                                           .sort((a, b) => {
