@@ -40,7 +40,6 @@ jobs:
     - name: Azure CLI script
       uses: azure/CLI@v1
       with:
-        azcliversion: 2.52.0
         inlineScript: |
           az storage blob delete-batch --account-name yusufzerdazi --source '$web'
           az storage blob upload-batch --destination '$web' --account-name yusufzerdazi --source ./dist --overwrite
