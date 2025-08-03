@@ -34,7 +34,6 @@ const portfolioSections: any = {
   "Music": {
     title: "Music",
     icon: <i className="fas fa-music"></i>,
-    links: [],
     projects: [
       {
         title: "Yusuf Zerdazi",
@@ -96,7 +95,6 @@ const portfolioSections: any = {
   "DJ": {
     title: "DJ",
     icon: <i className="fas fa-headphones"></i>,
-    links: [],
     projects: [
       {
         title: "Zerdazi",
@@ -134,11 +132,11 @@ const portfolioSections: any = {
             title: "LED Screen",
             description: "Build video coming soon.",
             yearRange: { start: 2023, end: 2025 },
-            instagramEmbed: "https://www.instagram.com/reel/Cxx8ymiIP4P"
+            instagramEmbed: "https://www.instagram.com/reel/Cxx8ymiIP4P",
+            links: [
+              { name: "GitHub", url: "https://github.com/yusufzerdazi/led-screen", icon: "fab fa-github" }
+            ]
         }
-    ],
-    links: [
-      { name: "GitHub", url: "https://github.com/yusufzerdazi/led-screen", icon: "fab fa-github" }
     ]
   },
   "MagicMirror": {
@@ -167,7 +165,7 @@ const portfolioSections: any = {
       },
       {
         title: "SLAM Mapping Robot",
-        description: <p>My final year project was to construct a robot which used <a href="https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping" className="text-blue-600 hover:underline">Simultaneous Localisation and Mapping (SLAM)</a> techniques, to map out rooms in real time. The robot was based on a <a href="https://en.wikipedia.org/wiki/Raspberry_Pi" className="text-blue-600 hover:underline">Raspberry Pi</a>, using <a href="https://en.wikipedia.org/wiki/Lego_Mindstorms" className="text-blue-600 hover:underline">LEGO Mindstorms</a> components for sensor data and wheel movement, and streamed data to and from a remote laptop for control inputs. The project was successful, having major benefits when compared to using raw sensor data to map out rooms, and there is scope for further work to be done by implementing more robust sensors. I attained 80% in this project, which made up half of the final year of my degree.</p>,
+        description: <p>My final year project was to construct a robot which used <a href="https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-1 py-0.5 text-xs font-medium rounded bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-900/30 transition-colors">Simultaneous Localisation and Mapping (SLAM)</a> techniques, to map out rooms in real time. The robot was based on a <a href="https://en.wikipedia.org/wiki/Raspberry_Pi" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-1 py-0.5 text-xs font-medium rounded bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-900/30 transition-colors">Raspberry Pi</a>, using <a href="https://en.wikipedia.org/wiki/Lego_Mindstorms" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-1 py-0.5 text-xs font-medium rounded bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-900/30 transition-colors">LEGO Mindstorms</a> components for sensor data and wheel movement, and streamed data to and from a remote laptop for control inputs. The project was successful, having major benefits when compared to using raw sensor data to map out rooms, and there is scope for further work to be done by implementing more robust sensors. I attained 80% in this project, which made up half of the final year of my degree.</p>,
         videos: ["./slam.mp4"],
         yearRange: { start: 2016, end: 2017 },
         links: [
@@ -186,6 +184,20 @@ const portfolioSections: any = {
         yearRange: { start: 2020, end: 2020 },
         diagram: "feeder",
         videoEmbed: "https://www.youtube.com/watch?v=ElRrdRDLgLk"
+      }
+    ]
+  },
+  "TicketSlick": {
+    title: "TicketSlick",
+    icon: <i className="fas fa-ticket"></i>,
+    projects: [
+      {
+        title: "TicketSlick",
+        description: "TicketSlick is a tool to help people get tickets to sold out events. Users can subscribe to events, and be notified as soon as resale tickets become available.",
+        yearRange: { start: 2020, end: 2025 },
+        links: [
+          { name: "TicketSlick", url: "https://www.ticketslick.com", icon: "fas fa-ticket", font: "Pacifico" }
+        ]
       }
     ]
   },
@@ -261,6 +273,28 @@ const formatYearRange = (yearRange: { start: number, end: number | null }): stri
     : yearRange.start === yearRange.end ? `${yearRange.start}` : `${yearRange.start}-${yearRange.end}`;
 };
 
+// Helper function to format titles with Pacifico font for TicketSlick
+const formatTitleWithFont = (title: string, sectionId?: string): React.ReactNode => {
+  if (sectionId === "TicketSlick" || title.includes("TicketSlick")) {
+    // Split the title to find "TicketSlick" and apply Pacifico font
+    const parts = title.split(/(TicketSlick)/);
+    return (
+      <>
+        {parts.map((part, index) => 
+          part === "TicketSlick" ? (
+            <span key={index} style={{ fontFamily: 'Pacifico, cursive' }}>
+              {part}
+            </span>
+          ) : (
+            <span key={index}>{part}</span>
+          )
+        )}
+      </>
+    );
+  }
+  return title;
+};
+
 // Add an array of painting images
 const paintingImages = [
   '/paintings/Tech2.png',
@@ -272,7 +306,11 @@ const paintingImages = [
   '/paintings/2018-01-29  Bob Ross 2.jpg',
 ];
 
-function Home() {
+interface HomeProps {
+  isMobile: boolean;
+}
+
+function Home({ isMobile }: HomeProps) {
     const roomRef = useRef<SVGSVGElement>(null);
     const [openModal, setOpenModal] = useState(false);
     const animationRef = useRef<number>();
@@ -284,7 +322,6 @@ function Home() {
     const [tooltipContent, setTooltipContent] = useState<React.ReactNode>("");
     const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
     const [showTooltip, setShowTooltip] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
     const [isLoading] = useState(false);
         
     // Pre-render mobile icons
@@ -296,19 +333,7 @@ function Home() {
     // Add a loading state specifically for images
     const [imagesLoading, setImagesLoading] = useState(true);
     
-    // Check for mobile screen size
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768);
-        };
-        
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        
-        return () => {
-            window.removeEventListener('resize', checkMobile);
-        };
-    }, []);
+
 
     // Load Instagram embed script when modal opens
     useEffect(() => {
@@ -382,6 +407,16 @@ function Home() {
     useEffect(() => {
         const svgNode = roomRef.current;
         if (!svgNode) return;
+        
+        // Handle Title group visibility based on mobile state
+        const titleGroup = svgNode.querySelector('#Title');
+        if (titleGroup) {
+            if (isMobile) {
+                titleGroup.setAttribute('style', 'display: none;');
+            } else {
+                titleGroup.removeAttribute('style');
+            }
+        }
         
         // First, remove any existing indicators to prevent duplication
         const existingIndicators = svgNode.querySelectorAll('.interactive-indicator');
@@ -495,7 +530,7 @@ function Home() {
                     setTooltipContent(
                         <div className="flex items-center">
                             <span className="mr-2">{section.icon}</span>
-                            <span>{section.title}</span>
+                            <span>{formatTitleWithFont(section.title, layerId)}</span>
                         </div>
                     );
                     
@@ -618,8 +653,8 @@ function Home() {
     return (
         <div className={`w-full h-full ${isMobile ? 'overflow-auto pb-4' : ''}`}>
             <div className={`w-full h-full ${isMobile ? 'flex flex-col' : ''}`}>
-                <div className="flex items-center justify-center h-full relative px-4 pb-4">
-                    <RoomImage className={`max-w-full ${isMobile ? 'max-h-[85vh]' : 'h-[calc(100vh-110px)]'} w-auto object-contain ${imagesLoading ? 'images-loading' : ''}`} ref={roomRef} />
+                <div className={`flex items-center justify-center h-full relative ${isMobile ? 'px-4 pb-8' : 'p-4'}`}>
+                    <RoomImage className={`max-w-full ${isMobile ? 'max-h-[85vh]' : 'h-[calc(100vh-50px)]'} w-auto object-contain ${imagesLoading ? 'images-loading' : ''}`} ref={roomRef} />
                 </div>
                 
                 {/* Mobile navigation icons (visible on smaller screens) */}
@@ -630,7 +665,7 @@ function Home() {
                                 <div 
                                     key={sectionId}
                                     onClick={() => handleMobileIconClick(sectionId)}
-                                    className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-lg p-4 shadow-sm hover:shadow-md border border-gray-100 dark:border-gray-700 text-center cursor-pointer transition-all duration-300 portfolio-section-icon"
+                                    className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-lg p-4 shadow-sm border border-gray-100 dark:border-gray-700 text-center cursor-pointer transition-all duration-300 portfolio-section-icon"
                                 >
                                     <div className="h-16 flex items-center justify-center mb-2">
                                         {mobileIcons[sectionId] || (
@@ -678,7 +713,7 @@ function Home() {
                         {currentSection && (
                             <div className="flex items-center text-xl font-semibold">
                                 <span className="mr-2 text-2xl">{currentSection.icon}</span>
-                                {currentSection.title}
+                                {formatTitleWithFont(currentSection.title, activeSection)}
                             </div>
                         )}
                     </Modal.Header>
@@ -709,26 +744,6 @@ function Home() {
                                                 {currentSection.description}
                                             </p>
                                         </div>
-                                        
-                                        {/* Social Links */}
-                                        {currentSection.links && currentSection.links.length > 0 && (
-                                            <div className="mt-4">
-                                                <div className="flex space-x-3">
-                                                    {currentSection.links.map((link: any, index: number) => (
-                                                        <a 
-                                                            key={index}
-                                                            href={link.url} 
-                                                            target="_blank" 
-                                                            rel="noopener noreferrer"
-                                                            className="text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors"
-                                                            title={link.name}
-                                                        >
-                                                            <i className={`${link.icon} fa-2x`}></i>
-                                                        </a>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
                                     </div>
                                 )}
                             </div>
@@ -756,7 +771,7 @@ function Home() {
                                             return b.yearRange.start - a.yearRange.start;
                                           })
                                           .map((project, projectIndex) => (
-                                            <div key={projectIndex} className="space-y-4 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all duration-300">
+                                            <div key={projectIndex} className="space-y-4 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-300">
                                               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                                                 {/* Left column for icon */}
                                                 {project.iconSrc ? <div className="flex justify-center items-center">
@@ -775,7 +790,7 @@ function Home() {
                                                 <div className={`${project.iconSrc ? "md:col-span-3" : "md:col-span-4"}`}>
                                                   <div className="flex items-center justify-between mb-2">
                                                     <h5 className="text-lg font-semibold text-gray-900 dark:text-white">
-                                                      {project.title}
+                                                      {formatTitleWithFont(project.title, activeSection)}
                                                     </h5>
                                                     {project.yearRange && (
                                                       <span className="text-sm bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-gray-600 dark:text-gray-300">

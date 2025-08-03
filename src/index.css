@@ -18,9 +18,7 @@
   }
 }
 
-.hover\:drop-shadow-glow:hover {
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
-}
+
 
 .portfolio-modal .modal-content {
   border-radius: 0.5rem;
