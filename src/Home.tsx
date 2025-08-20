@@ -5,15 +5,54 @@ import { useRef, useEffect, useState } from 'react';
 import DiagramViewer from './components/DiagramViewer';
 import SecurityCameraViewer from './components/SecurityCameraViewer';
 import DreamSentimentChart from './components/DreamSentimentChart';
+import { DiagramType } from './config/diagrams';
+
+// TypeScript interfaces
+interface YearRange {
+  start: number;
+  end: number | null;
+}
+
+interface ProjectLink {
+  name: string;
+  url: string;
+  icon: string;
+  font?: string;
+}
+
+interface Project {
+  title: string;
+  description?: string | React.ReactNode;
+  yearRange?: YearRange;
+  diagram?: DiagramType;
+  component?: string;
+  links?: ProjectLink[];
+  videos?: string[];
+  videoEmbed?: string;
+  instagramEmbed?: string;
+  iconSrc?: string;
+}
+
+interface PortfolioSection {
+  title: string;
+  icon: React.ReactNode;
+  description?: string;
+  yearRange?: YearRange;
+  projects?: Project[];
+}
+
+interface PortfolioSections {
+  [key: string]: PortfolioSection;
+}
 
 // Define portfolio sections with corresponding SVG layers and social links
-const portfolioSections: any = {
-  "Computer": {
-    title: "Code",
-    icon: <i className="fas fa-code"></i>,
+const portfolioSections: PortfolioSections = {
+  "Dreams": {
+    title: "Project: Dream Tracker",
+    icon: <i className="fas fa-moon"></i>,
     projects: [
       {
-        title: "Dreams",
+        title: "Dream Tracker",
         description: "I've kept a dream journal in Google Keep for a few years. I thought it would be interesting to use AI to scan my dreams for sentiment over time, key phrases, recurring themes etc. Using Azure's Text Analysis, I analysed all my dreams, saving the results in a Blob Storage account. Power BI allows me to create graphs and infographics based on this data, giving me insight into my dreams and myself.",
         yearRange: { start: 2020, end: 2020 },
         diagram: "dreams",
@@ -21,7 +60,13 @@ const portfolioSections: any = {
         links: [
           { name: "GitHub", url: "https://github.com/yusufzerdazi/dream-tracker", icon: "fab fa-github" }
         ]
-      },
+      }
+    ]
+  },
+  "Security": {
+    title: "Project: Security Camera",
+    icon: <i className="fas fa-camera"></i>,
+    projects: [
       {
         title: "Security Camera",
         description: "It's possible to build a cheap security system using a Raspberry Pi and its camera module - I set up a live stream with motion detection capabilities, and by hooking this up to other services it can give you a notification when it sees something.",
@@ -340,7 +385,7 @@ function Home({ isMobile }: HomeProps) {
         // Get current section from state (moved this before using it)
         const currentSection = activeSection ? portfolioSections[activeSection as keyof typeof portfolioSections] : null;
         
-        if (openModal && currentSection?.projects?.some((project: any) => project.instagramEmbed)) {
+        if (openModal && currentSection?.projects?.some((project: Project) => project.instagramEmbed)) {
             // Remove existing script if present
             const existingScript = document.getElementById('instagram-embed-script');
             if (existingScript) existingScript.remove();
@@ -381,7 +426,6 @@ function Home({ isMobile }: HomeProps) {
     // Choose a random painting on first render
     useEffect(() => {
         const randomIndex = Math.floor(Math.random() * paintingImages.length);
-        console.log(randomIndex)
         setSelectedPainting(paintingImages[randomIndex]);
     }, []);
 
@@ -391,7 +435,12 @@ function Home({ isMobile }: HomeProps) {
         if (!svgNode) return;
         
         // Update wall pattern and paintings that need to change with time
-        const wallPattern = generateCarpet(40, 30, time, true);
+        // Slow down LED screen animation with delay and reduced speed
+        const ledDelay = 2.0; // 2 second delay
+        const ledSpeed = 0.3; // 30% of original speed
+        const ledTime = Math.max(0, (time - ledDelay) * ledSpeed);
+        
+        const wallPattern = generateCarpet(40, 30, ledTime, true);
         const carpetSrc = `data:image/png;base64,${floorPatternRef.current}`;
         const wallSrc = `data:image/png;base64,${wallPattern}`;
         
@@ -418,10 +467,15 @@ function Home({ isMobile }: HomeProps) {
             }
         }
         
-        // First, remove any existing indicators to prevent duplication
+        // First, remove any existing indicators and strokes to prevent duplication
         const existingIndicators = svgNode.querySelectorAll('.interactive-indicator');
         existingIndicators.forEach(indicator => {
             indicator.remove();
+        });
+        
+        const existingStrokes = svgNode.querySelectorAll('.interactive-stroke');
+        existingStrokes.forEach(stroke => {
+            stroke.remove();
         });
         
         // Create mobile icons from SVG elements
@@ -461,43 +515,72 @@ function Home({ isMobile }: HomeProps) {
                 // Add a simple class for interactivity
                 element.setAttribute("class", "cursor-pointer interactive-element hover:brightness-125");
                 
-                // Only add indicators if not in mobile view
+                // Add outer stroke effect for interactive elements
                 if (!isMobile) {
                     try {
-                        const bbox = (element as SVGGraphicsElement).getBBox();
+                        // Create an outer stroke that follows the element's path
+                        const strokeGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+                        strokeGroup.setAttribute("class", "interactive-stroke");
+                        strokeGroup.setAttribute("data-for", layerId);
                         
-                        // Create a small indicator triangle that will float above the element
-                        const indicatorGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                        indicatorGroup.setAttribute("class", "interactive-indicator");
-                        indicatorGroup.setAttribute("data-for", layerId);
+                        // Clone the element to create the stroke, but exclude image elements
+                        const strokeElement = element.cloneNode(true) as SVGElement;
                         
-                        const centerX = bbox.x + bbox.width/2;
-                        const topY = bbox.y - 10; // Position slightly higher
+                        // Remove image elements from the stroke clone
+                        const imageElements = strokeElement.querySelectorAll('image');
+                        imageElements.forEach(img => img.remove());
                         
-                        // For triangle shape pointing down, we'll create three points
-                        const triangleWidth = 8; // Width of the triangle base
-                        const triangleHeight = 6; // Height of the triangle
+                        // Remove any existing classes and styles from the stroke element
+                        strokeElement.removeAttribute('class');
+                        strokeElement.removeAttribute('style');
                         
-                        // Define the three points of the triangle (pointing down)
-                        const points = `
-                            ${centerX - triangleWidth/2},${topY - triangleHeight}
-                            ${centerX + triangleWidth/2},${topY - triangleHeight}
-                            ${centerX},${topY}
-                        `;
+                        // Apply stroke styling to the cloned element
+                        strokeElement.setAttribute("fill", "none");
                         
-                        const indicator = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                        indicator.setAttribute("points", points);
-                        indicator.setAttribute("fill", "#808080"); // Gray fill
-                        indicator.setAttribute("fill-opacity", "0.8");
+                        // Get all section IDs and generate colors
+                        const sectionIds = Object.keys(portfolioSections);
+                        const hueStep = 360 / sectionIds.length;
                         
-                        // Calculate a staggered delay based on the index
-                        const staggerDelay = index * 0.2; // 0.2 seconds delay between each triangle
-                        indicator.setAttribute("style", `animation-delay: ${staggerDelay}s;`);
+                        // Define which sections need dark colors for better contrast
+                        const darkSections = ["TicketSlick", "Art", "MagicMirror", "Music", "Values", "Games"];
                         
-                        indicatorGroup.appendChild(indicator);
-                        svgNode.appendChild(indicatorGroup);
+                        // Generate stroke color based on section configuration
+                        const colorIndex = sectionIds.indexOf(layerId);
+                        const hue = (colorIndex * hueStep) % 360;
+                        const saturation = 80;
+                        
+                        let strokeColor: string;
+                        if (darkSections.includes(layerId)) {
+                            // Use lower saturation and much lower lightness for dark but colorful colors
+                            strokeColor = `hsl(${hue}, ${saturation * 0.75}%, 25%)`;
+                        } else {
+                            // Use standard vibrant colors
+                            strokeColor = `hsl(${hue}, ${saturation}%, 60%)`;
+                        }
+                        
+                        strokeElement.setAttribute("stroke", strokeColor);
+                        strokeElement.setAttribute("stroke-width", "4");
+                        strokeElement.setAttribute("stroke-opacity", "0"); // Start invisible
+                        strokeElement.setAttribute("stroke-linejoin", "round");
+                        strokeElement.setAttribute("stroke-linecap", "round");
+                        
+                        // Calculate a more varied staggered delay based on the index
+                        // Use a non-linear pattern to create more interesting timing
+                        const baseDelay = index * 0.3; // Reduced from 0.6 to 0.3 for faster appearance
+                        const randomOffset = Math.sin(index * 0.7) * 0.4; // Reduced from 0.8 to 0.4
+                        const staggerDelay = baseDelay + randomOffset;
+                        strokeElement.style.setProperty('--animation-delay', `${staggerDelay}s`);
+                        
+                        strokeGroup.appendChild(strokeElement);
+                        // Insert the stroke group before the original element to place it behind
+                        svgNode.insertBefore(strokeGroup, element);
+                        
+                        // Add a small delay before starting the animation to ensure smooth initialization
+                        setTimeout(() => {
+                            strokeElement.setAttribute("stroke-opacity", "0.9");
+                        }, 100);
                     } catch (err) {
-                        console.error(`Error creating indicator for ${layerId}:`, err);
+                        console.error(`Error creating stroke for ${layerId}:`, err);
                     }
                 }
                 
@@ -561,22 +644,22 @@ function Home({ isMobile }: HomeProps) {
                 
     }, [roomRef.current, isMobile]); // Remove time as a dependency
 
-    // Add effect to hide/show indicators when mobile status changes
+    // Add effect to hide/show strokes when mobile status changes
     useEffect(() => {
         const svgNode = roomRef.current;
         if (!svgNode) return;
         
-        const indicators = svgNode.querySelectorAll('.interactive-indicator');
+        const strokes = svgNode.querySelectorAll('.interactive-stroke');
         
         if (isMobile) {
-            // Hide indicators in mobile view
-            indicators.forEach(indicator => {
-                indicator.setAttribute('style', 'display: none;');
+            // Hide strokes in mobile view
+            strokes.forEach(stroke => {
+                stroke.setAttribute('style', 'display: none;');
             });
         } else {
-            // Show indicators in desktop view
-            indicators.forEach(indicator => {
-                indicator.removeAttribute('style');
+            // Show strokes in desktop view
+            strokes.forEach(stroke => {
+                stroke.removeAttribute('style');
             });
         }
     }, [isMobile]);
@@ -661,7 +744,7 @@ function Home({ isMobile }: HomeProps) {
                 {isMobile && (
                     <div className="md:hidden px-2 overflow-y-auto flex-shrink-0">
                         <div className="grid grid-cols-2 sm:grid-cols-3 auto-rows-auto gap-3">
-                            {Object.entries(portfolioSections).map(([sectionId, section]: any) => (
+                            {Object.entries(portfolioSections).map(([sectionId, section]: [string, PortfolioSection]) => (
                                 <div 
                                     key={sectionId}
                                     onClick={() => handleMobileIconClick(sectionId)}
@@ -864,7 +947,7 @@ function Home({ isMobile }: HomeProps) {
                                                   {project.links && project.links.length > 0 && (
                                                     <div className="mt-4">
                                                       <div className="flex flex-wrap gap-2">
-                                                        {project.links.map((link: any, index: number) => (
+                                                        {project.links.map((link: ProjectLink, index: number) => (
                                                           <a 
                                                             key={index}
                                                             href={link.url} 

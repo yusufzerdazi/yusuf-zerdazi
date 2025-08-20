@@ -273,10 +273,11 @@ html, body, #root {
   }
 }
 
-/* Clean up the indicator styling */
-.interactive-indicator polygon {
-  animation: bounce-indicator 2s ease-in-out infinite;
-  transform-origin: center bottom;
+/* Interactive stroke styling */
+.interactive-stroke * {
+  animation: stroke-opacity-pulse 4s ease-in-out infinite;
+  animation-delay: var(--animation-delay, 0s);
+  transition: stroke-opacity 0.3s ease-in-out;
 }
 
 /* Restore the hover effect */
@@ -286,14 +287,15 @@ html, body, #root {
 }
 
 /* Make sure we have the keyframes definition */
-@keyframes bounce-indicator {
-  0%, 100% {
-    transform: translateY(0);
-    opacity: 0.8;
+@keyframes stroke-opacity-pulse {
+  0%, 60% {
+    stroke-opacity: 0;
   }
-  50% {
-    transform: translateY(-4px);
-    opacity: 1;
+  75%, 85% {
+    stroke-opacity: 0.9;
+  }
+  100% {
+    stroke-opacity: 0;
   }
 }
 
@@ -325,4 +327,75 @@ svg image {
 /* Ensure loaded images are fully visible */
 .loaded-image {
   opacity: 1;
+}
+
+/* Isometric grid styling */
+.isometric-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle animation for isometric grid */
+@keyframes grid-fade {
+  0%, 100% {
+    opacity: 0.05;
+  }
+  50% {
+    opacity: 0.08;
+  }
+}
+
+.isometric-grid svg {
+  animation: grid-fade 8s ease-in-out infinite;
+}
+
+/* Dark mode adjustments for isometric grid */
+@media (prefers-color-scheme: dark) {
+  .isometric-grid svg {
+    animation: grid-fade 8s ease-in-out infinite;
+  }
+}
+
+/* Ensure content stays above the grid */
+.relative.z-10 {
+  position: relative;
+  z-index: 10;
+}
+
+/* Tiled background using tile.svg */
+body {
+  background-image: url('/tile.svg');
+  background-repeat: repeat;
+  background-size: 75px 43.3px;
+  background-position: center;
+  position: relative;
+}
+
+/* Ensure the background stays behind content */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/tile.svg');
+  background-repeat: repeat;
+  background-size: 100px 57.77px;
+  background-position: center;
+  opacity: 0.08;
+  z-index: -100;
+  pointer-events: none;
+}
+
+/* Dark mode adjustments for tiled background */
+@media (prefers-color-scheme: dark) {
+  body::before {
+    opacity: 0.05;
+  }
 }

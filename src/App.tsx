@@ -20,9 +20,9 @@ function App() {
   }, []);
 
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div className='flex flex-col min-h-screen relative'>
       {isMobile && <Header/>}
-      <main className='flex-1 overflow-hidden'>
+      <main className='flex-1 overflow-hidden relative z-10'>
         <Home isMobile={isMobile} />
       </main>
     </div>
