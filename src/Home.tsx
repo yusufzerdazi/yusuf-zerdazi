@@ -742,22 +742,24 @@ function Home({ isMobile }: HomeProps) {
                 
                 {/* Mobile navigation icons (visible on smaller screens) */}
                 {isMobile && (
-                    <div className="md:hidden px-2 overflow-y-auto flex-shrink-0">
-                        <div className="grid grid-cols-2 sm:grid-cols-3 auto-rows-auto gap-3">
+                    <div className="md:hidden px-2 pt-2 pb-4 overflow-y-auto flex-shrink-0">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                             {Object.entries(portfolioSections).map(([sectionId, section]: [string, PortfolioSection]) => (
                                 <div 
                                     key={sectionId}
                                     onClick={() => handleMobileIconClick(sectionId)}
-                                    className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-lg p-4 shadow-sm border border-gray-100 dark:border-gray-700 text-center cursor-pointer transition-all duration-300 portfolio-section-icon"
+                                    className="aspect-square bg-white/20 dark:bg-gray-800/20 backdrop-blur-sm rounded-lg p-4 shadow-sm border border-gray-200/50 dark:border-gray-600/50 text-center cursor-pointer transition-all duration-300 portfolio-section-icon hover:bg-white/90 dark:hover:bg-gray-800/90"
                                 >
-                                    <div className="h-16 flex items-center justify-center mb-2">
-                                        {mobileIcons[sectionId] || (
-                                            <div className="text-2xl">
-                                                {section.icon}
-                                            </div>
-                                        )}
+                                    <div className="h-full flex flex-col items-center justify-between py-2">
+                                        <div className="flex-1 flex items-center justify-center min-h-0">
+                                            {mobileIcons[sectionId] || (
+                                                <div className="text-3xl">
+                                                    {section.icon}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <h4 className="text-sm font-medium text-gray-900 dark:text-white truncate flex-shrink-0">{section.title}</h4>
                                     </div>
-                                    <h4 className="text-sm font-medium text-gray-900 dark:text-white truncate">{section.title}</h4>
                                 </div>
                             ))}
                         </div>
