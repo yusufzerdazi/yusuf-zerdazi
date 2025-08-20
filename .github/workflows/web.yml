@@ -37,12 +37,19 @@ jobs:
       env:
         CI: ""
 
-    - name: Azure CLI script
+    - name: Deploy to Azure Storage
       uses: azure/CLI@v1
       with:
         inlineScript: |
           az storage blob delete-batch --account-name yusufzerdazi --source '$web'
           az storage blob upload-batch --destination '$web' --account-name yusufzerdazi --source ./dist --overwrite
-          az cdn endpoint purge -g yusufzerdazi -n yusufzerdazi --profile-name yusufzerdazi --content-paths "/*"
+
+    - name: Purge Cloudflare Cache
+      run: |
+        curl -X POST "https://api.cloudflare.com/client/v4/zones/4476610d017411183cad4e529c2854ba/purge_cache" \
+          -H "Content-Type: application/json" \
+          -H "X-Auth-Email: ${{ secrets.CLOUDFLARE_EMAIL }}" \
+          -H "X-Auth-Key: ${{ secrets.CLOUDFLARE_API_KEY }}" \
+          -d '{"purge_everything": true}'
 
   
