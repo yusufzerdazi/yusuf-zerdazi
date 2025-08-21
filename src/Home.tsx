@@ -246,6 +246,21 @@ const portfolioSections: PortfolioSections = {
       }
     ]
   },
+  "Computer": {
+    title: "Websites",
+    icon: <i className="fas fa-laptop"></i>,
+    projects: [
+      {
+        title: "Kassita",
+        description: "A custom website I created for Kassita's DJ page, featuring her music and performances.",
+        yearRange: { start: 2024, end: 2024 },
+        videos: ["./Kassita.mp4"],
+        links: [
+          { name: "Visit Website", url: "https://www.sitasound.com", icon: "fas fa-globe" }
+        ]
+      }
+    ]
+  },
   "Values": {
     title: "Values",
     icon: <i className="fas fa-yin-yang"></i>,
@@ -758,7 +773,7 @@ function Home({ isMobile }: HomeProps) {
                                                 </div>
                                             )}
                                         </div>
-                                        <h4 className="text-sm font-medium text-gray-900 dark:text-white truncate flex-shrink-0">{section.title}</h4>
+                                        <h4 className="text-sm font-medium text-gray-900 dark:text-white break-words leading-tight flex-shrink-0">{section.title}</h4>
                                     </div>
                                 </div>
                             ))}
@@ -872,18 +887,18 @@ function Home({ isMobile }: HomeProps) {
                                                   )}
                                                 
                                                 {/* Right column for content */}
-                                                <div className={`${project.iconSrc ? "md:col-span-3" : "md:col-span-4"}`}>
-                                                  <div className="flex items-center justify-between mb-2">
-                                                    <h5 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                                <div className={`${project.iconSrc ? "md:col-span-3" : "md:col-span-4"} min-w-0`}>
+                                                  <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
+                                                    <h5 className="text-lg font-semibold text-gray-900 dark:text-white break-words">
                                                       {formatTitleWithFont(project.title, activeSection)}
                                                     </h5>
                                                     {project.yearRange && (
-                                                      <span className="text-sm bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-gray-600 dark:text-gray-300">
+                                                      <span className="text-sm bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-gray-600 dark:text-gray-300 flex-shrink-0">
                                                         {formatYearRange(project.yearRange)}
                                                       </span>
                                                     )}
                                                   </div>
-                                                  <div className="text-base text-gray-700 dark:text-gray-300">
+                                                  <div className="text-base text-gray-700 dark:text-gray-300 break-words">
                                                     {project.description}
                                                   </div>
                                                   
@@ -892,14 +907,28 @@ function Home({ isMobile }: HomeProps) {
                                                     <div className="space-y-4 mt-3">
                                                       {project.videos.map((videoUrl: string, index: number) => (
                                                         <div key={index} className="relative pb-[56.25%] h-0 w-full">
-                                                          <iframe 
-                                                            className="absolute top-0 left-0 w-full h-full rounded"
-                                                            src={videoUrl}
-                                                            title={`${project.title} Video ${index + 1}`}
-                                                            frameBorder="0"
-                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                            allowFullScreen
-                                                          ></iframe>
+                                                          {videoUrl.endsWith('.mp4') ? (
+                                                            <video 
+                                                              className="absolute top-0 left-0 w-full h-full rounded object-cover"
+                                                              autoPlay
+                                                              muted
+                                                              loop
+                                                              playsInline
+                                                              controls={false}
+                                                            >
+                                                              <source src={videoUrl} type="video/mp4" />
+                                                              Your browser does not support the video tag.
+                                                            </video>
+                                                          ) : (
+                                                            <iframe 
+                                                              className="absolute top-0 left-0 w-full h-full rounded"
+                                                              src={videoUrl}
+                                                              title={`${project.title} Video ${index + 1}`}
+                                                              frameBorder="0"
+                                                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                              allowFullScreen
+                                                            ></iframe>
+                                                          )}
                                                         </div>
                                                       ))}
                                                     </div>
