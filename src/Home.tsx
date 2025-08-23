@@ -377,7 +377,7 @@ function Home({ isMobile }: HomeProps) {
     const animationRef = useRef<number>();
     const [time, setTime] = useState(0);
     const floorPatternRef = useRef<string>();
-    const [clickedElement, setClickedElement] = useState<SVGElement | null>(null);
+    const [clickedElementId, setClickedElementId] = useState<string>("");
     const [elementViewBox, setElementViewBox] = useState<string>("0 0 500 500");
     const [activeSection, setActiveSection] = useState<string>("");
     const [tooltipContent, setTooltipContent] = useState<React.ReactNode>("");
@@ -529,7 +529,7 @@ function Home({ isMobile }: HomeProps) {
                 }
                 
                 // Add a simple class for interactivity
-                element.setAttribute("class", "cursor-pointer interactive-element hover:brightness-125");
+                element.setAttribute("class", "cursor-pointer interactive-element");
                 
                 // Add outer stroke effect for interactive elements
                 if (!isMobile) {
@@ -591,10 +591,8 @@ function Home({ isMobile }: HomeProps) {
                         // Insert the stroke group before the original element to place it behind
                         svgNode.insertBefore(strokeGroup, element);
                         
-                        // Add a small delay before starting the animation to ensure smooth initialization
-                        setTimeout(() => {
-                            strokeElement.setAttribute("stroke-opacity", "0.9");
-                        }, 100);
+                        // Start with pulse animation running
+                        strokeElement.style.animationPlayState = "running";
                     } catch (err) {
                         console.error(`Error creating stroke for ${layerId}:`, err);
                     }
@@ -610,18 +608,15 @@ function Home({ isMobile }: HomeProps) {
                         const padding = 20;
                         setElementViewBox(`${bbox.x - padding} ${bbox.y - padding} ${bbox.width + padding*2} ${bbox.height + padding*2}`);
                         
-                        const clone = element.cloneNode(true) as SVGElement;
-                        if (clone.hasAttribute('class')) clone.removeAttribute('class');
-                        if (clone.hasAttribute('style')) clone.removeAttribute('style');
-                        
-                        setClickedElement(clone);
+                        // Store reference to the original element ID instead of cloning
+                        setClickedElementId(layerId);
                         setOpenModal(true);
                     } catch (err) {
                         console.error(`Error processing click on ${layerId}:`, err);
                     }
                 });
                 
-                // Add tooltip handlers
+                // Add tooltip and stroke handlers
                 element.addEventListener("mouseenter", function(e) {
                     const evt = e as MouseEvent;
                     const section = portfolioSections[layerId as keyof typeof portfolioSections];
@@ -639,10 +634,48 @@ function Home({ isMobile }: HomeProps) {
                     });
                     
                     setShowTooltip(true);
+                    
+                    // Show stroke on hover (override pulse animation)
+                    if (!isMobile) {
+                        const strokeElement = svgNode.querySelector(`.interactive-stroke[data-for="${layerId}"]`);
+                        if (strokeElement) {
+                            const strokePath = strokeElement.querySelector('*');
+                            if (strokePath) {
+                                strokePath.style.animationPlayState = "paused";
+                                strokePath.style.animation = "none";
+                                strokePath.style.transition = "stroke-opacity 0.3s ease-in-out";
+                                strokePath.setAttribute("stroke-opacity", "1");
+                                strokePath.style.strokeOpacity = "1";
+                            }
+                            strokeElement.classList.add('hovered');
+                        }
+                    }
                 });
                 
                 element.addEventListener("mouseleave", function() {
                     setShowTooltip(false);
+                    
+                    // Hide stroke on mouse leave (resume pulse animation)
+                    if (!isMobile) {
+                        const strokeElement = svgNode.querySelector(`.interactive-stroke[data-for="${layerId}"]`);
+                        if (strokeElement) {
+                            const strokePath = strokeElement.querySelector('*');
+                            if (strokePath) {
+                                strokePath.style.transition = "stroke-opacity 0.3s ease-in-out";
+                                strokePath.setAttribute("stroke-opacity", "0");
+                                strokePath.style.strokeOpacity = "0";
+                                
+                                // After transition completes, resume animation
+                                setTimeout(() => {
+                                    strokePath.style.animation = "";
+                                    strokePath.style.animationPlayState = "running";
+                                    strokePath.removeAttribute("stroke-opacity");
+                                    strokePath.style.strokeOpacity = "0";
+                                }, 1000);
+                            }
+                            strokeElement.classList.remove('hovered');
+                        }
+                    }
                 });
                 
                 element.addEventListener("mousemove", function(e) {
@@ -735,11 +768,8 @@ function Home({ isMobile }: HomeProps) {
                 const padding = 20;
                 setElementViewBox(`${bbox.x - padding} ${bbox.y - padding} ${bbox.width + padding*2} ${bbox.height + padding*2}`);
                 
-                const clone = element.cloneNode(true) as SVGElement;
-                if (clone.hasAttribute('class')) clone.removeAttribute('class');
-                if (clone.hasAttribute('style')) clone.removeAttribute('style');
-                
-                setClickedElement(clone);
+                // Store reference to the original element ID instead of cloning
+                setClickedElementId(sectionId);
                 setOpenModal(true);
             } catch (err) {
                 console.error(`Error processing mobile click on ${sectionId}:`, err);
@@ -825,7 +855,18 @@ function Home({ isMobile }: HomeProps) {
                                 <div className="h-[2px] bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent flex-grow"></div>
                                 <div className="flex-shrink-0 mx-8 bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4 shadow-sm border border-blue-100 dark:border-blue-800/30">
                                     <svg className="w-40 h-40" viewBox={elementViewBox} preserveAspectRatio="xMidYMid meet">
-                                        {clickedElement && <g className="no-hover" dangerouslySetInnerHTML={{ __html: clickedElement.outerHTML }} />}
+                                        {clickedElementId && roomRef.current && (() => {
+                                            const allElements = roomRef.current.querySelectorAll(`#${clickedElementId}`);
+                                            // Get the first element that's not inside a stroke group
+                                            const originalElement = Array.from(allElements).find(el => 
+                                                !el.closest('.interactive-stroke')
+                                            );
+                                            return (
+                                                <g className="no-hover" dangerouslySetInnerHTML={{ 
+                                                    __html: originalElement?.outerHTML || '' 
+                                                }} />
+                                            );
+                                        })()}
                                     </svg>
                                 </div>
                                 <div className="h-[2px] bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent flex-grow"></div>

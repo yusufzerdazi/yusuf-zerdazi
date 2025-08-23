@@ -101,10 +101,22 @@
 .portfolio-modal svg g.no-hover polygon,
 .portfolio-modal svg g.no-hover polyline,
 .portfolio-modal svg g.no-hover line,
-.portfolio-modal svg g.no-hover text {
+.portfolio-modal svg g.no-hover text,
+.portfolio-modal svg g.no-hover * {
   transition: none !important;
   filter: none !important;
   opacity: 1 !important;
+  cursor: default !important;
+}
+
+/* Remove all hover effects in the modal */
+.portfolio-modal .interactive-element:hover {
+  filter: none !important;
+  transition: none !important;
+}
+
+.portfolio-modal .interactive-element::after {
+  display: none !important;
 }
 
 /* Mobile icon container styling */
@@ -280,10 +292,17 @@ html, body, #root {
   transition: stroke-opacity 0.3s ease-in-out;
 }
 
-/* Restore the hover effect */
+/* Ensure hover state can override animation with smooth transition */
+.interactive-stroke.hovered * {
+  animation: none !important;
+  stroke-opacity: 1 !important;
+  transition: stroke-opacity 0.3s ease-in-out !important;
+}
+
+/* Remove hover effects for interactive elements */
 .interactive-element:hover {
-  filter: brightness(1.25) !important;
-  transition: filter 0.3s ease;
+  filter: none !important;
+  transition: none;
 }
 
 /* Make sure we have the keyframes definition */
