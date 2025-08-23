@@ -121,6 +121,7 @@ const portfolioSections: PortfolioSections = {
         title: "Hitbox",
         description: "Hitbox is a symmetric, multiplayer, browser-based brawler game. Every player has the same abilities and move set, meaning it's purely skillbased.",
         yearRange: { start: 2020, end: null },
+        videos: ["./hitbox.mp4"],
         links: [
           { name: "Play Online", url: "https://www.hitbox.online/", icon: "fas fa-gamepad" },
           { name: "GitHub", url: "https://github.com/yusufzerdazi/hitbox", icon: "fab fa-github" }
@@ -910,11 +911,11 @@ function Home({ isMobile }: HomeProps) {
                                                           {videoUrl.endsWith('.mp4') ? (
                                                             <video 
                                                               className="absolute top-0 left-0 w-full h-full rounded object-cover"
-                                                              autoPlay
-                                                              muted
-                                                              loop
+                                                              autoPlay={videoUrl.includes('Kassita')}
+                                                              muted={videoUrl.includes('Kassita')}
+                                                              loop={videoUrl.includes('Kassita')}
                                                               playsInline
-                                                              controls={false}
+                                                              controls={!videoUrl.includes('Kassita')}
                                                             >
                                                               <source src={videoUrl} type="video/mp4" />
                                                               Your browser does not support the video tag.
