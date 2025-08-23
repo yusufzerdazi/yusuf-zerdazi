@@ -639,7 +639,7 @@ function Home({ isMobile }: HomeProps) {
                     if (!isMobile) {
                         const strokeElement = svgNode.querySelector(`.interactive-stroke[data-for="${layerId}"]`);
                         if (strokeElement) {
-                            const strokePath = strokeElement.querySelector('*');
+                            const strokePath = strokeElement.querySelector('*') as SVGElement;
                             if (strokePath) {
                                 strokePath.style.animationPlayState = "paused";
                                 strokePath.style.animation = "none";
@@ -659,7 +659,7 @@ function Home({ isMobile }: HomeProps) {
                     if (!isMobile) {
                         const strokeElement = svgNode.querySelector(`.interactive-stroke[data-for="${layerId}"]`);
                         if (strokeElement) {
-                            const strokePath = strokeElement.querySelector('*');
+                            const strokePath = strokeElement.querySelector('*') as SVGElement;
                             if (strokePath) {
                                 strokePath.style.transition = "stroke-opacity 0.3s ease-in-out";
                                 strokePath.setAttribute("stroke-opacity", "0");
