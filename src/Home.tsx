@@ -241,6 +241,7 @@ const portfolioSections: PortfolioSections = {
         title: "TicketSlick",
         description: "TicketSlick is a tool to help people get tickets to sold out events. Users can subscribe to events, and be notified as soon as resale tickets become available.",
         yearRange: { start: 2020, end: 2025 },
+        instagramEmbed: "https://www.instagram.com/p/DM-IqvKgY0v/",
         links: [
           { name: "TicketSlick", url: "https://www.ticketslick.com", icon: "fas fa-ticket", font: "Pacifico" }
         ]
