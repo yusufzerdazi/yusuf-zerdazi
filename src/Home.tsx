@@ -176,7 +176,7 @@ const portfolioSections: PortfolioSections = {
     projects: [
         {
             title: "LED Screen",
-            description: "Some clips from Decompression 2024, full build video coming soon!",
+            description: "An AI powered light installation for a 'burning man' event in London called Decompression, which constructs uniquely generated visuals on an LED matrix in response both to the words spoken to it and music played nearby.\n\nFull build video coming soon!",
             yearRange: { start: 2023, end: 2025 },
             videos: ["./decom_1.mp4", "./decom_2.mp4"],
             links: [
@@ -191,8 +191,9 @@ const portfolioSections: PortfolioSections = {
     projects: [
         {
             title: "Magic Mirror",
-            description: "Coming soon.",
+            description: "An interactive 'magic mirror' created for Mischief (a music event series), whereby a wall mounted screen with camera input displays a transformed, psychedelic reflection of the observers.",
             yearRange: { start: 2025, end: 2025 },
+            videos: ["./mirror_1.mp4", "./mirror_2.mp4", "./mirror_3.mp4"],
             links: [
               { name: "GitHub", url: "https://github.com/yusufzerdazi/magicmirror", icon: "fab fa-github" }
             ]
