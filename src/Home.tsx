@@ -176,9 +176,9 @@ const portfolioSections: PortfolioSections = {
     projects: [
         {
             title: "LED Screen",
-            description: "Build video coming soon.",
+            description: "Some clips from Decompression 2024, full build video coming soon!",
             yearRange: { start: 2023, end: 2025 },
-            instagramEmbed: "https://www.instagram.com/reel/Cxx8ymiIP4P",
+            videos: ["./decom_1.mp4", "./decom_2.mp4"],
             links: [
               { name: "GitHub", url: "https://github.com/yusufzerdazi/led-screen", icon: "fab fa-github" }
             ]
@@ -255,7 +255,7 @@ const portfolioSections: PortfolioSections = {
       {
         title: "Kassita",
         description: "A custom website I created for Kassita's DJ page, featuring her music and performances.",
-        yearRange: { start: 2024, end: 2024 },
+        yearRange: { start: 2025, end: 2025 },
         videos: ["./Kassita.mp4"],
         links: [
           { name: "Visit Website", url: "https://www.sitasound.com", icon: "fas fa-globe" }
@@ -913,7 +913,9 @@ function Home({ isMobile }: HomeProps) {
                                             // If end years are the same, sort by start year (most recent first)
                                             return b.yearRange.start - a.yearRange.start;
                                           })
-                                          .map((project, projectIndex) => (
+                                          .map((project, projectIndex) => {
+                                            const isTwoVideos = (project.videos?.length === 2);
+                                            return (
                                             <div key={projectIndex} className="space-y-4 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-300">
                                               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                                                 {/* Left column for icon */}
@@ -947,9 +949,9 @@ function Home({ isMobile }: HomeProps) {
                                                   
                                                   {/* Display videos if available */}
                                                   {project.videos && project.videos.length > 0 && (
-                                                    <div className="space-y-4 mt-3">
+                                                    <div className={`mt-3 ${isTwoVideos ? 'grid grid-cols-2 gap-4' : 'space-y-4'}`}>
                                                       {project.videos.map((videoUrl: string, index: number) => (
-                                                        <div key={index} className="relative pb-[56.25%] h-0 w-full">
+                                                        <div key={index} className={`relative ${isTwoVideos ? 'pb-[177.78%]' : 'pb-[56.25%]'} h-0 w-full`}>
                                                           {videoUrl.endsWith('.mp4') ? (
                                                             <video 
                                                               className="absolute top-0 left-0 w-full h-full rounded object-cover"
@@ -1056,7 +1058,8 @@ function Home({ isMobile }: HomeProps) {
                                                 </div>
                                               )}
                                             </div>
-                                          ))}
+                                            );
+                                          })}
                                     </div>
                                 )}
                             </div>
