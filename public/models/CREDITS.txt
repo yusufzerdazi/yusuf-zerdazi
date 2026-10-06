@@ -1,0 +1,84 @@
+3D model credits
+================
+
+The room on this site is built from these models. Thank you to their authors.
+
+Custom models authored for this site (scripts/build-models.ts): aeronChair, bistroTable, ddj400, deckChair, djCabinet, dreamJournal, mirrorFrame, monitor27, pc, studioMonitor.
+
+camera.glb
+  "Security Camera" by J-Toastie
+  CC-BY 3.0 https://creativecommons.org/licenses/by/3.0/
+  Source: https://poly.pizza/m/a6J7IDufQP
+
+catLoaf.glb
+  "cat loaf" by Hiroyuki Kajiwara (hk)
+  CC-BY 3.0 https://creativecommons.org/licenses/by/3.0/
+  Source: https://poly.pizza/m/5qGO_C5GvAB
+  (recoloured with tortoiseshell patches)
+
+controller.glb
+  "Videogame Controller" by Poly by Google
+  CC-BY 3.0 https://creativecommons.org/licenses/by/3.0/
+  Source: https://poly.pizza/m/6365MG_Pr_f
+
+desk.glb
+  "Standing Desk" by Zsky
+  CC-BY 3.0 https://creativecommons.org/licenses/by/3.0/
+  Source: https://poly.pizza/m/dE6BqyF4Ws
+
+frame.glb
+  "Blank Art frame Template" by Jarlan Perez
+  CC-BY 3.0 https://creativecommons.org/licenses/by/3.0/
+  Source: https://poly.pizza/m/fkiGH6q72Qz
+
+guitar.glb
+  "Guitar" by nudtanunStudent
+  CC-BY 3.0 https://creativecommons.org/licenses/by/3.0/
+  Source: https://poly.pizza/m/kcGY8EfXDO
+
+keyboard.glb
+  "Keyboard" by Poly by Google
+  CC-BY 3.0 https://creativecommons.org/licenses/by/3.0/
+  Source: https://poly.pizza/m/3oFfQCSsUmQ
+
+plant.glb
+  "Monstera Plant" by Isa Lousberg
+  CC0 (public domain)
+  Source: https://poly.pizza/m/pkmHvN1O2V
+
+robot.glb
+  "Space rover" by Poly by Google
+  CC-BY 3.0 https://creativecommons.org/licenses/by/3.0/
+  Source: https://poly.pizza/m/dhLVA8z7cGo
+
+sofa.glb
+  "Sofa" by Quaternius
+  CC0 (public domain)
+  Source: https://poly.pizza/m/X5kQPKzAWp
+
+cabinetTelevision.glb
+  "Cabinet Television" from Furniture Kit by Kenney (www.kenney.nl)
+  CC0 (public domain)
+  Source: https://kenney.nl/assets/furniture-kit
+
+televisionModern.glb
+  "Television Modern" from Furniture Kit by Kenney (www.kenney.nl)
+  CC0 (public domain)
+  Source: https://kenney.nl/assets/furniture-kit
+
+pillow.glb
+  "Pillow" from Furniture Kit by Kenney (www.kenney.nl)
+  CC0 (public domain)
+  Source: https://kenney.nl/assets/furniture-kit
+
+plantSmall1.glb
+  "Plant Small" from Furniture Kit by Kenney (www.kenney.nl)
+  CC0 (public domain)
+  Source: https://kenney.nl/assets/furniture-kit
+
+tree_default.glb, tree_detailed.glb, tree_fat.glb, tree_oak.glb
+  From Nature Kit by Kenney (www.kenney.nl)
+  CC0 (public domain)
+  Source: https://kenney.nl/assets/nature-kit
+
+All models were optimised (meshopt compression, WebP textures) and some were recoloured.

@@ -11,22 +11,28 @@
     "format:check": "prettier . --check",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "models": "node scripts/build-models.ts"
   },
   "dependencies": {
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
     "alea": "^1.0.1",
     "flowbite-react": "^0.8.0",
-    "pngjs": "^7.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "reactflow": "^11.11.4",
     "recharts": "^2.15.1",
-    "simplex-noise": "^4.0.1"
+    "simplex-noise": "^4.0.1",
+    "three": "^0.169.0"
   },
   "devDependencies": {
-    "@types/pngjs": "^6.0.5",
+    "@gltf-transform/core": "^4.5.1",
+    "@gltf-transform/extensions": "^4.5.1",
+    "@gltf-transform/functions": "^4.5.1",
     "@types/react": "^18.2.67",
     "@types/react-dom": "^18.2.22",
+    "@types/three": "^0.169.0",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
     "@vitejs/plugin-react": "^4.2.1",

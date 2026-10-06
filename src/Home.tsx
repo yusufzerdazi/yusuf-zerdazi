@@ -1,7 +1,9 @@
-import { Modal, Spinner } from 'flowbite-react';
-import RoomImage from './assets/home.svg?react';
-import { generateCarpet } from './Utils';
-import { useRef, useEffect, useState } from 'react';
+import { Spinner } from 'flowbite-react';
+import { useEffect, useState, useCallback } from 'react';
+import Room3D from './components/room/Room3D';
+import SectionModal from './components/SectionModal';
+import { ThumbnailStudio } from './components/room/SectionStage';
+import { sectionAccent } from './components/room/sections';
 import DiagramViewer from './components/DiagramViewer';
 import SecurityCameraViewer from './components/SecurityCameraViewer';
 import DreamSentimentChart from './components/DreamSentimentChart';
@@ -153,7 +155,7 @@ const portfolioSections: PortfolioSections = {
       {
         title: "TUSH",
         description: "TUSH is a new music event space (founded in London) seeking to create a fun, inclusive and supportive artistic environment for all our friends from all backgrounds & cultures and of all genders & sexualities to dance, vibe and thrive ✨ We want everyone to feel welcome, including all those who identify as \"They\", \"She\" or \"He\", to bring people together as \"Us\".",
-        yearRange: { start: 2024, end: null },
+        yearRange: { start: 2024, end: 2025 },
         links: [
           { name: "Instagram", url: "https://instagram.com/tush_space", icon: "fab fa-instagram" },
           { name: "Website", url: "https://tushspace.com", icon: "fas fa-globe" }
@@ -242,9 +244,9 @@ const portfolioSections: PortfolioSections = {
         title: "TicketSlick",
         description: "TicketSlick is a tool to help people get tickets to sold out events. Users can subscribe to events, and be notified as soon as resale tickets become available.",
         yearRange: { start: 2020, end: 2025 },
-        instagramEmbed: "https://www.instagram.com/p/DM-IqvKgY0v/",
         links: [
-          { name: "TicketSlick", url: "https://www.ticketslick.com", icon: "fas fa-ticket", font: "Pacifico" }
+          { name: "TicketSlick", url: "https://www.ticketslick.com", icon: "fas fa-ticket", font: "Pacifico" },
+          { name: "Instagram", url: "https://www.instagram.com/ticketslick/", icon: "fab fa-instagram" }
         ]
       }
     ]
@@ -358,6 +360,9 @@ const formatTitleWithFont = (title: string, sectionId?: string): React.ReactNode
   return title;
 };
 
+// Canonical post URL with exactly one trailing slash, as Instagram's embed script expects
+const instagramPermalink = (url: string) => url.replace(/\/+$/, '') + '/';
+
 // Add an array of painting images
 const paintingImages = [
   '/paintings/Tech2.png',
@@ -373,29 +378,19 @@ interface HomeProps {
   isMobile: boolean;
 }
 
+const sectionIds = Object.keys(portfolioSections);
+
+// URL fragment for a section, e.g. "MagicMirror" -> "magicmirror"
+const sectionSlug = (sectionId: string) => sectionId.toLowerCase();
+
 function Home({ isMobile }: HomeProps) {
-    const roomRef = useRef<SVGSVGElement>(null);
     const [openModal, setOpenModal] = useState(false);
-    const animationRef = useRef<number>();
-    const [time, setTime] = useState(0);
-    const floorPatternRef = useRef<string>();
-    const [clickedElementId, setClickedElementId] = useState<string>("");
-    const [elementViewBox, setElementViewBox] = useState<string>("0 0 500 500");
     const [activeSection, setActiveSection] = useState<string>("");
-    const [tooltipContent, setTooltipContent] = useState<React.ReactNode>("");
-    const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-    const [showTooltip, setShowTooltip] = useState(false);
+    const [hover, setHover] = useState<{ id: string; x: number; y: number } | null>(null);
     const [isLoading] = useState(false);
-        
-    // Pre-render mobile icons
-    const [mobileIcons, setMobileIcons] = useState<{[key: string]: React.ReactNode}>({});
-        
-    // Add state to store the selected painting
-    const [selectedPainting, setSelectedPainting] = useState('');
-    
-    // Add a loading state specifically for images
-    const [imagesLoading, setImagesLoading] = useState(true);
-    
+
+    // Choose a random painting on first render
+    const [selectedPainting] = useState(() => paintingImages[Math.floor(Math.random() * paintingImages.length)]);
 
 
     // Load Instagram embed script when modal opens
@@ -422,391 +417,119 @@ function Home({ isMobile }: HomeProps) {
         }
     }, [openModal, activeSection]);
 
-    // Generate floor pattern once
-    useEffect(() => {
-        floorPatternRef.current = generateCarpet(500, 500);
+    // Still renders of each section's 3D object for the mobile grid
+    const [thumbnails, setThumbnails] = useState<{[key: string]: string}>({});
+    const addThumbnail = useCallback((sectionId: string, url: string) => setThumbnails(current => ({ ...current, [sectionId]: url })), []);
+
+    const handleHover = useCallback((sectionId: string | null, event?: PointerEvent) => {
+        setHover(sectionId && event ? { id: sectionId, x: event.clientX, y: event.clientY - 40 } : null);
     }, []);
 
-    useEffect(() => {
-        const animate = () => {
-            setTime(prev => prev + 0.001);
-            animationRef.current = requestAnimationFrame(animate);
-        };
-        animationRef.current = requestAnimationFrame(animate);
-
-        return () => {
-            if (animationRef.current) {
-                cancelAnimationFrame(animationRef.current);
-            }
-        };
-    }, []);
-
-    // Choose a random painting on first render
-    useEffect(() => {
-        const randomIndex = Math.floor(Math.random() * paintingImages.length);
-        setSelectedPainting(paintingImages[randomIndex]);
-    }, []);
-
-    // Separate the painting update logic from the indicators setup
-    useEffect(() => {
-        const svgNode = roomRef.current;
-        if (!svgNode) return;
-        
-        // Update wall pattern and paintings that need to change with time
-        // Slow down LED screen animation with delay and reduced speed
-        const ledDelay = 2.0; // 2 second delay
-        const ledSpeed = 0.3; // 30% of original speed
-        const ledTime = Math.max(0, (time - ledDelay) * ledSpeed);
-        
-        const wallPattern = generateCarpet(40, 30, ledTime, true);
-        const carpetSrc = `data:image/png;base64,${floorPatternRef.current}`;
-        const wallSrc = `data:image/png;base64,${wallPattern}`;
-        
-        const imageElements = svgNode.querySelectorAll('image');
-        if (imageElements) {
-            imageElements[0].setAttribute('xlink:href', carpetSrc);
-            imageElements[1].setAttribute('xlink:href', wallSrc);
-            imageElements[3].setAttribute('xlink:href', selectedPainting);
-        }
-    }, [time, selectedPainting]);
-
-    // Keep the interactive elements setup in a separate effect that doesn't depend on time
-    useEffect(() => {
-        const svgNode = roomRef.current;
-        if (!svgNode) return;
-        
-        // Handle Title group visibility based on mobile state
-        const titleGroup = svgNode.querySelector('#Title');
-        if (titleGroup) {
-            if (isMobile) {
-                titleGroup.setAttribute('style', 'display: none;');
-            } else {
-                titleGroup.removeAttribute('style');
-            }
-        }
-        
-        // First, remove any existing indicators and strokes to prevent duplication
-        const existingIndicators = svgNode.querySelectorAll('.interactive-indicator');
-        existingIndicators.forEach(indicator => {
-            indicator.remove();
-        });
-        
-        const existingStrokes = svgNode.querySelectorAll('.interactive-stroke');
-        existingStrokes.forEach(stroke => {
-            stroke.remove();
-        });
-        
-        // Create mobile icons from SVG elements
-        const mobileSvgIcons: {[key: string]: React.ReactNode} = {};
-        
-        // Store references to all interactive elements for later updates
-        const elements: Array<{id: string, element: SVGElement}> = [];
-        
-        // Directly set up event listeners without complex caching
-        Object.keys(portfolioSections).forEach((layerId, index) => {
-            const element = svgNode.querySelector(`#${layerId}`);
-            if (element) {
-                // Add to our elements array for position updates
-                elements.push({
-                    id: layerId,
-                    element: element as SVGElement
-                });
-                
-                // Create a cloned version of this element for mobile view
-                try {
-                    const clone = element.cloneNode(true) as SVGElement;
-                    const bbox = (element as SVGGraphicsElement).getBBox();
-                    
-                    // Remove any classes or interaction indicators
-                    if (clone.classList) clone.classList.remove('interactive-element', 'cursor-pointer', 'hover:brightness-125');
-                    
-                    // Use the element's viewBox for mobile icons
-                    mobileSvgIcons[layerId] = (
-                        <svg viewBox={`${bbox.x - 5} ${bbox.y - 5} ${bbox.width + 10} ${bbox.height + 10}`} className="h-full w-full">
-                            <g dangerouslySetInnerHTML={{ __html: clone.outerHTML }} />
-                        </svg>
-                    );
-                } catch (err) {
-                    console.error(`Error creating mobile icon for ${layerId}:`, err);
-                }
-                
-                // Add a simple class for interactivity
-                element.setAttribute("class", "cursor-pointer interactive-element");
-                
-                // Add outer stroke effect for interactive elements
-                if (!isMobile) {
-                    try {
-                        // Create an outer stroke that follows the element's path
-                        const strokeGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                        strokeGroup.setAttribute("class", "interactive-stroke");
-                        strokeGroup.setAttribute("data-for", layerId);
-                        
-                        // Clone the element to create the stroke, but exclude image elements
-                        const strokeElement = element.cloneNode(true) as SVGElement;
-                        
-                        // Remove image elements from the stroke clone
-                        const imageElements = strokeElement.querySelectorAll('image');
-                        imageElements.forEach(img => img.remove());
-                        
-                        // Remove any existing classes and styles from the stroke element
-                        strokeElement.removeAttribute('class');
-                        strokeElement.removeAttribute('style');
-                        
-                        // Apply stroke styling to the cloned element
-                        strokeElement.setAttribute("fill", "none");
-                        
-                        // Get all section IDs and generate colors
-                        const sectionIds = Object.keys(portfolioSections);
-                        const hueStep = 360 / sectionIds.length;
-                        
-                        // Define which sections need dark colors for better contrast
-                        const darkSections = ["TicketSlick", "Art", "MagicMirror", "Music", "Values", "Games"];
-                        
-                        // Generate stroke color based on section configuration
-                        const colorIndex = sectionIds.indexOf(layerId);
-                        const hue = (colorIndex * hueStep) % 360;
-                        const saturation = 80;
-                        
-                        let strokeColor: string;
-                        if (darkSections.includes(layerId)) {
-                            // Use lower saturation and much lower lightness for dark but colorful colors
-                            strokeColor = `hsl(${hue}, ${saturation * 0.75}%, 25%)`;
-                        } else {
-                            // Use standard vibrant colors
-                            strokeColor = `hsl(${hue}, ${saturation}%, 60%)`;
-                        }
-                        
-                        strokeElement.setAttribute("stroke", strokeColor);
-                        strokeElement.setAttribute("stroke-width", "4");
-                        strokeElement.setAttribute("stroke-opacity", "0"); // Start invisible
-                        strokeElement.setAttribute("stroke-linejoin", "round");
-                        strokeElement.setAttribute("stroke-linecap", "round");
-                        
-                        // Calculate a more varied staggered delay based on the index
-                        // Use a non-linear pattern to create more interesting timing
-                        const baseDelay = index * 0.3; // Reduced from 0.6 to 0.3 for faster appearance
-                        const randomOffset = Math.sin(index * 0.7) * 0.4; // Reduced from 0.8 to 0.4
-                        const staggerDelay = baseDelay + randomOffset;
-                        strokeElement.style.setProperty('--animation-delay', `${staggerDelay}s`);
-                        
-                        strokeGroup.appendChild(strokeElement);
-                        // Insert the stroke group before the original element to place it behind
-                        svgNode.insertBefore(strokeGroup, element);
-                        
-                        // Start with pulse animation running
-                        strokeElement.style.animationPlayState = "running";
-                    } catch (err) {
-                        console.error(`Error creating stroke for ${layerId}:`, err);
-                    }
-                }
-                
-                // Add click handler
-                element.addEventListener("click", function() {
-                    // Simple direct click handler
-                    setActiveSection(layerId);
-                    
-                    try {
-                        const bbox = (element as SVGGraphicsElement).getBBox();
-                        const padding = 20;
-                        setElementViewBox(`${bbox.x - padding} ${bbox.y - padding} ${bbox.width + padding*2} ${bbox.height + padding*2}`);
-                        
-                        // Store reference to the original element ID instead of cloning
-                        setClickedElementId(layerId);
-                        setOpenModal(true);
-                    } catch (err) {
-                        console.error(`Error processing click on ${layerId}:`, err);
-                    }
-                });
-                
-                // Add tooltip and stroke handlers
-                element.addEventListener("mouseenter", function(e) {
-                    const evt = e as MouseEvent;
-                    const section = portfolioSections[layerId as keyof typeof portfolioSections];
-                    
-                    setTooltipContent(
-                        <div className="flex items-center">
-                            <span className="mr-2">{section.icon}</span>
-                            <span>{formatTitleWithFont(section.title, layerId)}</span>
-                        </div>
-                    );
-                    
-                    setTooltipPosition({
-                        x: evt.clientX,
-                        y: evt.clientY - 40
-                    });
-                    
-                    setShowTooltip(true);
-                    
-                    // Show stroke on hover (override pulse animation)
-                    if (!isMobile) {
-                        const strokeElement = svgNode.querySelector(`.interactive-stroke[data-for="${layerId}"]`);
-                        if (strokeElement) {
-                            const strokePath = strokeElement.querySelector('*') as SVGElement;
-                            if (strokePath) {
-                                strokePath.style.animationPlayState = "paused";
-                                strokePath.style.animation = "none";
-                                strokePath.style.transition = "stroke-opacity 0.3s ease-in-out";
-                                strokePath.setAttribute("stroke-opacity", "1");
-                                strokePath.style.strokeOpacity = "1";
-                            }
-                            strokeElement.classList.add('hovered');
-                        }
-                    }
-                });
-                
-                element.addEventListener("mouseleave", function() {
-                    setShowTooltip(false);
-                    
-                    // Hide stroke on mouse leave (resume pulse animation)
-                    if (!isMobile) {
-                        const strokeElement = svgNode.querySelector(`.interactive-stroke[data-for="${layerId}"]`);
-                        if (strokeElement) {
-                            const strokePath = strokeElement.querySelector('*') as SVGElement;
-                            if (strokePath) {
-                                strokePath.style.transition = "stroke-opacity 0.3s ease-in-out";
-                                strokePath.setAttribute("stroke-opacity", "0");
-                                strokePath.style.strokeOpacity = "0";
-                                
-                                // After transition completes, resume animation
-                                setTimeout(() => {
-                                    strokePath.style.animation = "";
-                                    strokePath.style.animationPlayState = "running";
-                                    strokePath.removeAttribute("stroke-opacity");
-                                    strokePath.style.strokeOpacity = "0";
-                                }, 1000);
-                            }
-                            strokeElement.classList.remove('hovered');
-                        }
-                    }
-                });
-                
-                element.addEventListener("mousemove", function(e) {
-                    const evt = e as MouseEvent;
-                    setTooltipPosition({
-                        x: evt.clientX,
-                        y: evt.clientY - 40
-                    });
-                });
-            }
-        });
-        
-        // Update the state with the created mobile icons
-        setMobileIcons(mobileSvgIcons);
-                
-    }, [roomRef.current, isMobile]); // Remove time as a dependency
-
-    // Add effect to hide/show strokes when mobile status changes
-    useEffect(() => {
-        const svgNode = roomRef.current;
-        if (!svgNode) return;
-        
-        const strokes = svgNode.querySelectorAll('.interactive-stroke');
-        
-        if (isMobile) {
-            // Hide strokes in mobile view
-            strokes.forEach(stroke => {
-                stroke.setAttribute('style', 'display: none;');
-            });
-        } else {
-            // Show strokes in desktop view
-            strokes.forEach(stroke => {
-                stroke.removeAttribute('style');
-            });
-        }
-    }, [isMobile]);
-
-    // Effect to update wall pattern animations
-    useEffect(() => {
-        const svgNode = roomRef.current;
-        if (!svgNode) return;
-        
-        const wallPattern = generateCarpet(40, 30, time, true);
-        const wallSrc = `data:image/png;base64,${wallPattern}`;
-        
-        const imageElements = svgNode.querySelectorAll('image');
-        if (imageElements && imageElements.length >= 2) {
-            imageElements[1].setAttribute('xlink:href', wallSrc);
-        }
-    }, [time]);
-
-    // Add an effect to handle image loading and hide images
-    useEffect(() => {
-        const svgNode = roomRef.current;
-        if (!svgNode) return;
-        
-        // Get all image elements in the SVG
-        const imageElements = svgNode.querySelectorAll('image');
-        
-        // Set visibility based on loading state
-        imageElements.forEach(img => {
-            img.style.opacity = imagesLoading ? '0' : '1'; 
-        });
-        
-        // Check if painting is selected but not yet loaded
-        if (selectedPainting && imagesLoading) {
-            const img = new Image();
-            img.src = selectedPainting;
-            img.onload = () => {
-                setImagesLoading(false);
-            };
-            img.onerror = (err) => {
-                console.error("Error loading painting:", err);
-                setImagesLoading(false); // Still set to false to prevent infinite loading
-            };
-        }
-    }, [selectedPainting, imagesLoading]);
-
-    // Simplified mobile icon click handler
-    const handleMobileIconClick = (sectionId: string) => {
+    // Each section has its own link (e.g. /#dj). Opening a section adds a history entry, so Back closes it.
+    const openSection = useCallback((sectionId: string) => {
+        setHover(null);
         setActiveSection(sectionId);
-        
-        const svgNode = roomRef.current;
-        if (!svgNode) return;
-        
-        const element = svgNode.querySelector(`#${sectionId}`);
-        if (element) {
-            try {
-                const bbox = (element as SVGGraphicsElement).getBBox();
-                const padding = 20;
-                setElementViewBox(`${bbox.x - padding} ${bbox.y - padding} ${bbox.width + padding*2} ${bbox.height + padding*2}`);
-                
-                // Store reference to the original element ID instead of cloning
-                setClickedElementId(sectionId);
+        setOpenModal(true);
+        const hash = `#${sectionSlug(sectionId)}`;
+        if (window.location.hash !== hash) window.history.pushState({ section: sectionId }, '', hash);
+    }, []);
+
+    const closeModal = useCallback(() => {
+        setOpenModal(false);
+        if (window.history.state?.section) window.history.back();
+        else if (window.location.hash) window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }, []);
+
+    // Follow the address: on first load, and when Back/Forward or a pasted link changes it
+    useEffect(() => {
+        const sync = () => {
+            const slug = decodeURIComponent(window.location.hash.slice(1)).toLowerCase();
+            const sectionId = sectionIds.find(id => sectionSlug(id) === slug);
+            if (sectionId) {
+                setHover(null);
+                setActiveSection(sectionId);
                 setOpenModal(true);
-            } catch (err) {
-                console.error(`Error processing mobile click on ${sectionId}:`, err);
+            } else {
+                setOpenModal(false);
             }
-        }
-    };
+        };
+        sync();
+        window.addEventListener('popstate', sync);
+        window.addEventListener('hashchange', sync);
+        return () => {
+            window.removeEventListener('popstate', sync);
+            window.removeEventListener('hashchange', sync);
+        };
+    }, []);
+
+    // Name the page after the open section, so shared links and tabs read well
+    useEffect(() => {
+        const section = openModal ? portfolioSections[activeSection] : null;
+        document.title = section ? `${section.title.replace(/^Project: /, '')} · Yusuf Zerdazi` : 'Yusuf Zerdazi';
+    }, [openModal, activeSection]);
+
+    const hoveredSection = hover ? portfolioSections[hover.id] : null;
 
     const currentSection = activeSection ? portfolioSections[activeSection as keyof typeof portfolioSections] : null;
 
     return (
-        <div className={`w-full h-full ${isMobile ? 'overflow-auto pb-4' : ''}`}>
+        <div className={`w-full ${isMobile ? 'pb-4' : 'h-full'}`}>
             <div className={`w-full h-full ${isMobile ? 'flex flex-col' : ''}`}>
                 <div className={`flex items-center justify-center h-full relative ${isMobile ? 'px-4 pb-8' : 'p-4'}`}>
-                    <RoomImage className={`max-w-full ${isMobile ? 'max-h-[85vh]' : 'h-[calc(100vh-50px)]'} w-auto object-contain ${imagesLoading ? 'images-loading' : ''}`} ref={roomRef} />
+                    <Room3D
+                        className={isMobile ? 'relative w-full' : 'fixed inset-0'}
+                        sectionIds={sectionIds}
+                        hoveredId={hover?.id ?? null}
+                        painting={selectedPainting}
+                        isMobile={isMobile}
+                        onHover={handleHover}
+                        onSelect={openSection}
+                        paused={openModal}
+                    />
+                    {/* The room is a canvas, so keyboard and screen reader users get the sections as a list; it appears when focused */}
+                    {!isMobile && (
+                        <nav aria-label="Projects" className="sr-only fixed left-1/2 top-4 z-30 -translate-x-1/2 focus-within:not-sr-only">
+                            <ul className="flex max-w-[90vw] flex-wrap justify-center gap-2 rounded-2xl border border-white/70 bg-white/85 p-2 shadow-[0_10px_30px_-12px_rgba(15,23,42,0.35)] backdrop-blur-md">
+                                {sectionIds.map(sectionId => (
+                                    <li key={sectionId}>
+                                        <button
+                                            onClick={() => openSection(sectionId)}
+                                            className="rounded-full px-3 py-1.5 font-display text-sm font-semibold text-slate-700 hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
+                                        >
+                                            {formatTitleWithFont(portfolioSections[sectionId].title, sectionId)}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    )}
+                    <a href="/models/CREDITS.txt" target="_blank" rel="noreferrer" className={`${isMobile ? "absolute" : "fixed z-10"} bottom-2 right-3 text-xs text-gray-400 hover:text-gray-600`}>
+                        3D model credits
+                    </a>
+                    {isMobile && <ThumbnailStudio ids={sectionIds} painting={selectedPainting} onThumbnail={addThumbnail} />}
                 </div>
                 
                 {/* Mobile navigation icons (visible on smaller screens) */}
                 {isMobile && (
-                    <div className="md:hidden px-2 pt-2 pb-4 overflow-y-auto flex-shrink-0">
+                    <div className="relative z-10 shrink-0 overflow-y-auto px-2 pb-4 pt-2 md:hidden">
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                             {Object.entries(portfolioSections).map(([sectionId, section]: [string, PortfolioSection]) => (
                                 <div 
                                     key={sectionId}
-                                    onClick={() => handleMobileIconClick(sectionId)}
-                                    className="aspect-square bg-white/20 dark:bg-gray-800/20 backdrop-blur-sm rounded-lg p-4 shadow-sm border border-gray-200/50 dark:border-gray-600/50 text-center cursor-pointer transition-all duration-300 portfolio-section-icon hover:bg-white/90 dark:hover:bg-gray-800/90"
+                                    onClick={() => openSection(sectionId)}
+                                    className="portfolio-section-icon aspect-square cursor-pointer rounded-2xl border border-slate-200/80 bg-white/80 p-3 text-center shadow-[0_1px_2px_rgba(15,23,42,0.04)] backdrop-blur-sm transition active:scale-[0.98]"
                                 >
                                     <div className="h-full flex flex-col items-center justify-between py-2">
                                         <div className="flex-1 flex items-center justify-center min-h-0">
-                                            {mobileIcons[sectionId] || (
+                                            {thumbnails[sectionId] ? (
+                                                <img src={thumbnails[sectionId]} alt="" className="size-full object-contain" />
+                                            ) : (
                                                 <div className="text-3xl">
                                                     {section.icon}
                                                 </div>
                                             )}
                                         </div>
-                                        <h4 className="text-sm font-medium text-gray-900 dark:text-white break-words leading-tight flex-shrink-0">{section.title}</h4>
+                                        <h4 className="shrink-0 break-words font-display text-sm font-semibold leading-tight text-slate-800">{formatTitleWithFont(section.title, sectionId)}</h4>
                                     </div>
                                 </div>
                             ))}
@@ -822,83 +545,42 @@ function Home({ isMobile }: HomeProps) {
                 )}
                 
                 {/* Tooltip */}
-                {!isMobile && showTooltip && (
+                {!isMobile && hover && hoveredSection && (
                     <div 
-                        className="fixed z-50 px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-lg opacity-90 pointer-events-none transform -translate-x-1/2"
+                        className="pointer-events-none fixed z-40 -translate-x-1/2 rounded-full border border-white/60 bg-white/80 px-4 py-2 font-display text-sm font-semibold text-slate-800 shadow-[0_10px_30px_-10px_rgba(15,23,42,0.35)] backdrop-blur-md"
                         style={{ 
-                            left: tooltipPosition.x, 
-                            top: tooltipPosition.y
+                            left: hover.x,
+                            top: hover.y
                         }}
                     >
-                        {tooltipContent}
+                        <div className="flex items-center gap-2">
+                            <span className="flex size-6 items-center justify-center rounded-full text-xs text-white" style={{ background: sectionAccent(sectionIds, hover.id, 55) }}>{hoveredSection.icon}</span>
+                            <span>{formatTitleWithFont(hoveredSection.title, hover.id)}</span>
+                        </div>
                     </div>
                 )}
                 
-                {/* Modal */}
-                <Modal 
-                    size="7xl" 
-                    dismissible={true} 
-                    show={openModal} 
-                    onClose={() => setOpenModal(false)}
-                    className="portfolio-modal"
-                >
-                    <Modal.Header className="border-b border-gray-200 dark:border-gray-700">
-                        {currentSection && (
-                            <div className="flex items-center text-xl font-semibold">
-                                <span className="mr-2 text-2xl">{currentSection.icon}</span>
-                                {formatTitleWithFont(currentSection.title, activeSection)}
-                            </div>
+                {/* Section modal: the object in 3D beside its projects */}
+                {currentSection && (
+                    <SectionModal
+                        open={openModal}
+                        sectionId={activeSection}
+                        title={formatTitleWithFont(currentSection.title, activeSection)}
+                        icon={currentSection.icon}
+                        accent={sectionAccent(sectionIds, activeSection, 55)}
+                        painting={selectedPainting}
+                        meta={currentSection.yearRange && formatYearRange(currentSection.yearRange)}
+                        onClose={closeModal}
+                    >
+                        {currentSection.description && (
+                            <p className="mb-8 text-base leading-relaxed text-slate-600">{currentSection.description}</p>
                         )}
-                    </Modal.Header>
-                    <Modal.Body className="p-6">
-                        <div className="flex flex-col items-center gap-8">
-                            {/* Top section: SVG icon centered with accent lines */}
-                            <div className="flex items-center w-full max-w-3xl">
-                                <div className="h-[2px] bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent flex-grow"></div>
-                                <div className="flex-shrink-0 mx-8 bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4 shadow-sm border border-blue-100 dark:border-blue-800/30">
-                                    <svg className="w-40 h-40" viewBox={elementViewBox} preserveAspectRatio="xMidYMid meet">
-                                        {clickedElementId && roomRef.current && (() => {
-                                            const allElements = roomRef.current.querySelectorAll(`#${clickedElementId}`);
-                                            // Get the first element that's not inside a stroke group
-                                            const originalElement = Array.from(allElements).find(el => 
-                                                !el.closest('.interactive-stroke')
-                                            );
-                                            return (
-                                                <g className="no-hover" dangerouslySetInnerHTML={{ 
-                                                    __html: originalElement?.outerHTML || '' 
-                                                }} />
-                                            );
-                                        })()}
-                                    </svg>
-                                </div>
-                                <div className="h-[2px] bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent flex-grow"></div>
-                            </div>
-                            
-                            {/* Section description and links */}
-                            <div className="w-full max-w-3xl">
-                                {currentSection && (
-                                    <div className="space-y-4">
-                                        <div className="flex items-center justify-between">
-                                            {currentSection.yearRange && (
-                                                <span className="text-sm bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-gray-600 dark:text-gray-300">
-                                                    {formatYearRange(currentSection.yearRange)}
-                                                </span>
-                                            )}
-                                            <p className="text-base text-gray-700 dark:text-gray-300">
-                                                {currentSection.description}
-                                            </p>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                        
                         {/* Bottom section: Projects content spanning full width */}
                         {currentSection && (
                             <div className="w-full">
                                 {/* Projects for sections with project arrays */}
                                 {currentSection.projects && (
-                                    <div className="space-y-8">
+                                    <div className="space-y-5">
                                         {/* Sort projects by end year, descending (most recent first) */}
                                         {[...currentSection.projects]
                                           .sort((a, b) => {
@@ -917,7 +599,7 @@ function Home({ isMobile }: HomeProps) {
                                           .map((project, projectIndex) => {
                                             const isTwoVideos = (project.videos?.length === 2);
                                             return (
-                                            <div key={projectIndex} className="space-y-4 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-300">
+                                            <div key={projectIndex} className="space-y-4 rounded-2xl border border-slate-200/80 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition hover:border-slate-300 hover:shadow-[0_12px_30px_-18px_rgba(15,23,42,0.35)] md:p-6">
                                               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                                                 {/* Left column for icon */}
                                                 {project.iconSrc ? <div className="flex justify-center items-center">
@@ -935,16 +617,16 @@ function Home({ isMobile }: HomeProps) {
                                                 {/* Right column for content */}
                                                 <div className={`${project.iconSrc ? "md:col-span-3" : "md:col-span-4"} min-w-0`}>
                                                   <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-                                                    <h5 className="text-lg font-semibold text-gray-900 dark:text-white break-words">
+                                                    <h5 className="break-words font-display text-xl font-bold text-slate-900">
                                                       {formatTitleWithFont(project.title, activeSection)}
                                                     </h5>
                                                     {project.yearRange && (
-                                                      <span className="text-sm bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-gray-600 dark:text-gray-300 flex-shrink-0">
+                                                      <span className="shrink-0 rounded-full bg-slate-100 px-3 py-1 font-display text-xs font-semibold tracking-wide text-slate-500">
                                                         {formatYearRange(project.yearRange)}
                                                       </span>
                                                     )}
                                                   </div>
-                                                  <div className="text-base text-gray-700 dark:text-gray-300 break-words">
+                                                  <div className="break-words text-[15px] leading-relaxed text-slate-600">
                                                     {project.description}
                                                   </div>
                                                   
@@ -955,7 +637,7 @@ function Home({ isMobile }: HomeProps) {
                                                         <div key={index} className={`relative ${isTwoVideos ? 'pb-[177.78%]' : 'pb-[56.25%]'} h-0 w-full`}>
                                                           {videoUrl.endsWith('.mp4') ? (
                                                             <video 
-                                                              className="absolute top-0 left-0 w-full h-full rounded object-cover"
+                                                              className="absolute left-0 top-0 size-full rounded-xl object-cover"
                                                               autoPlay={videoUrl.includes('Kassita')}
                                                               muted={videoUrl.includes('Kassita')}
                                                               loop={videoUrl.includes('Kassita')}
@@ -967,7 +649,7 @@ function Home({ isMobile }: HomeProps) {
                                                             </video>
                                                           ) : (
                                                             <iframe 
-                                                              className="absolute top-0 left-0 w-full h-full rounded"
+                                                              className="absolute left-0 top-0 size-full rounded-xl"
                                                               src={videoUrl}
                                                               title={`${project.title} Video ${index + 1}`}
                                                               frameBorder="0"
@@ -985,7 +667,7 @@ function Home({ isMobile }: HomeProps) {
                                                     <div className="mt-6">
                                                       <div className="relative pb-[56.25%] h-0 w-full">
                                                         <iframe
-                                                          className="absolute top-0 left-0 w-full h-full rounded"
+                                                          className="absolute left-0 top-0 size-full rounded-xl"
                                                           src={`https://www.youtube.com/embed/${project.videoEmbed.split('v=')[1]}`}
                                                           title={`${project.title} Demo`}
                                                           frameBorder="0"
@@ -999,7 +681,7 @@ function Home({ isMobile }: HomeProps) {
                                                   {/* Display Instagram embed if available */}
                                                   {project.instagramEmbed && (
                                                     <div className="mt-6">
-                                                      <h4 className="text-md font-medium mb-2 text-gray-900 dark:text-white">
+                                                      <h4 className="mb-2 font-display text-base font-semibold text-slate-900">
                                                         Instagram
                                                       </h4>
                                                       <div 
@@ -1010,10 +692,10 @@ function Home({ isMobile }: HomeProps) {
                                                             <blockquote 
                                                               class="instagram-media" 
                                                               data-instgrm-captioned 
-                                                              data-instgrm-permalink="${project.instagramEmbed}/?utm_source=ig_embed&amp;utm_campaign=loading" 
+                                                              data-instgrm-permalink="${instagramPermalink(project.instagramEmbed)}?utm_source=ig_embed&amp;utm_campaign=loading" 
                                                               data-instgrm-version="14"
-                                                              style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"
-                                                            ></blockquote>
+                                                              style="background:#FFF; border:0; border-radius:16px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"
+                                                            ><a href="${instagramPermalink(project.instagramEmbed)}" target="_blank" rel="noreferrer" style="display:block; padding:16px; font:600 14px system-ui, sans-serif; color:#0f172a; text-decoration:none;">View this post on Instagram</a></blockquote>
                                                           `
                                                         }}
                                                       ></div>
@@ -1030,10 +712,10 @@ function Home({ isMobile }: HomeProps) {
                                                             href={link.url} 
                                                             target="_blank" 
                                                             rel="noopener noreferrer"
-                                                            className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-900/30 transition-colors"
+                                                            className="inline-flex items-center rounded-full bg-slate-900 px-4 py-2 font-display text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[var(--accent)]"
                                                           >
                                                             <i className={`${link.icon} mr-2`}></i>
-                                                            {link.name}
+                                                            <span style={link.font ? { fontFamily: `${link.font}, cursive`, fontWeight: 400 } : undefined}>{link.name}</span>
                                                           </a>
                                                         ))}
                                                       </div>
@@ -1065,8 +747,8 @@ function Home({ isMobile }: HomeProps) {
                                 )}
                             </div>
                         )}
-                    </Modal.Body>
-                </Modal>
+                    </SectionModal>
+                )}
             </div>
         </div>
     );
