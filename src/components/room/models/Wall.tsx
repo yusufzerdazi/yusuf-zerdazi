@@ -6,7 +6,7 @@ import { Model } from '../Model';
 import { MODEL_URLS } from '../modelUrls';
 import { Soft } from '../primitives';
 import { Rest } from '../Rest';
-import { usePreview } from '../sections';
+import { useLite, usePreview } from '../sections';
 import { MIRROR_SIZE, scallopedOval } from '../shapes';
 import { PlanarMirror } from '../PlanarMirror';
 import { canvasTexture, glowMaterial, mat } from '../materials';
@@ -128,8 +128,11 @@ export function LedPanel() {
 
 // The authored scalloped frame with real reflective glass (see PlanarMirror), tinted the original's pale blue
 export function MagicMirror() {
-    // On its own there's no room to reflect, so show pale glass with a soft diagonal sheen instead
+    // On its own there's no room to reflect (and on phones a live reflection costs a second render of the room),
+    // so show pale glass with a soft diagonal sheen instead
     const preview = usePreview();
+    const lite = useLite();
+    const staticGlass = preview || lite;
     const previewGlass = useMemo(() => new THREE.MeshBasicMaterial({
         map: Object.assign(canvasTexture(128, 128, ctx => {
             const gradient = ctx.createLinearGradient(0, 0, 128, 128);
@@ -157,7 +160,7 @@ export function MagicMirror() {
         <group>
             <group position={[0.022, 1.05, 2.33]} rotation={[0, Math.PI / 2, 0]}>
                 <Model url={MODEL_URLS.mirrorFrame} />
-                {preview
+                {staticGlass
                     ? <mesh geometry={glass} material={previewGlass} position={[0, centreY, -0.006]} userData={{ noSheen: true }} />
                     : <PlanarMirror geometry={glass} position={[0, centreY, -0.006]} />}
             </group>

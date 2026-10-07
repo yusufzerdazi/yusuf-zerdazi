@@ -71,21 +71,41 @@ function Sway({ children, paused }: { children: ReactNode; paused: boolean }) {
 }
 
 // The section's object, seen from the room's angle and gently swaying; drag to spin it
-export function SectionStage({ id, painting, className }: { id: string; painting: string; className?: string }) {
+// On phones the stage scrolls with the popup's content, so touches must scroll rather than spin the object
+export function SectionStage({ id, painting, className, interactive = true }: { id: string; painting: string; className?: string; interactive?: boolean }) {
     const reducedMotion = useMemo(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches, []);
     const subject = useRef<THREE.Group>(null);
+    const wrapper = useRef<HTMLDivElement>(null);
+
+    // Stop rendering once the stage has scrolled out of view
+    const [visible, setVisible] = useState(true);
+    useEffect(() => {
+        const element = wrapper.current;
+        if (!element) return;
+        const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting));
+        observer.observe(element);
+        return () => observer.disconnect();
+    }, []);
+
+    const object = (
+        <Sway paused={reducedMotion}>
+            <group ref={subject}>
+                <Subject id={id} painting={painting} />
+            </group>
+        </Sway>
+    );
+
     return (
-        <div className={className}>
-            <Canvas flat orthographic dpr={[1, 2]} camera={STAGE_CAMERA} aria-label="3D view of this section's object. Drag to rotate.">
+        <div ref={wrapper} className={className} style={interactive ? undefined : { pointerEvents: 'none' }}>
+            <Canvas flat orthographic frameloop={visible ? 'always' : 'never'} dpr={interactive ? [1, 2] : [1, 1.5]} camera={STAGE_CAMERA}
+                aria-label={interactive ? "3D view of this section's object. Drag to rotate." : "3D view of this section's object."}>
                 <StageLighting />
                 <Suspense fallback={null}>
-                    <PresentationControls global snap rotation={[0, 0, 0]} polar={[-0.2, 0.3]} azimuth={[-Infinity, Infinity]}>
-                        <Sway paused={reducedMotion}>
-                            <group ref={subject}>
-                                <Subject id={id} painting={painting} />
-                            </group>
-                        </Sway>
-                    </PresentationControls>
+                    {interactive ? (
+                        <PresentationControls global snap rotation={[0, 0, 0]} polar={[-0.2, 0.3]} azimuth={[-Infinity, Infinity]}>
+                            {object}
+                        </PresentationControls>
+                    ) : object}
                     <Fit subject={subject} margin={1.45} />
                     <ContactShadows position={[0, -0.001, 0]} opacity={0.35} scale={4} blur={2.2} far={2} />
                 </Suspense>

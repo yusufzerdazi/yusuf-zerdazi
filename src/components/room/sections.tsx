@@ -45,3 +45,7 @@ export const sectionDelay = (sectionIds: string[], id: string) => {
 // so room-only extras like light spill on the walls can be left out
 export const PreviewContext = createContext(false);
 export const usePreview = () => useContext(PreviewContext);
+
+// True on phones: expensive extras (live reflections, frequent LED updates) are swapped for cheaper versions
+export const LiteContext = createContext(false);
+export const useLite = () => useContext(LiteContext);

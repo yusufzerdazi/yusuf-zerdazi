@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { RefObject, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 import roomSvg from '../../assets/home.svg?raw';
@@ -12,7 +12,7 @@ import { Rug } from './models/Rug';
 import { Chair, Desk } from './models/Desk';
 import { Sofa, TvConsole } from './models/Lounge';
 import { Balcony, Ground, Trees } from './models/Outdoor';
-import { SECTION_MODELS, sectionDelay } from './sections';
+import { LiteContext, SECTION_MODELS, sectionDelay } from './sections';
 
 // Content the camera keeps in frame, in world space: wall tops, the slab corners and the balcony
 // (plus the title above the wall on larger screens, where it's shown)
@@ -87,6 +87,8 @@ interface Room3DProps {
     onSelect: (id: string) => void;
     // Stop rendering, e.g. while a modal covers the room
     paused?: boolean;
+    // Called once every model has loaded
+    onReady?: () => void;
 }
 
 // Models arrive asynchronously, so keep shadow flags in step with whatever is in the scene
@@ -114,7 +116,32 @@ function ShadowFlags() {
 // Light target near the middle of the room and balcony
 const LIGHT_TARGET = new THREE.Vector3(2.9, 0, 2.1);
 
-function Lighting() {
+// Phones: render on demand instead of every frame. The page redraws as it scrolls (the room follows its slot),
+// and a gentle 20 fps tick keeps the animated bits (LED panel, monitor) alive only while the room is on screen.
+function MobileFrames({ slot }: { slot: RefObject<HTMLElement> }) {
+    const invalidate = useThree(state => state.invalidate);
+    useEffect(() => {
+        let visible = true;
+        const observer = new IntersectionObserver(([entry]) => {
+            visible = entry.isIntersecting;
+            invalidate();
+        });
+        if (slot.current) observer.observe(slot.current);
+        const onScroll = () => invalidate();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        const tick = window.setInterval(() => visible && invalidate(), 50);
+        return () => {
+            observer.disconnect();
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', onScroll);
+            window.clearInterval(tick);
+        };
+    }, [invalidate, slot]);
+    return null;
+}
+
+function Lighting({ shadowMapSize }: { shadowMapSize: number }) {
     const target = useMemo(() => {
         const object = new THREE.Object3D();
         object.position.copy(LIGHT_TARGET);
@@ -132,7 +159,7 @@ function Lighting() {
                 target={target}
                 intensity={0.71 * Math.PI}
                 castShadow
-                shadow-mapSize={[4096, 4096]}
+                shadow-mapSize={[shadowMapSize, shadowMapSize]}
                 shadow-bias={-0.0002}
                 shadow-normalBias={0.012}
                 shadow-radius={2.5}
@@ -221,12 +248,15 @@ function TestHook() {
     return null;
 }
 
-function Room3D({ sectionIds, hoveredId, painting, isMobile, className, onHover, onSelect, paused = false }: Room3DProps) {
+function Room3D({ sectionIds, hoveredId, painting, isMobile, className, onHover, onSelect, paused = false, onReady }: Room3DProps) {
     const reducedMotion = useMemo(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches, []);
     const [ready, setReady] = useState(false);
     const [viewChanged, setViewChanged] = useState(false);
     const [resetSignal, setResetSignal] = useState(0);
-    const markReady = useCallback(() => setReady(true), []);
+    const markReady = useCallback(() => {
+        setReady(true);
+        onReady?.();
+    }, [onReady]);
     const slot = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -237,13 +267,13 @@ function Room3D({ sectionIds, hoveredId, painting, isMobile, className, onHover,
     return (
         <div ref={slot} className={className} style={isMobile ? { aspectRatio: `${FRAME_MOBILE.width} / ${FRAME_MOBILE.height * 1.06}`, pointerEvents: 'none' } : undefined}>
             {/* On phones the canvas is a fixed full-page background and the room is kept over this slot as the page scrolls */}
-            <div className={`${isMobile ? 'fixed' : 'absolute'} inset-0 transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`} style={{ pointerEvents: 'auto' }}>
+            <div className={`${isMobile ? 'fixed' : 'absolute'} inset-0 transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`} style={{ pointerEvents: isMobile ? 'none' : 'auto' }}>
                 <Canvas
                     orthographic
-                    frameloop={paused ? 'never' : 'always'}
+                    frameloop={paused ? 'never' : isMobile ? 'demand' : 'always'}
                     flat
                     shadows
-                    dpr={[1, 2]}
+                    dpr={isMobile ? [1, 1.5] : [1, 2]}
                     camera={{ near: 0.1, far: 200, position: [20, 20, 20] }}
                     onCreated={({ gl }) => { gl.domElement.style.touchAction = 'pan-y'; }}
                     aria-label="Isometric 3D room. Click objects to explore projects. Scroll to zoom and drag to look around."
@@ -257,12 +287,15 @@ function Room3D({ sectionIds, hoveredId, painting, isMobile, className, onHover,
                         resetSignal={resetSignal}
                         onViewChange={setViewChanged}
                     />
-                    <Lighting />
+                    <Lighting shadowMapSize={isMobile ? 1024 : 4096} />
+                    {isMobile && <MobileFrames slot={slot} />}
                     <ShadowFlags />
                     <ShadowUpdates hoveredId={hoveredId} ready={ready} isMobile={isMobile} />
-                    <HoverController hoveredId={hoveredId} onHover={onHover} onSelect={onSelect} />
+                    {/* Phones navigate with the section list below the room, so the room itself isn't interactive */}
+                    {!isMobile && <HoverController hoveredId={hoveredId} onHover={onHover} onSelect={onSelect} />}
                     <TestHook />
 
+                    <LiteContext.Provider value={isMobile}>
                     <Suspense fallback={null}>
                         <Ground />
                         {!isMobile && <Trees />}
@@ -276,7 +309,9 @@ function Room3D({ sectionIds, hoveredId, painting, isMobile, className, onHover,
                         <TvConsole />
                         {!isMobile && <WallTitle />}
 
-                        {sectionIds.filter(id => SECTION_MODELS[id]).map(id => (
+                        {sectionIds.filter(id => SECTION_MODELS[id]).map(id => isMobile ? (
+                            <group key={id}>{SECTION_MODELS[id].render(painting)}</group>
+                        ) : (
                             <Hotspot
                                 key={id}
                                 id={id}
@@ -290,6 +325,7 @@ function Room3D({ sectionIds, hoveredId, painting, isMobile, className, onHover,
                         ))}
                         <Ready onReady={markReady} />
                     </Suspense>
+                    </LiteContext.Provider>
                 </Canvas>
             </div>
 

@@ -419,6 +419,8 @@ function Home({ isMobile }: HomeProps) {
 
     // Still renders of each section's 3D object for the mobile grid
     const [thumbnails, setThumbnails] = useState<{[key: string]: string}>({});
+    const [roomReady, setRoomReady] = useState(false);
+    const markRoomReady = useCallback(() => setRoomReady(true), []);
     const addThumbnail = useCallback((sectionId: string, url: string) => setThumbnails(current => ({ ...current, [sectionId]: url })), []);
 
     const handleHover = useCallback((sectionId: string | null, event?: PointerEvent) => {
@@ -485,6 +487,7 @@ function Home({ isMobile }: HomeProps) {
                         onHover={handleHover}
                         onSelect={openSection}
                         paused={openModal}
+                        onReady={markRoomReady}
                     />
                     {/* The room is a canvas, so keyboard and screen reader users get the sections as a list; it appears when focused */}
                     {!isMobile && (
@@ -506,7 +509,8 @@ function Home({ isMobile }: HomeProps) {
                     <a href="/models/CREDITS.txt" target="_blank" rel="noreferrer" className={`${isMobile ? "absolute" : "fixed z-10"} bottom-2 right-3 text-xs text-gray-400 hover:text-gray-600`}>
                         3D model credits
                     </a>
-                    {isMobile && <ThumbnailStudio ids={sectionIds} painting={selectedPainting} onThumbnail={addThumbnail} />}
+                    {/* Thumbnails render after the room, so the two don't compete for the phone's GPU while loading */}
+                    {isMobile && roomReady && <ThumbnailStudio ids={sectionIds} painting={selectedPainting} onThumbnail={addThumbnail} />}
                 </div>
                 
                 {/* Mobile navigation icons (visible on smaller screens) */}
