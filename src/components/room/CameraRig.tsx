@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { RefObject, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { ISO_ELEVATION } from './iso';
 
@@ -20,8 +20,6 @@ interface CameraRigProps {
     // Bump to animate back to the default view
     resetSignal: number;
     onViewChange: (changed: boolean) => void;
-    // When the canvas is a full-page background (phones), keep the room framed inside this element as the page scrolls
-    anchor?: RefObject<HTMLElement>;
 }
 
 const MAX_ZOOM = 3.5;
@@ -32,7 +30,7 @@ const DISTANCE = 60;
 
 // Isometric camera framed on the room, with parallax, zoom towards the cursor and drag to pan.
 // Changes ease towards their targets so the view always moves smoothly.
-export function CameraRig({ frame, parallax, interactive, ready, resetSignal, onViewChange, anchor }: CameraRigProps) {
+export function CameraRig({ frame, parallax, interactive, ready, resetSignal, onViewChange }: CameraRigProps) {
     const camera = useThree(state => state.camera) as THREE.OrthographicCamera;
     const size = useThree(state => state.size);
     const element = useThree(state => state.gl.domElement);
@@ -137,15 +135,7 @@ export function CameraRig({ frame, parallax, interactive, ready, resetSignal, on
         const azimuth = Math.PI / 4 + v.azimuth - (1 - intro) * 0.35;
         const elevation = ISO_ELEVATION - v.elevation + (1 - intro) * 0.12;
         const centre = frame.centre.clone().add(v.pan);
-        // Anchored: fit the room to the element and shift the view so the room sits over it on screen
-        const rect = anchor?.current?.getBoundingClientRect();
-        let fit = fitZoom();
-        if (rect && rect.width > 0) {
-            fit = Math.min(rect.width / frame.width, rect.height / frame.height) * 0.96;
-            const { right, up } = basis.current;
-            centre.addScaledVector(right, -(rect.left + rect.width / 2 - size.width / 2) / fit)
-                .addScaledVector(up, (rect.top + rect.height / 2 - size.height / 2) / fit);
-        }
+        const fit = fitZoom();
         camera.position.set(
             centre.x + DISTANCE * Math.cos(elevation) * Math.sin(azimuth),
             centre.y + DISTANCE * Math.sin(elevation),

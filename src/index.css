@@ -13,11 +13,18 @@ html, body, #root {
   overflow: hidden;
 }
 
-/* On phones the page itself scrolls, so wheel and touch over the fixed room canvas scroll it too */
+/* On phones the page itself scrolls, and the isometric grid is a CSS background (the room canvas is transparent
+   and scrolls with the page, so it never has to redraw to keep up) */
 @media (max-width: 767px) {
   html, body, #root {
     height: auto;
     overflow: visible;
+  }
+
+  body {
+    background-image: url('/tile.svg');
+    background-size: 75px 43.3px;
+    background-position: center top;
   }
 }
 

@@ -116,8 +116,9 @@ function ShadowFlags() {
 // Light target near the middle of the room and balcony
 const LIGHT_TARGET = new THREE.Vector3(2.9, 0, 2.1);
 
-// Phones: render on demand instead of every frame. The page redraws as it scrolls (the room follows its slot),
-// and a gentle 20 fps tick keeps the animated bits (LED panel, monitor) alive only while the room is on screen.
+// Phones: render on demand instead of every frame. The canvas scrolls natively with the page, so nothing needs
+// redrawing as you scroll; a 30 fps tick keeps the animated bits (LED panel, monitor) going while the room is on
+// screen, and rendering stops entirely once it has scrolled away.
 function MobileFrames({ slot }: { slot: RefObject<HTMLElement> }) {
     const invalidate = useThree(state => state.invalidate);
     useEffect(() => {
@@ -127,14 +128,9 @@ function MobileFrames({ slot }: { slot: RefObject<HTMLElement> }) {
             invalidate();
         });
         if (slot.current) observer.observe(slot.current);
-        const onScroll = () => invalidate();
-        window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', onScroll);
-        const tick = window.setInterval(() => visible && invalidate(), 50);
+        const tick = window.setInterval(() => visible && invalidate(), 1000 / 30);
         return () => {
             observer.disconnect();
-            window.removeEventListener('scroll', onScroll);
-            window.removeEventListener('resize', onScroll);
             window.clearInterval(tick);
         };
     }, [invalidate, slot]);
@@ -266,8 +262,7 @@ function Room3D({ sectionIds, hoveredId, painting, isMobile, className, onHover,
 
     return (
         <div ref={slot} className={className} style={isMobile ? { aspectRatio: `${FRAME_MOBILE.width} / ${FRAME_MOBILE.height * 1.06}`, pointerEvents: 'none' } : undefined}>
-            {/* On phones the canvas is a fixed full-page background and the room is kept over this slot as the page scrolls */}
-            <div className={`${isMobile ? 'fixed' : 'absolute'} inset-0 transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`} style={{ pointerEvents: isMobile ? 'none' : 'auto' }}>
+            <div className={`absolute inset-0 transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`} style={{ pointerEvents: isMobile ? 'none' : 'auto' }}>
                 <Canvas
                     orthographic
                     frameloop={paused ? 'never' : isMobile ? 'demand' : 'always'}
@@ -280,7 +275,6 @@ function Room3D({ sectionIds, hoveredId, painting, isMobile, className, onHover,
                 >
                     <CameraRig
                         frame={isMobile ? FRAME_MOBILE : FRAME}
-                        anchor={isMobile ? slot : undefined}
                         parallax={false}
                         interactive={!isMobile}
                         ready={ready || reducedMotion}
@@ -297,7 +291,8 @@ function Room3D({ sectionIds, hoveredId, painting, isMobile, className, onHover,
 
                     <LiteContext.Provider value={isMobile}>
                     <Suspense fallback={null}>
-                        <Ground />
+                        {/* On phones the page's CSS grid shows through the transparent canvas instead */}
+                        {!isMobile && <Ground />}
                         {!isMobile && <Trees />}
                         <Shell />
                         {!isMobile && <Balcony />}
