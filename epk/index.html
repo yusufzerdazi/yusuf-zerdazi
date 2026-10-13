@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zerdazi — Press Kit</title>
+  <meta name="description" content="Zerdazi: London-based DJ and producer. Resident at Mischief, formerly TUSH. Electronic press kit." />
+  <meta property="og:title" content="Zerdazi — Press Kit" />
+  <meta property="og:description" content="London-based DJ and producer. Resident at Mischief, formerly TUSH." />
+  <meta property="og:image" content="https://yusuf.zerdazi.com/epk/tush.jpg" />
+  <link rel="icon" href="/epk/zerdazi.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #000;
+      --white: #fff;
+      --grey: #8a8a8a;
+      --line: 2px solid var(--black);
+      --display: 'Archivo Black', 'Arial Black', sans-serif;
+      --body: 'Archivo', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--black); font-family: var(--body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header { position: sticky; top: 0; z-index: 10; background: var(--black); color: var(--white); }
+    header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: var(--display); font-size: 20px; letter-spacing: .06em; }
+    .brand svg { width: 34px; height: 34px; }
+    nav { display: flex; gap: 22px; font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
+    nav a { text-decoration: none; opacity: .75; }
+    nav a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+
+    /* Hero */
+    .hero { background: var(--black); color: var(--white); overflow: hidden; }
+    .hero .wrap { display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: end; padding-top: 48px; }
+    .hero-text { padding-bottom: 56px; }
+    .kicker { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .14em; color: var(--grey); }
+    .hero h1 { font-family: var(--display); font-size: clamp(64px, 12vw, 168px); line-height: .82; letter-spacing: -.035em; margin: 18px 0 26px; text-transform: uppercase; }
+    .hero .sub { font-size: 20px; max-width: 30ch; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .tags span { border: 1.5px solid var(--white); padding: 4px 12px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+    .hero-img { position: relative; align-self: stretch; min-height: 520px; }
+    .hero-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; filter: grayscale(1) contrast(1.15); }
+
+    /* Stat strip */
+    .stats { border-bottom: var(--line); }
+    .stats .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .stat { padding: 28px 20px; border-left: var(--line); }
+    .stat:last-child { border-right: var(--line); }
+    .stat b { display: block; font-family: var(--display); font-size: 44px; line-height: 1; }
+    .stat span { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; }
+
+    /* Sections */
+    section { padding: 88px 0; border-bottom: var(--line); }
+    .label { display: flex; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+    .label .num { font-family: var(--mono); font-size: 14px; }
+    .label h2 { font-family: var(--display); font-size: clamp(40px, 6vw, 72px); line-height: .9; text-transform: uppercase; letter-spacing: -.02em; }
+
+    /* Bio */
+    .bio { display: grid; grid-template-columns: 1.4fr 1fr; gap: 56px; }
+    .bio p { margin-bottom: 1.1em; font-size: 19px; }
+    .bio p.lead { font-family: var(--display); font-size: 26px; line-height: 1.2; }
+    .facts { border: var(--line); align-self: start; }
+    .bio > * { min-width: 0; }
+    .facts div { display: grid; grid-template-columns: 120px minmax(0, 1fr); border-bottom: 1px solid var(--black); }
+    .facts div:last-child { border-bottom: 0; }
+    .facts dt, .facts dd { padding: 12px 14px; }
+    .facts dt { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; background: var(--black); color: var(--white); }
+
+    /* Highlights */
+    .highlights { background: var(--black); color: var(--white); }
+    .highlights .label .num { color: var(--grey); }
+    .marquee { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 2px solid var(--white); border-left: 2px solid var(--white); }
+    .marquee a { display: block; padding: 28px 22px; border-right: 2px solid var(--white); border-bottom: 2px solid var(--white); text-decoration: none; transition: background .15s, color .15s; }
+    .marquee a:hover { background: var(--white); color: var(--black); }
+    .marquee b { display: block; font-family: var(--display); font-size: clamp(22px, 2.6vw, 30px); overflow-wrap: anywhere; line-height: 1; text-transform: uppercase; margin-bottom: 10px; }
+    .marquee span { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; opacity: .7; }
+
+    /* Gigs */
+    .gigs { width: 100%; border-collapse: collapse; }
+    .gigs th { text-align: left; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; padding: 0 12px 12px 0; border-bottom: var(--line); }
+    .gigs td { padding: 16px 12px 16px 0; border-bottom: 1px solid var(--black); vertical-align: top; }
+    .gigs td.date { font-family: var(--mono); font-size: 14px; white-space: nowrap; width: 150px; }
+    .gigs td.event b { font-weight: 700; }
+    .gigs td.event small { display: block; color: #555; font-size: 14px; }
+    .gigs td.where { width: 220px; font-size: 15px; }
+    .gigs td.src { width: 90px; text-align: right; }
+    .gigs tr.year td { font-family: var(--display); font-size: 28px; padding-top: 40px; border-bottom: var(--line); }
+    .gigs tr.feature td.event b { text-transform: uppercase; font-family: var(--display); font-weight: 400; letter-spacing: .01em; }
+    .pill { display: inline-block; font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border: 1.5px solid var(--black); text-decoration: none; white-space: nowrap; }
+    .pill:hover { background: var(--black); color: var(--white); }
+    .ra-note { margin-top: 28px; font-family: var(--mono); font-size: 13px; }
+
+    /* Listen */
+    .listen { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .card { border: var(--line); padding: 28px; display: flex; flex-direction: column; gap: 14px; text-decoration: none; transition: background .15s, color .15s; }
+    .card:hover { background: var(--black); color: var(--white); }
+    .card .k { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; }
+    .card b { font-family: var(--display); font-size: 28px; line-height: 1.05; font-weight: 400; }
+
+    /* Photos */
+    .photos { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .photos figure { border: var(--line); }
+    .photos .img { aspect-ratio: 3 / 4; overflow: hidden; background: var(--black); }
+    .photos img { width: 100%; height: 100%; object-fit: cover; }
+    .photos figcaption { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; border-top: var(--line); font-size: 15px; }
+
+    /* Contact */
+    .contact { background: var(--black); color: var(--white); border-bottom: 0; }
+    .contact .label .num { color: var(--grey); }
+    .contact .big { font-family: var(--display); font-size: clamp(28px, 5vw, 72px); line-height: 1; word-break: break-word; text-decoration: none; display: inline-block; border-bottom: 6px solid var(--white); }
+    .contact .big:hover { color: var(--grey); border-color: var(--grey); }
+    .links { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 32px; margin-top: 64px; border-top: 2px solid var(--white); }
+    .links a { padding: 20px 0; border-bottom: 1px solid #444; text-decoration: none; display: flex; justify-content: space-between; padding-right: 20px; font-family: var(--mono); font-size: 14px; }
+    .links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .links a span { color: var(--grey); }
+    footer { background: var(--black); color: var(--grey); font-family: var(--mono); font-size: 12px; padding: 24px 0 40px; }
+    footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+    @media (max-width: 860px) {
+      nav { display: none; }
+      .hero .wrap { grid-template-columns: 1fr; padding-top: 32px; gap: 0; }
+      .hero-text { padding-bottom: 32px; }
+      .hero-img { min-height: 0; aspect-ratio: 1 / 1; margin: 0 -24px; }
+      .hero-img img { object-position: 50% 55%; }
+      .stats .wrap { grid-template-columns: 1fr 1fr; padding: 0; }
+      .stat { border-left: 0; border-bottom: var(--line); }
+      .stat:nth-child(odd) { border-right: var(--line); }
+      .stat:last-child { border-right: 0; }
+      .stat:nth-last-child(-n+2) { border-bottom: 0; }
+      section { padding: 64px 0; }
+      .bio, .listen, .photos { grid-template-columns: 1fr; }
+      .marquee { grid-template-columns: 1fr; }
+      .links { grid-template-columns: 1fr; }
+      .gigs, .gigs tbody { display: block; }
+      .gigs thead { display: none; }
+      .gigs tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; border-bottom: 1px solid var(--black); padding: 14px 0; }
+      .gigs tr.year { border-bottom: var(--line); padding: 32px 0 8px; }
+      .gigs td { border: 0; padding: 0; width: auto !important; }
+      .gigs tr.year td { border: 0; padding: 0; }
+      .gigs td.date { grid-column: 1; font-size: 13px; }
+      .gigs td.src { grid-column: 2; grid-row: 1 / span 3; align-self: center; }
+      .gigs td.event, .gigs td.where { grid-column: 1; }
+      .gigs td.where { color: #555; font-size: 14px; }
+    }
+    @media (max-width: 480px) {
+      .wrap { padding: 0 16px; }
+      .hero-img { margin: 0 -16px; }
+      .stat b { font-size: 34px; }
+    }
+    @media print {
+      header { position: static; }
+      nav { display: none; }
+      section { padding: 40px 0; break-inside: avoid-page; }
+      .gigs tr { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="logo" viewBox="0 0 1891 1889"><g transform="matrix(1,0,0,1,-294.835619,-200.320743)"><g transform="matrix(7.082908,0,0,7.082908,29078.111317,-34280.227648)"><path d="M-4052,5001.4C-4010,5001.4 -3969.6,4959.9 -3930.3,4879.9C-3936.354,4914.418 -3947.597,4950.543 -3963.489,4987.587C-3977.524,5020.3 -3995.185,5053.729 -4016.1,5087.4L-3844.5,4915.502C-3865.416,4949.173 -3883.077,4982.602 -3897.111,5015.315C-3913.004,5052.359 -3924.246,5088.484 -3930.3,5123.002C-3891,5043.002 -3850.6,5001.502 -3808.6,5001.502" fill="none" stroke="currentColor" stroke-width="23.53" stroke-linejoin="bevel"/></g></g></symbol></svg>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Zerdazi">
+      <svg aria-hidden="true"><use href="#logo"/></svg>
+      ZERDAZI
+    </a>
+    <nav>
+      <a href="#bio">Bio</a>
+      <a href="#dates">Dates</a>
+      <a href="#listen">Listen</a>
+      <a href="#photos">Photos</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-text">
+      <div class="kicker">Electronic Press Kit · DJ / Producer · London</div>
+      <h1>Zer&shy;dazi</h1>
+      <p class="sub">Producer/DJ from Nottingham, based in London. Resident at Mischief, formerly TUSH.</p>
+      <div class="tags">
+        <span>Techno</span><span>Breaks</span><span>Jungle</span><span>UK Garage</span><span>140 &amp; Bass</span>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="/epk/tush.jpg" alt="Zerdazi DJing at TUSH, Night Tales, London" />
+    </div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><b>2</b><span>London collectives</span></div>
+    <div class="stat"><b>6</b><span>Festivals</span></div>
+    <div class="stat"><b>5</b><span>Countries</span></div>
+    <div class="stat"><b>25+</b><span>Dates since 2024</span></div>
+  </div>
+</div>
+
+<section id="bio">
+  <div class="wrap">
+    <div class="label"><span class="num">01</span><h2>Bio</h2></div>
+    <div class="bio">
+      <div>
+        <p class="lead">A producer/DJ hailing from Nottingham and based in London, into an eclectic mix ranging through techno, jungle, breaks, UK garage and 140 &amp; bass.</p>
+        <p>A resident DJ at Mischief and formerly at TUSH, Zerdazi has played at Leeds, Glastonbury and TRNSMT festivals, Burning Man in the Nevada desert and London Decompression. Further afield there have been sets at Ibiza.PlayAbout, the Lollapalooza bar in Osaka and a TUSH takeover at COCO in Lille, along with bills shared with Mak &amp; Pasteman and Reimond and a radio show on Mode London.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>Based</dt><dd>London, UK</dd></div>
+        <div><dt>From</dt><dd>Nottingham, UK</dd></div>
+        <div><dt>Resident</dt><dd><a href="https://instagram.com/mischief.london">Mischief</a></dd></div>
+        <div><dt>Formerly</dt><dd><a href="https://instagram.com/tush_space">TUSH</a> resident</dd></div>
+        <div><dt>Sounds</dt><dd>Techno, breaks, jungle, UK garage, 140 &amp; bass</dd></div>
+        <div><dt>Booking</dt><dd><a href="mailto:yusuf@zerdazi.com">yusuf@zerdazi.com</a></dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="highlights">
+  <div class="wrap">
+    <div class="label"><span class="num">02</span><h2>Highlights</h2></div>
+    <div class="marquee">
+      <a href="https://burningman.org" target="_blank" rel="noopener"><b>Burning Man</b><span>Black Rock City, NV · 2026</span></a>
+      <a href="https://www.instagram.com/p/DRAWEBzDR7E/" target="_blank" rel="noopener"><b>London Decompression</b><span>Silent Disco · 2025</span></a>
+      <a href="https://www.glastonburyfestivals.co.uk" target="_blank" rel="noopener"><b>Glastonbury</b><span>Bar on the Green · 2025</span></a>
+      <a href="https://ra.co/events/2308034" target="_blank" rel="noopener"><b>Ibiza.PlayAbout</b><span>Ibiza Jet · 2025 &amp; 2026</span></a>
+      <a href="https://trnsmtfest.com" target="_blank" rel="noopener"><b>TRNSMT</b><span>Glasgow · 2024</span></a>
+      <a href="https://www.leedsfestival.com" target="_blank" rel="noopener"><b>Leeds Festival</b><span>Leeds · 2024</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="dates">
+  <div class="wrap">
+    <div class="label"><span class="num">03</span><h2>Dates</h2></div>
+    <table class="gigs">
+      <thead><tr><th>Date</th><th>Event</th><th>Venue / City</th><th></th></tr></thead>
+      <tbody>
+        <tr class="year"><td colspan="4">2026</td></tr>
+        <tr><td class="date">26 Sep</td><td class="event"><b>Good Vibes</b></td><td class="where">Analog Rhythm</td><td class="src"></td></tr>
+        <tr><td class="date">12 Sep</td><td class="event"><b>Mischief</b></td><td class="where">London</td><td class="src"><a class="pill" href="https://www.skiddle.com/g/mischieflondon/" target="_blank" rel="noopener">Skiddle</a></td></tr>
+        <tr class="feature"><td class="date">30 Aug – 7 Sep</td><td class="event"><b>Burning Man</b></td><td class="where">Black Rock City, Nevada, USA</td><td class="src"><a class="pill" href="https://burningman.org" target="_blank" rel="noopener">Site</a></td></tr>
+        <tr><td class="date">24 May</td><td class="event"><b>Ibiza.PlayAbout</b> Pool Party #5<small>with DJ Le Baron, Sal Corson</small></td><td class="where">Ibiza Jet, Ibiza</td><td class="src"><a class="pill" href="https://ra.co/events/2440984" target="_blank" rel="noopener">RA</a></td></tr>
+        <tr class="feature"><td class="date">20 May</td><td class="event"><b>Ibiza.PlayAbout</b> 2026 House Music Festival<small>with Kurd Maverick, Ivan Pica, Nelson Reis</small></td><td class="where">Ibiza Jet, Ibiza</td><td class="src"><a class="pill" href="https://ra.co/events/2308034" target="_blank" rel="noopener">RA</a></td></tr>
+        <tr><td class="date">2 May</td><td class="event"><b>Mischief</b></td><td class="where">London</td><td class="src"><a class="pill" href="https://www.skiddle.com/g/mischieflondon/" target="_blank" rel="noopener">Skiddle</a></td></tr>
+        <tr><td class="date">22 Mar</td><td class="event"><b>Mischief</b></td><td class="where">London</td><td class="src"><a class="pill" href="https://www.skiddle.com/g/mischieflondon/" target="_blank" rel="noopener">Skiddle</a></td></tr>
+        <tr><td class="date">6 Feb</td><td class="event"><b>Mischief</b></td><td class="where">London</td><td class="src"><a class="pill" href="https://www.skiddle.com/g/mischieflondon/" target="_blank" rel="noopener">Skiddle</a></td></tr>
+
+        <tr class="year"><td colspan="4">2025</td></tr>
+        <tr><td class="date">28 Nov</td><td class="event"><b>Mischief</b>: D&amp;B, Jungle &amp; Garage Party</td><td class="where">Little Nan's Bar, London</td><td class="src"><a class="pill" href="https://www.skiddle.com/whats-on/London/Little-Nans-Bar/Free-Mischief-DB-Jungle--Garage-Party/41485694/" target="_blank" rel="noopener">Skiddle</a></td></tr>
+        <tr class="feature"><td class="date">15 Nov</td><td class="event"><b>London Decompression</b><small>Silent Disco · Line 2, 02:00</small></td><td class="where">The Cause, London</td><td class="src"><a class="pill" href="https://www.instagram.com/p/DRAWEBzDR7E/" target="_blank" rel="noopener">IG</a> <a class="pill" href="https://londondecom.org/event-2025/" target="_blank" rel="noopener">Site</a></td></tr>
+        <tr><td class="date">10 Oct</td><td class="event"><b>Mischief</b>: D&amp;B, Jungle &amp; Garage Party</td><td class="where">Aunties Ballroom, London</td><td class="src"><a class="pill" href="https://www.skiddle.com/whats-on/London/Little-Nan's-Bar-2-(Aunties-Ballroom)/Free-Mischief-DB-Jungle--Garage-Party/41352604/" target="_blank" rel="noopener">Skiddle</a></td></tr>
+        <tr class="feature"><td class="date">5 Sep</td><td class="event"><b>TUSH</b>: House, Disco &amp; Garage<small>with Mak &amp; Pasteman</small></td><td class="where">Night Tales (Arch 14), London</td><td class="src"><a class="pill" href="https://ra.co/events/2237741" target="_blank" rel="noopener">RA</a></td></tr>
+        <tr><td class="date">1 Aug</td><td class="event"><b>Midas</b> Label Launch<small>with Mak &amp; Pasteman</small></td><td class="where">Mode Radio, London</td><td class="src"></td></tr>
+        <tr><td class="date">19 Jul</td><td class="event"><b>TUSH</b>: Mega Open Decks</td><td class="where">Club Makossa, London</td><td class="src"><a class="pill" href="https://ra.co/events/2214237" target="_blank" rel="noopener">RA</a></td></tr>
+        <tr><td class="date">5 Jul</td><td class="event"><b>TUSH</b> Takeover</td><td class="where">COCO, Lille, France</td><td class="src"><a class="pill" href="https://ra.co/events/2208305" target="_blank" rel="noopener">RA</a></td></tr>
+        <tr class="feature"><td class="date">27 Jun</td><td class="event"><b>Glastonbury Festival</b></td><td class="where">Bar on the Green, Glastonbury</td><td class="src"><a class="pill" href="https://www.glastonburyfestivals.co.uk" target="_blank" rel="noopener">Site</a></td></tr>
+        <tr><td class="date">30 May</td><td class="event"><b>TUSH</b> × Night Tales: Disco Lines<small>with Reimond, Matty Chiabi</small></td><td class="where">Night Tales, London</td><td class="src"><a class="pill" href="https://ra.co/events/2047585" target="_blank" rel="noopener">RA</a></td></tr>
+        <tr class="feature"><td class="date">17 – 25 May</td><td class="event"><b>Ibiza.PlayAbout</b> Annual Music Festival</td><td class="where">Ibiza Jet, Ibiza</td><td class="src"></td></tr>
+        <tr><td class="date">18 Apr</td><td class="event"><b>Mischief</b>: Drum &amp; Based</td><td class="where">Metropolis, London</td><td class="src"><a class="pill" href="https://ra.co/events/2135410" target="_blank" rel="noopener">RA</a></td></tr>
+        <tr><td class="date">8 Apr</td><td class="event"><b>Lollapalooza</b><small>DJ bar</small></td><td class="where">Nishi-Shinsaibashi, Osaka, Japan</td><td class="src"><a class="pill" href="https://www.facebook.com/barlollapalooza/" target="_blank" rel="noopener">FB</a></td></tr>
+        <tr><td class="date">7 Mar</td><td class="event"><b>Mischief</b> Launch Party</td><td class="where">Metropolis, London</td><td class="src"><a class="pill" href="https://ra.co/events/2099084" target="_blank" rel="noopener">RA</a></td></tr>
+        <tr><td class="date">21 Feb</td><td class="event"><b>TUSH</b> Inclusive Rave &amp; Chapel of Love</td><td class="where">Cu, London</td><td class="src"><a class="pill" href="https://ra.co/events/2064959" target="_blank" rel="noopener">RA</a></td></tr>
+
+        <tr class="year"><td colspan="4">2024</td></tr>
+        <tr><td class="date">1 Nov</td><td class="event"><b>TUSH</b>: Poison Peach Inclusive Rave</td><td class="where">Dream Bags Jaguar Shoes, London</td><td class="src"><a class="pill" href="https://ra.co/events/1976590" target="_blank" rel="noopener">RA</a></td></tr>
+        <tr class="feature"><td class="date">24 Aug</td><td class="event"><b>Leeds Festival</b><small>FourLoko Crate</small></td><td class="where">Leeds</td><td class="src"><a class="pill" href="https://www.leedsfestival.com" target="_blank" rel="noopener">Site</a></td></tr>
+        <tr class="feature"><td class="date">13 Jul</td><td class="event"><b>TRNSMT Festival</b><small>FourLoko Crate</small></td><td class="where">Glasgow</td><td class="src"><a class="pill" href="https://trnsmtfest.com" target="_blank" rel="noopener">Site</a></td></tr>
+      </tbody>
+    </table>
+    <p class="ra-note">Full listing → <a href="https://ra.co/dj/zerdazi" target="_blank" rel="noopener">ra.co/dj/zerdazi</a></p>
+  </div>
+</section>
+
+<section id="listen">
+  <div class="wrap">
+    <div class="label"><span class="num">04</span><h2>Listen</h2></div>
+    <div class="listen">
+      <a class="card" href="https://soundcloud.com/zerdazi" target="_blank" rel="noopener">
+        <span class="k">SoundCloud</span>
+        <b>Mixes &amp; productions</b>
+        <span>soundcloud.com/zerdazi →</span>
+      </a>
+      <a class="card" href="https://soundcloud.com/modelondon/11062025-kassita-with-zardazi" target="_blank" rel="noopener">
+        <span class="k">Radio · Mode London · 11.06.2025</span>
+        <b>Kassita with Zerdazi</b>
+        <span>Listen on SoundCloud →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="photos">
+  <div class="wrap">
+    <div class="label"><span class="num">05</span><h2>Photos</h2></div>
+    <div class="photos">
+      <figure>
+        <div class="img"><img src="/epk/tush.jpg" alt="Zerdazi DJing at TUSH, Night Tales, London" loading="lazy" /></div>
+        <figcaption><span>TUSH × Night Tales, London · May 2025</span><a class="pill" href="/epk/photos/zerdazi-tush-night-tales.jpg" download>Download</a></figcaption>
+      </figure>
+      <figure>
+        <div class="img"><img src="/epk/mode.jpg" alt="Zerdazi DJing in the Mode London radio studio" loading="lazy" /></div>
+        <figcaption><span>Mode London radio · June 2025</span><a class="pill" href="/epk/photos/zerdazi-mode-london.jpg" download>Download</a></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="label"><span class="num">06</span><h2>Bookings</h2></div>
+    <a class="big" href="mailto:yusuf@zerdazi.com">yusuf@zerdazi.com</a>
+    <div class="links">
+      <a href="https://instagram.com/zerdazi_music" target="_blank" rel="noopener">Instagram <span>@zerdazi_music</span></a>
+      <a href="https://soundcloud.com/zerdazi" target="_blank" rel="noopener">SoundCloud <span>/zerdazi</span></a>
+      <a href="https://ra.co/dj/zerdazi" target="_blank" rel="noopener">Resident Advisor <span>/dj/zerdazi</span></a>
+      <a href="https://yusuf.zerdazi.com" target="_blank" rel="noopener">Website <span>yusuf.zerdazi.com</span></a>
+      <a href="https://instagram.com/tush_space" target="_blank" rel="noopener">TUSH <span>@tush_space</span></a>
+      <a href="https://instagram.com/mischief.london" target="_blank" rel="noopener">Mischief <span>@mischief.london</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><span>ZERDAZI · ELECTRONIC PRESS KIT</span><span>Updated October 2026</span></div>
+</footer>
+
+</body>
+</html>

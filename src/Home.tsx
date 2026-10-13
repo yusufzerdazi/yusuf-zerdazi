@@ -149,7 +149,8 @@ const portfolioSections: PortfolioSections = {
         yearRange: { start: 2017, end: null },
         links: [
           { name: "Instagram", url: "https://instagram.com/zerdazi_music", icon: "fab fa-instagram" },
-          { name: "SoundCloud", url: "https://soundcloud.com/zerdazi", icon: "fab fa-soundcloud" }
+          { name: "SoundCloud", url: "https://soundcloud.com/zerdazi", icon: "fab fa-soundcloud" },
+          { name: "EPK", url: "/epk/", icon: "fas fa-id-card" }
         ]
       },
       {
